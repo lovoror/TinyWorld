@@ -62,7 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Billboard.cs" />
+    <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
+    <Compile Include="Assets\Scripts\ScriptableTile.cs" />
+    <Compile Include="Assets\Scripts\TreeComponent.cs" />
     <Compile Include="Assets\Scripts\WindAnimation.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Thibault/Documents/GitHub/TinyWorld/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
