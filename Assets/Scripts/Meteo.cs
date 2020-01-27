@@ -5,16 +5,16 @@ using UnityEngine;
 public class Meteo : MonoBehaviour
 {
     public Vector3 windBase;
-    //public GameObject prefab;
-    //public int sizeZ = 10;
-    //public int sizeX = 20;
-    //public float noiseMagnitude = 0.0f;
     public float t = 0.0f;
     public float alpha1 = 20;
     public float alpha2 = 5;
-    //public float alpha3 = 0.7f;
-
     private int harmonic = 1;
+
+    public bool snow = false;
+    public bool leaves = true;
+    private bool lastSnow;
+    private bool lastLeaves;
+    public List<TreeComponent> treesList = new List<TreeComponent>();
 
     // Singleton struct
     private static Meteo _instance;
@@ -35,22 +35,8 @@ public class Meteo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*prefab.SetActive(false);
-        for(int i=-sizeX; i< sizeX + 1; i++)
-            for (int j = -sizeZ; j < sizeZ + 1; j++)
-            {
-                GameObject go = Instantiate(prefab);
-                go.SetActive(true);
-                go.transform.localPosition = new Vector3(4 * i, 0, 4 * j);
-                Transform tree = go.transform.Find("Tree");
-                tree.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
-                tree.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
-                float scale = Random.Range(0.7f, 1.3f);
-                tree.localScale = new Vector3(scale, scale, scale);
-                trees.Add(tree.GetComponent<TreeComponent>());
-            }
         lastSnow = snow;
-        lastLeaves = leaves;*/
+        lastLeaves = leaves;
     }
 
     // Update is called once per frame
@@ -58,22 +44,22 @@ public class Meteo : MonoBehaviour
     {
         t += Time.deltaTime;
 
-        /*if(snow != lastSnow)
+        if(snow != lastSnow)
         {
             lastSnow = snow;
-            foreach (TreeComponent tree in trees)
+            foreach (TreeComponent tree in treesList)
                 tree.snow.enabled = snow;
             if (snow) leaves = false;
         }
         if (leaves != lastLeaves)
         {
             lastLeaves = leaves;
-            foreach (TreeComponent tree in trees)
+            foreach (TreeComponent tree in treesList)
                 if(tree.leaves != null)
                     foreach (SkinnedMeshRenderer leave in tree.leaves)
                         leave.enabled = leaves;
             if (leaves) snow = false;
-        }*/
+        }
     }
 
     public Vector3 GetWind(Vector3 position)

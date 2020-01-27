@@ -6,6 +6,7 @@ public class WindAnimation : MonoBehaviour
 {
     private Meteo meteo;
     private Dictionary<Transform, Quaternion> initialRotation = new Dictionary<Transform, Quaternion>();
+    public float windFactor = 1.0f;
     public Vector3 wind;
 
     // Start is called before the first frame update
@@ -29,7 +30,9 @@ public class WindAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        wind = meteo.GetWind(transform.position);
+        wind = windFactor * meteo.GetWind(transform.position);
+        if (wind.sqrMagnitude < 0.00001f)
+            return;
 
         // move skeleton relatively to wind attributes
         Stack iterativePath = new Stack();

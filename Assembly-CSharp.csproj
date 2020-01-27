@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Billboard.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
+    <Compile Include="Assets\Scripts\PeasantController.cs" />
     <Compile Include="Assets\Scripts\ScriptableTile.cs" />
     <Compile Include="Assets\Scripts\TreeComponent.cs" />
     <Compile Include="Assets\Scripts\WindAnimation.cs" />

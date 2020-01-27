@@ -7,10 +7,4 @@ using UnityEngine.Tilemaps;
 public class ScriptableTile : Tile
 {
     public GameObject prefab3d;
-    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
-    {
-        base.GetTileData(position, tilemap, ref tileData);
-        //tileData.gameObject = prefab;
-    }
-
 }
