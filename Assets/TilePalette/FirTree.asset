@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirTree
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 501e62dbc223891468e491bcfa5fe58f, type: 3}
-  m_Color: {r: 0.53333336, g: 0.7176471, b: 0.5764706, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 4927740839900988252, guid: 138453fba23f2984dbcdd108ce865407,
     type: 3}
-  m_Flags: 0
+  m_Flags: 1
   m_ColliderType: 0
   prefab3d: {fileID: 4480983407086944308, guid: a1fe5eea2a0f3f54188e92d99889064b,
     type: 3}

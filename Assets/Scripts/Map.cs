@@ -35,18 +35,60 @@ public class Map : MonoBehaviour
                 {
                     // standard
                     ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
-                    GameObject go = Instantiate(tile.prefab3d);
-                    go.transform.parent = prefabContainer.transform;
-                    go.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
-                    go.SetActive(true);
+                    if(tile.prefab3d)
+                    {
+                        GameObject go = Instantiate(tile.prefab3d);
+                        go.transform.parent = prefabContainer.transform;
+                        go.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
+                        go.SetActive(true);
+                        
+                        // add variability and suscribe to meteo
+                        Transform tree = go.transform.Find("Tree");
+                        if(tree)
+                        {
+                            tree.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+                            tree.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
+                            float scale = Random.Range(0.7f, 1.3f);
+                            tree.localScale = new Vector3(scale, scale, scale);
+                            meteo.treesList.Add(tree.GetComponent<TreeComponent>());
+                        }
 
-                    // add variability and suscribe to meteo
-                    Transform tree = go.transform.Find("Tree");
-                    tree.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
-                    tree.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
-                    float scale = Random.Range(0.7f, 1.3f);
-                    tree.localScale = new Vector3(scale, scale, scale);
-                    meteo.treesList.Add(tree.GetComponent<TreeComponent>());
+                        // grass tiles initialization
+                        Grass grass = go.GetComponent<Grass>();
+                        if(grass)
+                        {
+                            BoundsInt area = new BoundsInt();
+                            area.min = cellPosition + new Vector3Int(-1, -1, 0);
+                            area.max = cellPosition + new Vector3Int(2, 2, 1);
+                            TileBase[] neighbours = tilemap.GetTilesBlock(area);
+                            
+                            int grassNeighbours = 0;
+                            for (int i=0; i<neighbours.Length; i++)
+                            {
+                                ScriptableTile n = (ScriptableTile)neighbours[i];
+                                if (n && n.name == "Grass")
+                                    grassNeighbours++;
+                            }
+                            grass.Initialize(grassNeighbours - 1);
+                        }
+
+                        // dirt tiles initialization
+                        Dirt dirt = go.GetComponent<Dirt>();
+                        if(dirt)
+                        {
+                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1,  0, 0));
+                            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 1,  0, 0));
+                            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
+                            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, 1,  0));
+
+                            bool xmb = (xm && xm.prefab3d.name == "Dirt");
+                            bool xpb = (xp && xp.prefab3d.name == "Dirt");
+                            bool zmb = (zm && zm.prefab3d.name == "Dirt");
+                            bool zpb = (zp && zp.prefab3d.name == "Dirt");
+
+                            dirt.Initialize(xpb, xmb, zmb, zpb, 0.3f);
+                        }
+                    }
                 }
             }
     }
