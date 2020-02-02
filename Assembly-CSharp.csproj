@@ -112,6 +112,14 @@
     <Compile Include="Assets\Scripts\ChickController.cs" />
     <Compile Include="Assets\Scripts\ChikenController.cs" />
     <Compile Include="Assets\Scripts\Dirt.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\Arsenal.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\BackpackItem.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\BodyItem.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\CharacterSlot.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\HeadItem.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\SecondItem.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\ShieldItem.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\WeaponItem.cs" />
     <Compile Include="Assets\Scripts\Grass.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
