@@ -26,7 +26,7 @@ public class SecondSlot : MonoBehaviour
                 }
             }
         }
-        equipedItem = SecondItem.none;
+        equipedItem.Clear();
         equipedMesh.mesh = null;
         return false;
     }

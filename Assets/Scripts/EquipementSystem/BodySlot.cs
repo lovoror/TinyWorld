@@ -27,7 +27,7 @@ public class BodySlot : MonoBehaviour
                 }
             }
         }
-        equipedItem = BodyItem.none;
+        equipedItem.Clear();
         equipedMesh.sharedMesh = null;
         return false;
     }

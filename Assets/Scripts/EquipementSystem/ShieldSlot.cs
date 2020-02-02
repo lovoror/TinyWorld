@@ -20,14 +20,13 @@ public class ShieldSlot : MonoBehaviour
                 MeshFilter mf = newItem.GetComponent<MeshFilter>();
                 if (mf)
                 {
-                    Debug.Log("toto");
                     equipedMesh.mesh = mf.mesh;
                     ShieldItem.Copy(newItem, equipedItem);
                     return true;
                 }
             }
         }
-        equipedItem = ShieldItem.none;
+        equipedItem.Clear();
         equipedMesh.mesh = null;
         return false;
     }

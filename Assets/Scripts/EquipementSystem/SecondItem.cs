@@ -16,14 +16,10 @@ public class SecondItem : MonoBehaviour
     public int animationCode = 1;
     public float load = 0f;
 
-    public static SecondItem none
+    public void Clear()
     {
-        get
-        {
-            SecondItem item = new SecondItem();
-            item.type = Type.None;
-            return item;
-        }
+        type = Type.None;
+        load = 0f;
     }
     public static void Copy(SecondItem source, SecondItem destination)
     {

@@ -25,14 +25,10 @@ public class HeadItem : MonoBehaviour
     public Type type = Type.None;
     public float load = 0f;
 
-    public static HeadItem none
+    public void Clear()
     {
-        get
-        {
-            HeadItem item = new HeadItem();
-            item.type = Type.None;
-            return item;
-        }
+        type = Type.None;
+        load = 0f;
     }
     public static void Copy(HeadItem source, HeadItem destination)
     {

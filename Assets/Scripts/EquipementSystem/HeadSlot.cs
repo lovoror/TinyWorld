@@ -26,7 +26,7 @@ public class HeadSlot : MonoBehaviour
                 }
             }
         }
-        equipedItem = HeadItem.none;
+        equipedItem.Clear();
         equipedMesh.mesh = null;
         return false;
     }

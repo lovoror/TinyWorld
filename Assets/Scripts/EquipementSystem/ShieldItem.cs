@@ -15,14 +15,10 @@ public class ShieldItem : MonoBehaviour
     public Type type = Type.None;
     public float load = 0f;
 
-    public static ShieldItem none
+    public void Clear()
     {
-        get
-        {
-            ShieldItem item = new ShieldItem();
-            item.type = Type.None;
-            return item;
-        }
+        type = Type.None;
+        load = 0f;
     }
     public static void Copy(ShieldItem source, ShieldItem destination)
     {

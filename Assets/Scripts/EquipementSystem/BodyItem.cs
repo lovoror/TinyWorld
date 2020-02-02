@@ -19,14 +19,10 @@ public class BodyItem : MonoBehaviour
     public Type type = Type.None;
     public float load = 0f;
 
-    public static BodyItem none
+    public void Clear()
     {
-        get
-        {
-            BodyItem item = new BodyItem();
-            item.type = Type.None;
-            return item;
-        }
+        type = Type.None;
+        load = 0f;
     }
     public static void Copy(BodyItem source, BodyItem destination)
     {

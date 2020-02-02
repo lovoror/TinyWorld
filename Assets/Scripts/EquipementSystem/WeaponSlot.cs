@@ -26,7 +26,7 @@ public class WeaponSlot : MonoBehaviour
                 }
             }
         }
-        equipedItem = WeaponItem.none;
+        equipedItem.Clear();
         equipedMesh.mesh = null;
         return false;
     }

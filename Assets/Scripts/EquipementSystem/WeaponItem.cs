@@ -30,23 +30,12 @@ public class WeaponItem : MonoBehaviour
     public bool forbidShield = false;
     public int animationCode = 1;
     public float load = 0f;
-
-    // helpers
-    private void OnValidate()
-    {
-        /*Arsenal.Instance.InitializeTables();
-        transform.parent.gameObject.GetComponent<WeaponSlot>().Equip(type);*/
-    }
-
+    
     // special
-    public static WeaponItem none
+    public void Clear()
     {
-        get
-        {
-            WeaponItem item = new WeaponItem();
-            item.type = Type.None;
-            return item;
-        }
+        type = Type.None;
+        load = 0f;
     }
     public static void Copy(WeaponItem source, WeaponItem destination)
     {

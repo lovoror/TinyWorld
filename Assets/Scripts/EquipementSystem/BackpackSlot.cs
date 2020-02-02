@@ -26,7 +26,7 @@ public class BackpackSlot : MonoBehaviour
                 }
             }
         }
-        equipedItem = BackpackItem.none;
+        equipedItem.Clear();
         equipedMesh.mesh = null;
         return false;
     }
