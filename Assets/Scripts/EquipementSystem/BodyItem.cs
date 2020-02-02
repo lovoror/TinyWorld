@@ -17,4 +17,20 @@ public class BodyItem : MonoBehaviour
         NobleA, NobleB
     };
     public Type type = Type.None;
+    public float load = 0f;
+
+    public static BodyItem none
+    {
+        get
+        {
+            BodyItem item = new BodyItem();
+            item.type = Type.None;
+            return item;
+        }
+    }
+    public static void Copy(BodyItem source, BodyItem destination)
+    {
+        destination.type = source.type;
+        destination.load = source.load;
+    }
 }

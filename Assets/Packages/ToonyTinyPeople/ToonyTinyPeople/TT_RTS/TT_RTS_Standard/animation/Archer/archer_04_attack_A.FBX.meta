@@ -167,7 +167,7 @@ ModelImporter:
     second: R_hand_container
   - first:
       74: 7400000
-    second: archer_04_attack_A
+    second: attack
   - first:
       95: 9500000
     second: //RootNode
@@ -200,7 +200,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: archer_04_attack_A
+      name: attack
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0

@@ -23,9 +23,20 @@ public class HeadItem : MonoBehaviour
         HelmK, HelmL
     };
     public Type type = Type.None;
+    public float load = 0f;
 
-    private void OnValidate()
+    public static HeadItem none
     {
-        this.name = type.ToString();
+        get
+        {
+            HeadItem item = new HeadItem();
+            item.type = Type.None;
+            return item;
+        }
+    }
+    public static void Copy(HeadItem source, HeadItem destination)
+    {
+        destination.type = source.type;
+        destination.load = source.load;
     }
 }

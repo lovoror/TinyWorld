@@ -167,7 +167,7 @@ ModelImporter:
     second: R_hand_container
   - first:
       74: 7400000
-    second: twohanded_04_attack_A
+    second: attack
   - first:
       95: 9500000
     second: //RootNode
@@ -200,7 +200,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: twohanded_04_attack_A
+      name: attack
       takeName: Take 001
       internalID: 7400000
       firstFrame: 0
@@ -224,7 +224,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
+      - time: 0.74949086
         functionName: AttackEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
