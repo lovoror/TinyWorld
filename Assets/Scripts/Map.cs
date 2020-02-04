@@ -88,6 +88,23 @@ public class Map : MonoBehaviour
 
                             dirt.Initialize(xpb, xmb, zmb, zpb, 0.3f);
                         }
+
+                        // dirt tiles initialization
+                        Wall wall = go.GetComponent<Wall>();
+                        if (wall)
+                        {
+                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1,  0, 0));
+                            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 1,  0, 0));
+                            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
+                            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0,  1, 0));
+
+                            bool xmb = (xm && xm.prefab3d.name.Contains("Wall"));
+                            bool xpb = (xp && xp.prefab3d.name.Contains("Wall"));
+                            bool zmb = (zm && zm.prefab3d.name.Contains("Wall"));
+                            bool zpb = (zp && zp.prefab3d.name.Contains("Wall"));
+
+                            wall.Initialize(xpb, xmb, zmb, zpb);
+                        }
                     }
                 }
             }

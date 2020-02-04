@@ -111,7 +111,6 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ChickController.cs" />
     <Compile Include="Assets\Scripts\ChikenController.cs" />
-    <Compile Include="Assets\Scripts\Dirt.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\Arsenal.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\BackpackItem.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\BackpackSlot.cs" />
@@ -125,14 +124,17 @@
     <Compile Include="Assets\Scripts\EquipementSystem\ShieldSlot.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponItem.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponSlot.cs" />
-    <Compile Include="Assets\Scripts\Grass.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionType.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\SpecialPickableShopArsenal.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ScriptableTile.cs" />
-    <Compile Include="Assets\Scripts\TreeComponent.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\Dirt.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\Grass.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\TreeComponent.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\Wall.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\Water.cs" />
     <Compile Include="Assets\Scripts\WindAnimation.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\MotionBlur.cginc" />

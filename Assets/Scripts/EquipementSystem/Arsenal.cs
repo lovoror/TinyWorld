@@ -46,6 +46,10 @@ public class Arsenal : MonoBehaviour
     private static Arsenal _instance;
     public static Arsenal Instance { get { return _instance; } }
 
+    private void OnValidate()
+    {
+        Awake();
+    }
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -55,14 +59,13 @@ public class Arsenal : MonoBehaviour
         else
         {
             _instance = this;
+            InitializeTables();
         }
     }
 
     // Initialization
     void Start()
     {
-        InitializeTables();
-
         // special debug feature
         if (shopOnStart)
             InstanciateShop();

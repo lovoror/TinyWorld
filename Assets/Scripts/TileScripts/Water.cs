@@ -2,106 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
-public class Dirt : MonoBehaviour
+public class Water : Dirt
 {
-    static Vector3 v0 = new Vector3(-2, 0, -2);
-    static Vector3 v1 = new Vector3(-2, 0,  2);
-    static Vector3 v2 = new Vector3( 2, 0,  2);
-    static Vector3 v3 = new Vector3( 2, 0, -2);
-    static Vector2 uv0 = new Vector2(0, 0);
-    static Vector2 uv1 = new Vector2(1, 0);
-    static Vector2 uv2 = new Vector2(1, 1);
-    static Vector2 uv3 = new Vector2(0, 1);
-    static Vector3 n = Vector3.up;
-
-    public int configuration;
-
-    public void Initialize(bool xp, bool xm, bool zp, bool zm, float borderStrengh)
-    {
-        // compute configuration and choose the resolve mesh algorithm accordingly
-        configuration = (zp ? 0 : 1) << 3 | (zm ? 0 : 1) << 2 | (xp ? 0 : 1) << 1 | (xm ? 0 : 1) << 0;
-        float rotation = 0f;
-        Mesh mesh = new Mesh();
-        switch(configuration)
-        {
-            case 0:
-                mesh = CaseA(borderStrengh);
-                rotation = 0f;
-                break;
-            case 1:
-                mesh = CaseB(borderStrengh);
-                rotation = 0f;
-                break;
-            case 2:
-                mesh = CaseB(borderStrengh);
-                rotation = 180f;
-                break;
-            case 3:
-                mesh = CaseC(borderStrengh);
-                rotation = 0f;
-                break;
-            case 4:
-                mesh = CaseB(borderStrengh);
-                rotation = 90f;
-                break;
-            case 5:
-                mesh = CaseD(borderStrengh);
-                rotation = 0f;
-                break;
-            case 6:
-                mesh = CaseD(borderStrengh);
-                rotation = 90f;
-                break;
-            case 7:
-                mesh = CaseE(borderStrengh);
-                rotation = 90f;
-                break;
-            case 8:
-                mesh = CaseB(borderStrengh);
-                rotation = -90f;
-                break;
-            case 9:
-                mesh = CaseD(borderStrengh);
-                rotation = -90f;
-                break;
-            case 10:
-                mesh = CaseD(borderStrengh);
-                rotation = -180f;
-                break;
-            case 11:
-                mesh = CaseE(borderStrengh);
-                rotation = -90f;
-                break;
-            case 12:
-                mesh = CaseC(borderStrengh);
-                rotation = 90f;
-                break;
-            case 13:
-                mesh = CaseE(borderStrengh);
-                rotation = 0f;
-                break;
-            case 14:
-                mesh = CaseE(borderStrengh);
-                rotation = 180f;
-                break;
-            case 15:
-                mesh = CaseF(borderStrengh);
-                rotation = 0f;
-                break;
-            default:
-                Debug.LogError("Dirt init : invald tile configuration");
-                break;
-        }
-
-        // set mesh and orientation 
-        MeshFilter mf = GetComponent<MeshFilter>();
-        mf.mesh = mesh;
-        transform.localEulerAngles = new Vector3(0, rotation, 0);
-    }
-
-    private Mesh CaseA(float borderStrengh)
+    new protected Mesh CaseA(float borderStrengh)
     {
         // creates arrays
         Vector3[] vertices = new Vector3[4] { v0, v1, v2, v3 };
@@ -119,7 +22,7 @@ public class Dirt : MonoBehaviour
         mr.materials = new Material[] { mr.materials[0] };
         return mesh;
     }
-    private Mesh CaseB(float borderStrengh)
+    new protected Mesh CaseB(float borderStrengh)
     {
         // creates sub vertices
         Vector2 sub = Vector2.Lerp(new Vector2(0.5f, 0f), GetBarycenticCoord(), borderStrengh);
@@ -144,7 +47,7 @@ public class Dirt : MonoBehaviour
         mesh.RecalculateNormals();
         return mesh;
     }
-    private Mesh CaseC(float borderStrengh)
+    new protected Mesh CaseC(float borderStrengh)
     {
         // creates sub vertices
         Vector2 sub = Vector2.Lerp(new Vector2(0.5f, 0f), GetBarycenticCoord(), borderStrengh);
@@ -172,7 +75,7 @@ public class Dirt : MonoBehaviour
         mesh.RecalculateNormals();
         return mesh;
     }
-    private Mesh CaseD(float borderStrengh)
+    new protected Mesh CaseD(float borderStrengh)
     {
         // creates sub vertices
         Vector2 sub = Vector2.Lerp(new Vector2(0.3f, 0.3f), GetBarycenticCoord(), borderStrengh);
@@ -197,7 +100,7 @@ public class Dirt : MonoBehaviour
         mesh.RecalculateNormals();
         return mesh;
     }
-    private Mesh CaseE(float borderStrengh)
+    new protected Mesh CaseE(float borderStrengh)
     {
         // creates sub vertices
         Vector2 sub = Vector2.Lerp(new Vector2(0f, 0f), GetBarycenticCoord(), borderStrengh);
@@ -225,7 +128,7 @@ public class Dirt : MonoBehaviour
         mesh.RecalculateNormals();
         return mesh;
     }
-    private Mesh CaseF(float borderStrengh)
+    new protected Mesh CaseF(float borderStrengh)
     {
         // creates sub vertices
         float alpha = Mathf.Lerp(0.5f, Random.Range(0.1f, 0.9f), borderStrengh);
@@ -233,7 +136,7 @@ public class Dirt : MonoBehaviour
         float gamma = Mathf.Lerp(0.5f, Random.Range(0.1f, 0.9f), borderStrengh);
         float delta = Mathf.Lerp(0.5f, Random.Range(0.1f, 0.9f), borderStrengh);
         Vector3 v4 = alpha * v0; Vector2 uv4 = alpha * uv0;
-        Vector3 v5 = beta * v1;  Vector2 uv5 = beta * uv1;
+        Vector3 v5 = beta * v1; Vector2 uv5 = beta * uv1;
         Vector3 v6 = gamma * v2; Vector2 uv6 = gamma * uv2;
         Vector3 v7 = delta * v3; Vector2 uv7 = delta * uv3;
 
@@ -254,12 +157,5 @@ public class Dirt : MonoBehaviour
         mesh.SetTriangles(grasstri, 1);
         mesh.RecalculateNormals();
         return mesh;
-    }
-
-    private Vector2 GetBarycenticCoord()
-    {
-        float alpha = Random.Range(0f, 1f);
-        float beta = Random.Range(0f, 1f - alpha);
-        return new Vector2(alpha, beta);
     }
 }
