@@ -21326,6 +21326,24 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
+  - m_RefCount: 0
+    m_Data:
+      e00: 2.278545e-39
+      e01: NaN
+      e02: 0
+      e03: 2.278523e-39
+      e10: 0
+      e11: NaN
+      e12: 7.34684e-40
+      e13: 0
+      e20: 0
+      e21: NaN
+      e22: 6272.3516
+      e23: 0
+      e30: 0
+      e31: 2.1e-44
+      e32: 1e-45
+      e33: 0
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}

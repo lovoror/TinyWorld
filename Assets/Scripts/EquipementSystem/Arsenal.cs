@@ -43,13 +43,9 @@ public class Arsenal : MonoBehaviour
     public AnimationClip[] defaultConfiguration;
 
     // Singleton struct
-    private static Arsenal _instance;
+    private static Arsenal _instance = null;
     public static Arsenal Instance { get { return _instance; } }
 
-    private void OnValidate()
-    {
-        Awake();
-    }
     private void Awake()
     {
         if (_instance != null && _instance != this)

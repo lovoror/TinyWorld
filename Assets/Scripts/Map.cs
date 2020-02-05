@@ -105,6 +105,23 @@ public class Map : MonoBehaviour
 
                             wall.Initialize(xpb, xmb, zmb, zpb);
                         }
+
+                        // water tiles initialization
+                        Water water = go.GetComponent<Water>();
+                        if (water)
+                        {
+                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+                            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(1, 0, 0));
+                            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
+                            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
+
+                            bool xmb = (xm && xm.prefab3d.name == "Water");
+                            bool xpb = (xp && xp.prefab3d.name == "Water");
+                            bool zmb = (zm && zm.prefab3d.name == "Water");
+                            bool zpb = (zp && zp.prefab3d.name == "Water");
+
+                            water.Initialize(xpb, xmb, zmb, zpb, 0.3f);
+                        }
                     }
                 }
             }
