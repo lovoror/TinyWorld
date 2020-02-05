@@ -13,6 +13,8 @@ public class Water : MonoBehaviour
     static float depth = 1f;
 
     public int configuration;
+    public MeshFilter water;
+    public MeshCollider waterCollider;
 
     public void Initialize(bool xp, bool xm, bool zp, bool zm, float borderStrengh)
     {
@@ -91,10 +93,12 @@ public class Water : MonoBehaviour
                 break;
         }
 
-        // set mesh and orientation 
+        // set mesh and orientation
         MeshFilter mf = GetComponent<MeshFilter>();
         mf.mesh = mesh;
         transform.localEulerAngles = new Vector3(0, rotation, 0);
+        water.sharedMesh = Meteo.Instance.waterMesh.sharedMesh;
+        water.transform.rotation = Quaternion.identity;
     }
 
 
@@ -121,6 +125,11 @@ public class Water : MonoBehaviour
         Vector3 v4 = v0 + sub.x * (v1 - v0) + sub.y * (v3 - v0);
         Vector3 n1 = Vector3.Cross(Vector3.up, v4 - v0).normalized;
         Vector3 n2 = Vector3.Cross(Vector3.up, v1 - v4).normalized;
+
+        // collider
+        List<Vector3> v = new List<Vector3>();
+        v.Add(v0); v.Add(v1); v.Add(v2); v.Add(v3);
+        computeColiderMesh(v);
 
         // creates arrays
         Vector3[] vertices = new Vector3[16]
@@ -161,6 +170,11 @@ public class Water : MonoBehaviour
         Vector3 n2 = Vector3.Cross(Vector3.up, v1 - v4).normalized;
         Vector3 n3 = Vector3.Cross(Vector3.up, v3 - v5).normalized;
         Vector3 n4 = Vector3.Cross(Vector3.up, v5 - v2).normalized;
+
+        // collider
+        List<Vector3> v = new List<Vector3>();
+        v.Add(v0); v.Add(v1); v.Add(v2); v.Add(v3);
+        computeColiderMesh(v);
 
         // creates arrays
         Vector3[] vertices = new Vector3[28]
@@ -203,6 +217,11 @@ public class Water : MonoBehaviour
         Vector3 n1 = Vector3.Cross(Vector3.up, v4 - v0).normalized;
         Vector3 n2 = Vector3.Cross(Vector3.up, v2 - v4).normalized;
 
+        // collider
+        List<Vector3> v = new List<Vector3>();
+        v.Add(v0); v.Add(v4); v.Add(v2); v.Add(v3);
+        computeColiderMesh(v);
+
         // creates arrays
         Vector3[] vertices = new Vector3[16]
         {
@@ -242,6 +261,11 @@ public class Water : MonoBehaviour
         Vector3 n1 = Vector3.Cross(Vector3.up, v4 - v3).normalized;
         Vector3 n2 = Vector3.Cross(Vector3.up, v5 - v4).normalized;
         Vector3 n3 = Vector3.Cross(Vector3.up, v2 - v5).normalized;
+
+        // collider
+        List<Vector3> v = new List<Vector3>();
+        v.Add(v4); v.Add(v5); v.Add(v2); v.Add(v3);
+        computeColiderMesh(v);
 
         // creates arrays
         Vector3[] vertices = new Vector3[22]
@@ -291,6 +315,11 @@ public class Water : MonoBehaviour
         Vector3 n3 = Vector3.Cross(v7-v6, v8-v6);
         Vector3 n4 = Vector3.Cross(v4-v7, v8-v7);
 
+        // collider
+        List<Vector3> v = new List<Vector3>();
+        v.Add(v4); v.Add(v5); v.Add(v6); v.Add(v7);
+        computeColiderMesh(v);
+
         // creates arrays
         Vector3[] vertices = new Vector3[20]
         {
@@ -327,5 +356,35 @@ public class Water : MonoBehaviour
         float alpha = Random.Range(0f, 1f);
         float beta = Random.Range(0f, 1f - alpha);
         return new Vector2(alpha, beta);
+    }
+
+    protected void computeColiderMesh(List<Vector3> vertices)
+    {
+        List<Vector3> v = new List<Vector3>();
+        List<Vector3> n = new List<Vector3>();
+        List<int> f = new List<int>();
+        for (int i=0; i<vertices.Count; i++)
+        {
+            Vector3 v0 = vertices[i];
+            Vector3 v1 = vertices[(i + 1) % vertices.Count];
+            Vector3 v2 = v0 + Vector3.up;
+            Vector3 v3 = v1 + Vector3.up;
+            Vector3 normal = Vector3.Cross(Vector3.up, v1 - v0);
+
+            f.Add(v.Count);     f.Add(v.Count + 1); f.Add(v.Count + 3);
+            f.Add(v.Count + 3); f.Add(v.Count + 2); f.Add(v.Count);
+
+            v.Add(v0); v.Add(v1); v.Add(v3);
+            v.Add(v3); v.Add(v2); v.Add(v0);
+
+            n.Add(normal); n.Add(normal); n.Add(normal);
+            n.Add(normal); n.Add(normal); n.Add(normal);
+        }
+
+        Mesh mesh = new Mesh();
+        mesh.vertices = v.ToArray();
+        mesh.normals = n.ToArray();
+        mesh.triangles = f.ToArray();
+        waterCollider.sharedMesh = mesh;
     }
 }

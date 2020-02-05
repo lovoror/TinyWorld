@@ -10789,56 +10789,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_Tiles.Array.data[694].second.m_TileIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_Tiles.Array.data[694].second.m_TileSpriteIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_Tiles.Array.data[694].second.m_ColliderType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_TileAssetArray.Array.data[1].m_RefCount
-      value: 330
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_TileAssetArray.Array.data[6].m_RefCount
-      value: 123
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[1].m_RefCount
-      value: 330
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[6].m_RefCount
-      value: 123
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_Tiles.Array.data[695].second.m_TileIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_Tiles.Array.data[695].second.m_TileSpriteIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350192211739417, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: m_Tiles.Array.data[695].second.m_ColliderType
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b88e225fd5b704dba6c629cc2426cd, type: 3}
 --- !u!1001 &8730490982936455082
@@ -10930,17 +10880,17 @@ PrefabInstance:
     - target: {fileID: 9071642676792837783, guid: f55029c8223eb73428517297ea10028b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.484346
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9071642676792837783, guid: f55029c8223eb73428517297ea10028b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7641993
+      value: 19.92
       objectReference: {fileID: 0}
     - target: {fileID: 9071642676792837783, guid: f55029c8223eb73428517297ea10028b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.783083
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9071642676792837783, guid: f55029c8223eb73428517297ea10028b,
         type: 3}
