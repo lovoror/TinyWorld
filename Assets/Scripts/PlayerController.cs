@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private RaycastHit[] scanResults = new RaycastHit[20];
     private int scanLength;
+    private float grounded = 0f;
 
     void Start()
     {
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
             AnimationParameterRefresh();
         }
 
-        if (controller.isGrounded && !attacking)
+        if ((controller.isGrounded || grounded < 0.2f) && !attacking)
         {
             // compute direction
             if (Input.GetKey(KeyCode.Z))
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
             direction.Normalize();
 
             // compute animation parameters
-            if(direction.x == 0f && direction.z == 0f)
+            if (direction.x == 0f && direction.z == 0f)
                 animator.SetFloat("run", 0f);
             else
                 animator.SetFloat("run", speedFactor);
@@ -119,8 +120,10 @@ public class PlayerController : MonoBehaviour
             // update position
             direction = speedFactor * loadFactor * runSpeed * direction;
             direction = direction.x * Camera.main.transform.right + direction.z * Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
+            grounded = 0f;
         }
-        
+        else grounded += Time.deltaTime;
+
         // move 
         direction.y = -gravity * Time.deltaTime;
         controller.Move(direction * Time.deltaTime);

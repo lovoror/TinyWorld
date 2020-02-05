@@ -81,10 +81,10 @@ public class Map : MonoBehaviour
                             ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
                             ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, 1,  0));
 
-                            bool xmb = (xm && xm.prefab3d.name == "Dirt");
-                            bool xpb = (xp && xp.prefab3d.name == "Dirt");
-                            bool zmb = (zm && zm.prefab3d.name == "Dirt");
-                            bool zpb = (zp && zp.prefab3d.name == "Dirt");
+                            bool xmb = (xm && (xm.prefab3d.name == "Dirt" || xm.prefab3d.name == "Bridge"));
+                            bool xpb = (xp && (xp.prefab3d.name == "Dirt" || xp.prefab3d.name == "Bridge"));
+                            bool zmb = (zm && (zm.prefab3d.name == "Dirt" || zm.prefab3d.name == "Bridge"));
+                            bool zpb = (zp && (zp.prefab3d.name == "Dirt" || zp.prefab3d.name == "Bridge"));
 
                             dirt.Initialize(xpb, xmb, zmb, zpb, 0.3f);
                         }
@@ -115,12 +115,20 @@ public class Map : MonoBehaviour
                             ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
                             ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
 
-                            bool xmb = (xm && xm.prefab3d.name == "Water");
-                            bool xpb = (xp && xp.prefab3d.name == "Water");
-                            bool zmb = (zm && zm.prefab3d.name == "Water");
-                            bool zpb = (zp && zp.prefab3d.name == "Water");
+                            bool xmb = (xm && (xm.prefab3d.name == "Water" || xm.prefab3d.name == "Bridge"));
+                            bool xpb = (xp && (xp.prefab3d.name == "Water" || xp.prefab3d.name == "Bridge"));
+                            bool zmb = (zm && (zm.prefab3d.name == "Water" || zm.prefab3d.name == "Bridge"));
+                            bool zpb = (zp && (zp.prefab3d.name == "Water" || zp.prefab3d.name == "Bridge"));
 
                             water.Initialize(xpb, xmb, zmb, zpb, 0.3f);
+                        }
+
+                        // bridges tiles
+                        Bridge bridge = go.GetComponent<Bridge>();
+                        if (bridge)
+                        {
+                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+                            bridge.Initialize(xm && xm.prefab3d.name == "Dirt");
                         }
                     }
                 }
