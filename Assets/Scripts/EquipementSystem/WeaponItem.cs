@@ -35,6 +35,9 @@ public class WeaponItem : MonoBehaviour
     public void Clear()
     {
         type = Type.None;
+        forbidSecond = false;
+        forbidShield = false;
+        animationCode = 0;
         load = 0f;
     }
     public static void Copy(WeaponItem source, WeaponItem destination)

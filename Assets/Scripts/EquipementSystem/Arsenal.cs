@@ -114,13 +114,13 @@ public class Arsenal : MonoBehaviour
     // Get animation configuration regarding of the equipement
     public AnimationClip[] GetAnimationClip(ref WeaponItem weapon, ref SecondItem second, ref ShieldItem shield, ref BodyItem body, ref HeadItem head, ref BackpackItem backpack)
     {
-        if (weapon.animationCode == 5) return spearConfiguration;
-        else if (second.animationCode == 2) return archeryConfiguration;
-        else if (weapon.animationCode == 3) return crossbowConfiguration;
+        if (weapon.type != WeaponItem.Type.None && weapon.animationCode == 5) return spearConfiguration;
+        else if (second.type != SecondItem.Type.None && second.animationCode == 2) return archeryConfiguration;
+        else if (weapon.type != WeaponItem.Type.None && weapon.animationCode == 3) return crossbowConfiguration;
         else if (shield.type != ShieldItem.Type.None) return shieldedConfiguration;
-        else if (weapon.animationCode == 4) return twoHandedConfiguration;
-        else if (second.animationCode == 6) return staffConfiguration;
-        else if (weapon.animationCode == 7) return polearmConfiguration;
+        else if (weapon.type != WeaponItem.Type.None && weapon.animationCode == 4) return twoHandedConfiguration;
+        else if (weapon.type != WeaponItem.Type.None && second.animationCode == 6) return staffConfiguration;
+        else if (weapon.type != WeaponItem.Type.None && weapon.animationCode == 7) return polearmConfiguration;
         else return defaultConfiguration;
     }
 

@@ -19,6 +19,9 @@ public class SecondItem : MonoBehaviour
     public void Clear()
     {
         type = Type.None;
+        forbidWeapon = false;
+        forbidShield = false;
+        animationCode = 0;
         load = 0f;
     }
     public static void Copy(SecondItem source, SecondItem destination)

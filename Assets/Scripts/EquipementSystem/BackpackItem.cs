@@ -22,5 +22,6 @@ public class BackpackItem : MonoBehaviour
     public static void Copy(BackpackItem source, BackpackItem destination)
     {
         destination.type = source.type;
+        destination.load = source.load;
     }
 }
