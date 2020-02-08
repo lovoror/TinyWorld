@@ -6,44 +6,126 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class Grass : MonoBehaviour
 {
+    static float w = 0.07f;
+    static float h = 0.7f;
+
     public AnimationCurve stringDensity;
-    public List<GameObject> grassStrings;
+    public int density;
 
     public void Initialize(int grassNeighbours)
     {
-        // delete some grass string depending on local density
-        for (int i = 0; i < grassStrings.Count; i++)
-        {
-            var temp = grassStrings[i];
-            int randomIndex = Random.Range(i, grassStrings.Count);
-            grassStrings[i] = grassStrings[randomIndex];
-            grassStrings[randomIndex] = temp;
-        }
-        int stopIndex = grassStrings.Count - (int)(grassStrings.Count * stringDensity.Evaluate(0.125f * grassNeighbours));
-        for (int i = stopIndex; i < grassStrings.Count; i++)
-            DestroyImmediate(grassStrings[i], true);
-        grassStrings.RemoveRange(stopIndex, grassStrings.Count - stopIndex);
-                
-        // Merge all grassSTring into one big mesh
-        MeshFilter[] meshFilters = new MeshFilter[grassStrings.Count];
-        for(int i= 0; i < grassStrings.Count; i++)
-            meshFilters[i] = grassStrings[i].GetComponent<MeshFilter>();
-        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+        density = (int)(10 * stringDensity.Evaluate(0.125f * grassNeighbours));
+        CombineInstance[] combine = new CombineInstance[density * density];
+        float delta = 3f / (density - 1);
+        for (int i = 0; i < density; i++)
+            for (int j = 0; j < density; j++) 
+            {
+                float dispersion = 0.5f;
+                Vector3 dp = new Vector3(Random.Range(-dispersion, dispersion), 0, Random.Range(-dispersion, dispersion));
+                Vector3 ds = new Vector3(0, 0, Random.Range(-dispersion, dispersion));
+                if(Random.Range(0f, 1f) > 0.3)
+                    combine[i * density + j].mesh = GetStringB();
+                else
+                    combine[i * density + j].mesh = GetStringA();
+                combine[i * density + j].transform = Matrix4x4.TRS(new Vector3(i * delta - 1.5f, 0, j * delta - 1.5f) + dp, Quaternion.Euler(0, Random.Range(0, 180), 0), Vector3.one + ds);
+            }
+        GetComponent<MeshFilter>().mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+    }
 
-        for(int i=0; i< meshFilters.Length; i++)
-        {
-            combine[i].mesh = meshFilters[i].sharedMesh;
-            combine[i].transform = Matrix4x4.TRS(meshFilters[i].transform.localPosition, meshFilters[i].transform.localRotation, meshFilters[i].transform.localScale);
-            meshFilters[i].gameObject.SetActive(false);
-        }
-        transform.GetComponent<MeshFilter>().mesh = new Mesh();
-        transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
-        transform.gameObject.SetActive(true);
+    private Mesh GetStringA()
+    {
+        Mesh mesh = new Mesh();
 
-        // clear and rotate for more variability
-        for (int i = 0; i < grassStrings.Count; i++)
-            DestroyImmediate(grassStrings[i], true);
-        grassStrings.Clear();
-        transform.localEulerAngles = new Vector3(0, Random.Range(0,3) * 90, 0);
+        List<Vector3> vertices = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<int> triangles = new List<int>();
+
+        vertices.Add(new Vector3(-w, 0, 0));
+        vertices.Add(new Vector3( w, 0, 0));
+        vertices.Add(new Vector3(-0.8f * w, 0.3f * h, 0));
+        vertices.Add(new Vector3( 0.8f * w, 0.3f * h, 0));
+        vertices.Add(new Vector3(-0.6f * w, 0.6f * h, 0));
+        vertices.Add(new Vector3( 0.6f * w, 0.6f * h, 0));
+        vertices.Add(new Vector3(0, h, 0));
+
+
+
+        triangles.Add(0); triangles.Add(2); triangles.Add(1);
+        triangles.Add(2); triangles.Add(3); triangles.Add(1);
+        triangles.Add(3); triangles.Add(2); triangles.Add(4);
+        triangles.Add(4); triangles.Add(5); triangles.Add(3);
+        triangles.Add(4); triangles.Add(6); triangles.Add(5);
+
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.RecalculateNormals();
+
+        MakeDoubleFaced(mesh);
+        return mesh;
+    }
+    private Mesh GetStringB()
+    {
+        Mesh mesh = new Mesh();
+
+        List<Vector3> vertices = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<int> triangles = new List<int>();
+
+        vertices.Add(new Vector3(-w, 0, 0));
+        vertices.Add(new Vector3( w, 0, 0));
+        vertices.Add(new Vector3(-w, 0.3f * h, 0.3f * w));
+        vertices.Add(new Vector3(-0.6f * w + w, 0.35f * h, -0.3f * w));
+        vertices.Add(new Vector3( 0.6f * w + w, 0.35f * h, -0.3f * w));
+        vertices.Add(new Vector3( 2f * w, 0.65f * h, -0.66f * w));
+        
+        triangles.Add(0); triangles.Add(2); triangles.Add(1);
+        triangles.Add(0); triangles.Add(3); triangles.Add(1);
+        triangles.Add(1); triangles.Add(3); triangles.Add(4);
+        triangles.Add(3); triangles.Add(5); triangles.Add(4);
+
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.RecalculateNormals();
+
+        MakeDoubleFaced(mesh);
+        return mesh;
+    }
+
+    private void MakeDoubleFaced(Mesh mesh)
+    {
+        var vertices = mesh.vertices;
+        var normals = mesh.normals;
+        var szV = vertices.Length;
+        var newVerts = new Vector3[szV * 2];
+        var newUv = new Vector2[szV * 2];
+        var newNorms = new Vector3[szV * 2];
+
+        for (var j = 0; j < szV; j++)
+        {
+            newVerts[j] = newVerts[j + szV] = vertices[j];
+            newNorms[j] = normals[j];
+            newNorms[j + szV] = -normals[j];
+        }
+
+        var triangles = mesh.triangles;
+        var szT = triangles.Length;
+        var newTris = new int[szT * 2];
+
+        for (var i = 0; i < szT; i += 3)
+        {
+            newTris[i] = triangles[i];
+            newTris[i + 1] = triangles[i + 1];
+            newTris[i + 2] = triangles[i + 2];
+
+            int j = i + szT;
+            newTris[j] = triangles[i] + szV;
+            newTris[j + 2] = triangles[i + 1] + szV;
+            newTris[j + 1] = triangles[i + 2] + szV;
+        }
+
+        mesh.vertices = newVerts;
+        mesh.normals = newNorms;
+        mesh.triangles = newTris;
     }
 }

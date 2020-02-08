@@ -81,10 +81,10 @@ public class Map : MonoBehaviour
                             ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
                             ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, 1,  0));
 
-                            bool xmb = (xm && (xm.prefab3d.name == "Dirt" || xm.prefab3d.name == "Bridge"));
-                            bool xpb = (xp && (xp.prefab3d.name == "Dirt" || xp.prefab3d.name == "Bridge"));
-                            bool zmb = (zm && (zm.prefab3d.name == "Dirt" || zm.prefab3d.name == "Bridge"));
-                            bool zpb = (zp && (zp.prefab3d.name == "Dirt" || zp.prefab3d.name == "Bridge"));
+                            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.name == "Dirt" || xm.prefab3d.name == "Bridge" || xm.prefab3d.name.Contains("Crop")));
+                            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.name == "Dirt" || xp.prefab3d.name == "Bridge" || xp.prefab3d.name.Contains("Crop")));
+                            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.name == "Dirt" || zm.prefab3d.name == "Bridge" || zm.prefab3d.name.Contains("Crop")));
+                            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.name == "Dirt" || zp.prefab3d.name == "Bridge" || zp.prefab3d.name.Contains("Crop")));
 
                             dirt.Initialize(xpb, xmb, zmb, zpb, 0.3f);
                         }
@@ -98,10 +98,10 @@ public class Map : MonoBehaviour
                             ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
                             ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0,  1, 0));
 
-                            bool xmb = (xm && xm.prefab3d.name.Contains("Wall"));
-                            bool xpb = (xp && xp.prefab3d.name.Contains("Wall"));
-                            bool zmb = (zm && zm.prefab3d.name.Contains("Wall"));
-                            bool zpb = (zp && zp.prefab3d.name.Contains("Wall"));
+                            bool xmb = (xm && xm.prefab3d && xm.prefab3d.name.Contains("Wall"));
+                            bool xpb = (xp && xp.prefab3d && xp.prefab3d.name.Contains("Wall"));
+                            bool zmb = (zm && zm.prefab3d && zm.prefab3d.name.Contains("Wall"));
+                            bool zpb = (zp && zp.prefab3d && zp.prefab3d.name.Contains("Wall"));
 
                             wall.Initialize(xpb, xmb, zmb, zpb);
                         }
@@ -115,10 +115,10 @@ public class Map : MonoBehaviour
                             ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
                             ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
 
-                            bool xmb = (xm && (xm.prefab3d.name == "Water" || xm.prefab3d.name == "Bridge"));
-                            bool xpb = (xp && (xp.prefab3d.name == "Water" || xp.prefab3d.name == "Bridge"));
-                            bool zmb = (zm && (zm.prefab3d.name == "Water" || zm.prefab3d.name == "Bridge"));
-                            bool zpb = (zp && (zp.prefab3d.name == "Water" || zp.prefab3d.name == "Bridge"));
+                            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.name == "Water" || xm.prefab3d.name == "Bridge"));
+                            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.name == "Water" || xp.prefab3d.name == "Bridge"));
+                            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.name == "Water" || zm.prefab3d.name == "Bridge"));
+                            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.name == "Water" || zp.prefab3d.name == "Bridge"));
 
                             water.Initialize(xpb, xmb, zmb, zpb, 0.3f);
                         }
@@ -128,7 +128,7 @@ public class Map : MonoBehaviour
                         if (bridge)
                         {
                             ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
-                            bridge.Initialize(xm && xm.prefab3d.name == "Dirt");
+                            bridge.Initialize(xm && xm.prefab3d && xm.prefab3d.name == "Dirt");
                         }
                     }
                 }
