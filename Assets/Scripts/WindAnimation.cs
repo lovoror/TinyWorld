@@ -9,6 +9,8 @@ public class WindAnimation : MonoBehaviour
     public float windFactor = 1.0f;
     public Vector3 wind;
 
+    public SkinnedMeshRenderer meshRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,24 +32,27 @@ public class WindAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        wind = windFactor * meteo.GetWind(transform.position);
-        if (wind.sqrMagnitude < 0.00001f)
-            return;
-
-        // move skeleton relatively to wind attributes
-        Stack iterativePath = new Stack();
-        iterativePath.Push(this.transform);
-        while(iterativePath.Count != 0)
+        if(meshRenderer.isVisible)
         {
-            // pop and add childs to path
-            Transform bone = (Transform) iterativePath.Pop();
-            foreach (Transform child in bone)
-                iterativePath.Push(child);
+            wind = windFactor * meteo.GetWind(transform.position);
+            if (wind.sqrMagnitude < 0.00001f)
+                return;
 
-            // process current bone
-            Vector3 axis = Vector3.Cross(transform.InverseTransformDirection(wind), bone.localPosition);
-            Quaternion q = Quaternion.AngleAxis(wind.magnitude * transform.lossyScale.y * 0.01f, axis);
-            bone.localRotation = initialRotation[bone] * q;
+            // move skeleton relatively to wind attributes
+            Stack iterativePath = new Stack();
+            iterativePath.Push(this.transform);
+            while(iterativePath.Count != 0)
+            {
+                // pop and add childs to path
+                Transform bone = (Transform) iterativePath.Pop();
+                foreach (Transform child in bone)
+                    iterativePath.Push(child);
+
+                // process current bone
+                Vector3 axis = Vector3.Cross(transform.InverseTransformDirection(wind), bone.localPosition);
+                Quaternion q = Quaternion.AngleAxis(wind.magnitude * transform.lossyScale.y * 0.01f, axis);
+                bone.localRotation = initialRotation[bone] * q;
+            }
         }
     }
 }

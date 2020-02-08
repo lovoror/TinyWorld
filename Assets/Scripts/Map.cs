@@ -43,14 +43,14 @@ public class Map : MonoBehaviour
                         go.SetActive(true);
                         
                         // add variability and suscribe to meteo
-                        Transform tree = go.transform.Find("Tree");
-                        if(tree)
+                        Transform pivot = go.transform.Find("Pivot");
+                        if(pivot)
                         {
-                            tree.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
-                            tree.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
+                            pivot.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+                            pivot.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
                             float scale = Random.Range(0.7f, 1.3f);
-                            tree.localScale = new Vector3(scale, scale, scale);
-                            meteo.treesList.Add(tree.GetComponent<TreeComponent>());
+                            pivot.localScale = new Vector3(scale, scale, scale);
+                            meteo.treesList.Add(pivot.GetComponent<TreeComponent>());
                         }
 
                         // grass tiles initialization

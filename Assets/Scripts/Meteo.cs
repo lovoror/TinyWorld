@@ -51,24 +51,21 @@ public class Meteo : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-
-        if(snow != lastSnow)
+        
+        // tree configuration update
+        if (snow != lastSnow || leaves != lastLeaves)
         {
             lastSnow = snow;
-            foreach (TreeComponent tree in treesList)
-                tree.snow.enabled = snow;
-            if (snow) leaves = false;
-        }
-        if (leaves != lastLeaves)
-        {
             lastLeaves = leaves;
+
             foreach (TreeComponent tree in treesList)
-                if(tree.leaves != null)
-                    foreach (SkinnedMeshRenderer leave in tree.leaves)
-                        leave.enabled = leaves;
-            if (leaves) snow = false;
+            {
+                if(tree)
+                    tree.SetConfiguration(leaves, snow);
+            }
         }
 
+        // water mesh update
         for (int x = 0; x < waterDiv - 1; x++)
             for (int z = 0; z < waterDiv - 1; z++)
             {
@@ -79,14 +76,26 @@ public class Meteo : MonoBehaviour
         {
             vertices[(waterDiv - 1) * waterDiv + x] = new Vector3(vertices[(waterDiv - 1) * waterDiv + x].x, vertices[x].y, vertices[(waterDiv - 1) * waterDiv + x].z);
             vertices[x * waterDiv + waterDiv - 1] = new Vector3(vertices[x * waterDiv + waterDiv - 1].x, vertices[x].y, vertices[x * waterDiv + waterDiv - 1].z);
-    }
+        }
         vertices[vertices.Length - 1] = new Vector3(vertices[vertices.Length - 1].x, vertices[0].y, vertices[vertices.Length - 1].z);
         vertices[waterDiv - 1] = new Vector3(vertices[waterDiv - 1].x, vertices[0].y, vertices[waterDiv - 1].z);
         vertices[(waterDiv - 1) * waterDiv] = new Vector3(vertices[(waterDiv - 1) * waterDiv].x, vertices[0].y, vertices[(waterDiv - 1) * waterDiv].z);
 
+
+
         waterMesh.sharedMesh.vertices = vertices;
         waterMesh.sharedMesh.RecalculateNormals();
         waterMesh.sharedMesh.RecalculateBounds();
+
+        Vector3[] normals = waterMesh.sharedMesh.normals;
+        for (int i = 0; i < waterDiv; i++)
+        {
+            normals[i * waterDiv] = new Vector3(normals[i * waterDiv].x, normals[i * waterDiv].y, 0);
+            normals[i * waterDiv + (waterDiv - 1)] = new Vector3(normals[i * waterDiv].x, normals[i * waterDiv].y, 0);
+            normals[i] = new Vector3(0, normals[i].y, normals[i].z);
+            normals[(waterDiv - 1) * waterDiv + i] = new Vector3(0, normals[i].y, normals[i].z);
+        }
+        waterMesh.sharedMesh.normals = normals;
     }
 
     public Vector3 GetWind(Vector3 position)
