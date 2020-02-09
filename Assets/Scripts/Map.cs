@@ -69,7 +69,7 @@ public class Map : MonoBehaviour
                                 if (n && n.name == "Grass")
                                     grassNeighbours++;
                             }
-                            grass.Initialize(grassNeighbours - 1);
+                            grass.InitializeFromPool(grassNeighbours - 1);
                         }
 
                         // dirt tiles initialization
@@ -86,7 +86,7 @@ public class Map : MonoBehaviour
                             bool zmb = (zm && zm.prefab3d && (zm.prefab3d.name == "Dirt" || zm.prefab3d.name == "Bridge" || zm.prefab3d.name.Contains("Crop")));
                             bool zpb = (zp && zp.prefab3d && (zp.prefab3d.name == "Dirt" || zp.prefab3d.name == "Bridge" || zp.prefab3d.name.Contains("Crop")));
 
-                            dirt.Initialize(xpb, xmb, zmb, zpb, 0.3f);
+                            dirt.InitializeFromPool(xpb, xmb, zmb, zpb, 0.3f);
                         }
 
                         // dirt tiles initialization

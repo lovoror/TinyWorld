@@ -134,9 +134,11 @@
     <Compile Include="Assets\Scripts\TileScripts\Bridge.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Dirt.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Grass.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\TilePrefabsContainer.cs" />
     <Compile Include="Assets\Scripts\TileScripts\TreeComponent.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Wall.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Water.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\Wheet.cs" />
     <Compile Include="Assets\Scripts\WindAnimation.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\GrainGen.shader" />
@@ -151,6 +153,7 @@
     <None Include="Assets\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
     <None Include="Assets\PostProcessing\Resources\Shaders\TAA.cginc" />
     <None Include="Assets\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
+    <None Include="Assets\Materials\GrassString.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />

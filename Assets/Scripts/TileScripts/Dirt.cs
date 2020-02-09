@@ -100,6 +100,92 @@ public class Dirt : MonoBehaviour
         mf.mesh = mesh;
         transform.localEulerAngles = new Vector3(0, rotation, 0);
     }
+    public void InitializeFromPool(bool xp, bool xm, bool zp, bool zm, float borderStrengh)
+    {
+        // compute configuration and choose the resolve mesh algorithm accordingly
+        configuration = (zp ? 0 : 1) << 3 | (zm ? 0 : 1) << 2 | (xp ? 0 : 1) << 1 | (xm ? 0 : 1) << 0;
+        float rotation = 0f;
+        Mesh mesh = new Mesh();
+
+        // initialize configs
+        switch (configuration)
+        {
+            case 0:
+                mesh = TilePrefabsContainer.Instance.GetDirtA();
+                rotation = 0f;
+                MeshRenderer mr = GetComponent<MeshRenderer>();
+                mr.materials = new Material[] { mr.materials[0] };
+                break;
+            case 1:
+                mesh = TilePrefabsContainer.Instance.GetDirtB();
+                rotation = 0f;
+                break;
+            case 2:
+                mesh = TilePrefabsContainer.Instance.GetDirtB();
+                rotation = 180f;
+                break;
+            case 3:
+                mesh = TilePrefabsContainer.Instance.GetDirtC();
+                rotation = 0f;
+                break;
+            case 4:
+                mesh = TilePrefabsContainer.Instance.GetDirtB();
+                rotation = 90f;
+                break;
+            case 5:
+                mesh = TilePrefabsContainer.Instance.GetDirtD();
+                rotation = 0f;
+                break;
+            case 6:
+                mesh = TilePrefabsContainer.Instance.GetDirtD();
+                rotation = 90f;
+                break;
+            case 7:
+                mesh = TilePrefabsContainer.Instance.GetDirtE();
+                rotation = 90f;
+                break;
+            case 8:
+                mesh = TilePrefabsContainer.Instance.GetDirtB();
+                rotation = -90f;
+                break;
+            case 9:
+                mesh = TilePrefabsContainer.Instance.GetDirtD();
+                rotation = -90f;
+                break;
+            case 10:
+                mesh = TilePrefabsContainer.Instance.GetDirtD();
+                rotation = -180f;
+                break;
+            case 11:
+                mesh = TilePrefabsContainer.Instance.GetDirtE();
+                rotation = -90f;
+                break;
+            case 12:
+                mesh = TilePrefabsContainer.Instance.GetDirtC();
+                rotation = 90f;
+                break;
+            case 13:
+                mesh = TilePrefabsContainer.Instance.GetDirtE();
+                rotation = 0f;
+                break;
+            case 14:
+                mesh = TilePrefabsContainer.Instance.GetDirtE();
+                rotation = 180f;
+                break;
+            case 15:
+                mesh = TilePrefabsContainer.Instance.GetDirtF();
+                rotation = 0f;
+                break;
+            default:
+                Debug.LogError("Dirt init 2 : invald tile configuration");
+                break;
+        }
+
+        // set mesh and orientation 
+        MeshFilter mf = GetComponent<MeshFilter>();
+        mf.sharedMesh = mesh;
+        transform.localEulerAngles = new Vector3(0, rotation, 0);
+    }
 
     protected Mesh CaseA(float borderStrengh)
     {

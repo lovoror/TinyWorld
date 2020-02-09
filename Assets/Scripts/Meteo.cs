@@ -8,7 +8,8 @@ public class Meteo : MonoBehaviour
     public float t = 0.0f;
     public float alpha1 = 20;
     public float alpha2 = 5;
-    private int harmonic = 1;
+    public Material[] windAffected;
+    public Texture2D windTexture;
 
     public bool snow = false;
     public bool leaves = true;
@@ -45,13 +46,32 @@ public class Meteo : MonoBehaviour
     {
         lastSnow = snow;
         lastLeaves = leaves;
+        windTexture = new Texture2D(128, 128);
+        windTexture.wrapMode = TextureWrapMode.Repeat;
     }
 
     // Update is called once per frame
     void Update()
     {
         t += Time.deltaTime;
-        
+
+        // WindTexture update
+        for (int y = 0; y < windTexture.height; y++)
+        {
+            for (int x = 0; x < windTexture.width; x++)
+            {
+                Vector3 w = GetWind(new Vector3(x, 0, y));
+                Color color = new Color(0.5f + Mathf.Clamp(w.x, -0.5f, 0.5f), 0.5f + Mathf.Clamp(w.y, -0.5f, 0.5f), 0.5f + Mathf.Clamp(w.z, -0.5f, 0.5f), 1f);
+                windTexture.SetPixel(x, y, color);
+            }
+        }
+        windTexture.Apply();
+        foreach(Material m in windAffected)
+        {
+            m.SetTexture("_WindField", windTexture);
+        }
+
+
         // tree configuration update
         if (snow != lastSnow || leaves != lastLeaves)
         {
@@ -100,19 +120,9 @@ public class Meteo : MonoBehaviour
 
     public Vector3 GetWind(Vector3 position)
     {
-        return windBase * GetWave(position);
+        return windBase * Mathf.Sin(alpha1 * Vector3.Dot(windBase.normalized, position) + alpha2 * t);
     }
-
-    private float GetWave(Vector3 position)
-    {
-        float result = 0.0f;
-        for (int i = 0; i < harmonic; i++)
-        {
-            result += Mathf.Sin(alpha1 * Vector3.Dot(windBase, position) + alpha2 * t);
-        }
-        return result;
-    }
-
+    
     protected void InitializeWater()
     {
         List<Vector3> verticesL = new List<Vector3>();

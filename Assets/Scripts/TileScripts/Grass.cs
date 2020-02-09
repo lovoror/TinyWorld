@@ -10,27 +10,33 @@ public class Grass : MonoBehaviour
     static float h = 0.7f;
 
     public AnimationCurve stringDensity;
-    public int density;
-
+    public int density = 7;
+    public float dispersion = 0.6f;
+    
     public void Initialize(int grassNeighbours)
     {
         density = (int)(10 * stringDensity.Evaluate(0.125f * grassNeighbours));
         CombineInstance[] combine = new CombineInstance[density * density];
-        float delta = 3f / (density - 1);
+        float delta = 4f / density;
         for (int i = 0; i < density; i++)
-            for (int j = 0; j < density; j++) 
+            for (int j = 0; j < density; j++)
             {
-                float dispersion = 0.5f;
                 Vector3 dp = new Vector3(Random.Range(-dispersion, dispersion), 0, Random.Range(-dispersion, dispersion));
                 Vector3 ds = new Vector3(0, 0, Random.Range(-dispersion, dispersion));
                 if(Random.Range(0f, 1f) > 0.3)
                     combine[i * density + j].mesh = GetStringB();
                 else
                     combine[i * density + j].mesh = GetStringA();
-                combine[i * density + j].transform = Matrix4x4.TRS(new Vector3(i * delta - 1.5f, 0, j * delta - 1.5f) + dp, Quaternion.Euler(0, Random.Range(0, 180), 0), Vector3.one + ds);
+                combine[i * density + j].transform = Matrix4x4.TRS(new Vector3(i * delta - 2f + 0.5f * dispersion, 0, j * delta - 2f + 0.5f * dispersion) + dp, Quaternion.Euler(0, Random.Range(0, 180), 0), Vector3.one + ds);
             }
         GetComponent<MeshFilter>().mesh = new Mesh();
         GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+        GetComponent<MeshFilter>().mesh.RecalculateBounds();
+    }
+    public void InitializeFromPool(int grassNeighbours)
+    {
+        GetComponent<MeshFilter>().sharedMesh = TilePrefabsContainer.Instance.GetGrass(grassNeighbours);
+        transform.localRotation = Quaternion.Euler(0, Random.Range(0, 3) * 90f, 0);
     }
 
     private Mesh GetStringA()
@@ -127,5 +133,7 @@ public class Grass : MonoBehaviour
         mesh.vertices = newVerts;
         mesh.normals = newNorms;
         mesh.triangles = newTris;
+
+        mesh.RecalculateBounds();
     }
 }

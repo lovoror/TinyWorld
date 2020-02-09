@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -65,6 +66,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -123,8 +125,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windBase: {x: 0.2, y: 0, z: 0}
   t: 174.73221
-  alpha1: 0.13
-  alpha2: 2.41
+  alpha1: 0.049
+  alpha2: 0.75
+  windAffected:
+  - {fileID: 2100000, guid: c7e00240b8312cf4ea0cbf2a22988c12, type: 2}
+  - {fileID: 2100000, guid: d22dfa15ca6150e4b952a5d96ab03ec6, type: 2}
+  windTexture: {fileID: 0}
   snow: 0
   leaves: 1
   treesList:
