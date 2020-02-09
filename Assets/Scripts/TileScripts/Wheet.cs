@@ -9,8 +9,14 @@ public class Wheet : MonoBehaviour
 
     public int density;
     static float dispersion = 0.3f;
+    
 
     private void Start()
+    {
+        InitializeFromPool();
+    }
+
+    public void Initialize()
     {
         CombineInstance[] combine = new CombineInstance[density * density];
         float delta = 4f / density;
@@ -26,7 +32,11 @@ public class Wheet : MonoBehaviour
         GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
         GetComponent<MeshFilter>().mesh.RecalculateBounds();
     }
-
+    public void InitializeFromPool()
+    {
+        GetComponent<MeshFilter>().sharedMesh = TilePrefabsContainer.Instance.GetWheet();
+        transform.localEulerAngles = new Vector3(0, Random.Range(0, 3) * 90f, 0);
+    }
     private Mesh GetStringA(float w, float h)
     {
         Mesh mesh = new Mesh();

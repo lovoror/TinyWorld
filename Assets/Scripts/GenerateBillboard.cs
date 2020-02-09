@@ -58,7 +58,6 @@ public class GenerateBillboard : ScriptableWizard
 
     void OnWizardUpdate()
     {
-        string helpString = "";
         bool isValid = (m_material != null && objectHeight != 0 && objectWidth != 0 && renderCamera != null && toRotateCamera != null);
 
         if (doOnce)
@@ -66,7 +65,7 @@ public class GenerateBillboard : ScriptableWizard
             //this will get activated once
             doOnce = false;
             toRotateCamera = GameObject.Find("BillboardCameraArm");
-
+            renderCamera = Camera.main;
         }
 
         if (toRotateCamera != null && checkArmOnce)
@@ -138,16 +137,7 @@ public class GenerateBillboard : ScriptableWizard
         texture.ReadPixels(new Rect(0, 0, atlasPixelWidth, atlasPixelHeight), 0, 0);
         RenderTexture.active = pastActive;
         texture.Apply();
-
-        //texCoords[0].Set(0.230981f, 0.33333302f, 0.230981f, -0.33333302f);
-        //texCoords[1].Set(0.230981f, 0.66666603f, 0.230981f, -0.33333302f);
-        //texCoords[2].Set(0.33333302f, 0.0f, 0.33333302f, 0.23098099f);
-        //texCoords[3].Set(0.564314f, 0.23098099f, 0.23098099f, -0.33333302f);
-        //texCoords[4].Set(0.564314f, 0.564314f, 0.23098099f, -0.33333403f);
-        //texCoords[5].Set(0.66666603f, 0.0f, 0.33333302f, 0.23098099f);
-        //texCoords[6].Set(0.89764804f, 0.23098099f, 0.230982f, -0.33333302f);
-        //texCoords[7].Set(0.89764804f, 0.564314f, 0.230982f, -0.33333403f);
-
+        
         //make basic box out of four trinagles, to be able to pinch the top/bottom/middle to cut extra transparent pixels
         //still not sure how this works but it connects vertices to make the mesh
         indices[0] = 4;

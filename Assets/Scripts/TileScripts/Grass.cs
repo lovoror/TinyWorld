@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class Grass : MonoBehaviour
 {
-    static float w = 0.07f;
-    static float h = 0.7f;
+    static float width = 0.07f;
+    static float height = 0.7f;
 
     public AnimationCurve stringDensity;
     public int density = 7;
@@ -24,9 +24,9 @@ public class Grass : MonoBehaviour
                 Vector3 dp = new Vector3(Random.Range(-dispersion, dispersion), 0, Random.Range(-dispersion, dispersion));
                 Vector3 ds = new Vector3(0, 0, Random.Range(-dispersion, dispersion));
                 if(Random.Range(0f, 1f) > 0.3)
-                    combine[i * density + j].mesh = GetStringB();
+                    combine[i * density + j].mesh = GetStringB(width + Random.Range(-0.1f, 0f), height + Random.Range(-0.1f, 0.1f));
                 else
-                    combine[i * density + j].mesh = GetStringA();
+                    combine[i * density + j].mesh = GetStringA(width + Random.Range(-0.1f, 0f), height + Random.Range(-0.1f, 0.1f));
                 combine[i * density + j].transform = Matrix4x4.TRS(new Vector3(i * delta - 2f + 0.5f * dispersion, 0, j * delta - 2f + 0.5f * dispersion) + dp, Quaternion.Euler(0, Random.Range(0, 180), 0), Vector3.one + ds);
             }
         GetComponent<MeshFilter>().mesh = new Mesh();
@@ -39,7 +39,7 @@ public class Grass : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, Random.Range(0, 3) * 90f, 0);
     }
 
-    private Mesh GetStringA()
+    private Mesh GetStringA(float w, float h)
     {
         Mesh mesh = new Mesh();
 
@@ -54,9 +54,7 @@ public class Grass : MonoBehaviour
         vertices.Add(new Vector3(-0.6f * w, 0.6f * h, 0));
         vertices.Add(new Vector3( 0.6f * w, 0.6f * h, 0));
         vertices.Add(new Vector3(0, h, 0));
-
-
-
+        
         triangles.Add(0); triangles.Add(2); triangles.Add(1);
         triangles.Add(2); triangles.Add(3); triangles.Add(1);
         triangles.Add(3); triangles.Add(2); triangles.Add(4);
@@ -70,7 +68,7 @@ public class Grass : MonoBehaviour
         MakeDoubleFaced(mesh);
         return mesh;
     }
-    private Mesh GetStringB()
+    private Mesh GetStringB(float w, float h)
     {
         Mesh mesh = new Mesh();
 
@@ -97,7 +95,6 @@ public class Grass : MonoBehaviour
         MakeDoubleFaced(mesh);
         return mesh;
     }
-
     private void MakeDoubleFaced(Mesh mesh)
     {
         var vertices = mesh.vertices;

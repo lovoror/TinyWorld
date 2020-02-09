@@ -69,7 +69,7 @@ public class Map : MonoBehaviour
                                 if (n && n.name == "Grass")
                                     grassNeighbours++;
                             }
-                            grass.InitializeFromPool(grassNeighbours - 1);
+                            grass.InitializeFromPool(Mathf.Clamp(grassNeighbours - 1 + Random.Range(-1, 1), 0, 8));
                         }
 
                         // dirt tiles initialization
@@ -129,6 +129,25 @@ public class Map : MonoBehaviour
                         {
                             ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
                             bridge.Initialize(xm && xm.prefab3d && xm.prefab3d.name == "Dirt");
+                        }
+
+                        // stone tiles initialization
+                        Stone stone = go.GetComponent<Stone>();
+                        if (stone)
+                        {
+                            BoundsInt area = new BoundsInt();
+                            area.min = cellPosition + new Vector3Int(-1, -1, 0);
+                            area.max = cellPosition + new Vector3Int(2, 2, 1);
+                            TileBase[] neighbours = tilemap.GetTilesBlock(area);
+
+                            int grassNeighbours = 0;
+                            for (int i = 0; i < neighbours.Length; i++)
+                            {
+                                ScriptableTile n = (ScriptableTile)neighbours[i];
+                                if (n && (n.name == "Grass" || n.name.Contains("Crop")))
+                                    grassNeighbours++;
+                            }
+                            stone.Initialize(2 - grassNeighbours / 3);
                         }
                     }
                 }

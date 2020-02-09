@@ -23,6 +23,7 @@
 
 		Pass
 		{
+			Lighting On
 			Tags {"LightMode" = "ForwardBase"}
 
 			CGPROGRAM
@@ -32,18 +33,19 @@
 
 			#include "UnityCG.cginc"
 			#include "AutoLight.cginc"
+			#include "Lighting.cginc"
 
 			sampler2D _WindField;
 			uniform float4 _Color, _SubColor, _Wind;
 			float _DiffusePower, _Scale, _Power, _Distortion, _Thickness, _WindFactor;
-			uniform float4 _LightColor0;
 	
             struct v2f
             {
-                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-				float4 posWorld : TEXCOORD3;
+				float4 posWorld : TEXCOORD0;
 				float3 normal : NORMAL;
+				LIGHTING_COORDS(2, 3)
+				UNITY_FOG_COORDS(1)
             };
 
             v2f vert (appdata_base v)
@@ -54,13 +56,15 @@
 				o.vertex = UnityObjectToClipPos(v.vertex + _WindFactor * float4(dp, 0));
 				o.posWorld = mul(unity_ObjectToWorld, v.vertex);
 				o.normal = normalize(mul(float4(v.normal, 0.0), unity_WorldToObject).xyz);
-                UNITY_TRANSFER_FOG(o, o.vertex);
+				TRANSFER_VERTEX_TO_FRAGMENT(o);
+				UNITY_TRANSFER_FOG(o, o.vertex);
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag (v2f i) : COLOR
             {
 				// standard
+				fixed atten = LIGHT_ATTENUATION(i);
 				float3 normalDirection = normalize(i.normal);
 				float3 viewDirection = normalize(_WorldSpaceCameraPos - i.posWorld.xyz);
 				float3 lightDirection = _WorldSpaceLightPos0.xyz - i.posWorld.xyz * _WorldSpaceLightPos0.w;
@@ -74,13 +78,16 @@
 				fixed3 transAlbedo = _Color * _LightColor0.rgb * transLight;
 
 				// phong lightning
-				float3 ambientLighting = UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
+				float3 ambientLighting = (2-_DiffusePower) * UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
 				float3 diffuseReflection = attenuation * _LightColor0.rgb * _Color.rgb * max(0.0, dot(normalDirection, lightDirection));
 				float3 color = (ambientLighting + _DiffusePower * diffuseReflection + transAlbedo) * _Color.xyz +transAlbedo;
 
+				//
+				//fixed3 finalColor = UNITY_LIGHTMODEL_AMBIENT.xyz + _LightColor0.rgb * atten * _Color;
+
                 // apply fog
 				fixed4 col = fixed4(color, 1.0);
-                UNITY_APPLY_FOG(i.fogCoord, col);
+                //UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             ENDCG

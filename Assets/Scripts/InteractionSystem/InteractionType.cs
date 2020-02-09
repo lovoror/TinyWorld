@@ -11,7 +11,15 @@ public class InteractionType : MonoBehaviour
         pickableWeapon,
         pickableSecond,
         pickableBody,
-        pickableShield
+        pickableShield,
+
+        collectWood,
+        collectStone,
+        collectIron,
+        collectGold,
+        collectCrystal,
+
+        collectWheet
     };
     public Type type;
 }
