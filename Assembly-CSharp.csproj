@@ -131,10 +131,11 @@
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\ScriptableTile.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Bridge.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Dirt.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Grass.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\MineralRessource.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\ScriptableTile.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Stone.cs" />
     <Compile Include="Assets\Scripts\TileScripts\TilePrefabsContainer.cs" />
     <Compile Include="Assets\Scripts\TileScripts\TreeComponent.cs" />

@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private RaycastHit[] scanResults = new RaycastHit[20];
     private int scanLength;
     private float grounded = 0f;
+    private bool needEquipementAnimaionUpdate = false;
 
     void Start()
     {
@@ -93,8 +94,9 @@ public class PlayerController : MonoBehaviour
                 {
                     Interact(interaction.type, go);
                 }
+                if(needEquipementAnimaionUpdate)
+                    AnimationParameterRefresh();
             }
-            AnimationParameterRefresh();
         }
 
         if ((controller.isGrounded || grounded < 0.2f) && !attacking)
@@ -160,6 +162,7 @@ public class PlayerController : MonoBehaviour
                 if (item.forbidShield)
                     shield.Equip(ShieldItem.Type.None);
                 success = true;
+                needEquipementAnimaionUpdate = true;
             }
         }
         else if (type == InteractionType.Type.pickableBackpack)
@@ -167,12 +170,14 @@ public class PlayerController : MonoBehaviour
             BackpackItem item = interactor.GetComponent<BackpackItem>();
             if(item && backpack.Equip(item.type))
                 success = true;
+            needEquipementAnimaionUpdate = true;
         }
         else if (type == InteractionType.Type.pickableHead)
         {
             HeadItem item = interactor.GetComponent<HeadItem>();
             if (item && head.Equip(item.type))
                 success = true;
+            needEquipementAnimaionUpdate = true;
         }
         else if (type == InteractionType.Type.pickableSecond)
         {
@@ -184,6 +189,7 @@ public class PlayerController : MonoBehaviour
                 if (item.forbidShield)
                     shield.Equip(ShieldItem.Type.None);
                 success = true;
+                needEquipementAnimaionUpdate = true;
             }
         }
         else if (type == InteractionType.Type.pickableShield)
@@ -196,6 +202,7 @@ public class PlayerController : MonoBehaviour
                 if (secondHand.equipedItem.forbidShield)
                     secondHand.Equip(SecondItem.Type.None);
                 success = true;
+                needEquipementAnimaionUpdate = true;
             }
         }
         else if (type == InteractionType.Type.pickableBody)
@@ -203,6 +210,7 @@ public class PlayerController : MonoBehaviour
             BodyItem item = interactor.GetComponent<BodyItem>();
             if (item && body.Equip(item.type))
                 success = true;
+            needEquipementAnimaionUpdate = true;
         }
         else
         {
@@ -247,6 +255,8 @@ public class PlayerController : MonoBehaviour
         clipOverrides["run"] = clips[2];
         clipOverrides["attack"] = clips[3];
         animatorOverrideController.ApplyOverrides(clipOverrides);
+
+        needEquipementAnimaionUpdate = false;
     }
 
     public void AttackEnd()

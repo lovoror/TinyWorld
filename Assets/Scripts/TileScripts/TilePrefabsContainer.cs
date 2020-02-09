@@ -17,7 +17,10 @@ public class TilePrefabsContainer : MonoBehaviour
     public List<GameObject> bigStones;
     public List<GameObject> midStones;
     public List<GameObject> smallStones;
+
     public List<OreComponent> ores = new List<OreComponent>();
+    public List<Material> oreMaterialsList = new List<Material>();
+    private Dictionary<string, Material> oreMaterials;
 
     // Singleton struct
     private static TilePrefabsContainer _instance;
@@ -153,23 +156,25 @@ public class TilePrefabsContainer : MonoBehaviour
             if(ore)
             {
                 GameObject newore = Instantiate(go);
+                newore.name += "_ore";                    
                 newore.transform.parent = container.transform;
                 newore.transform.localPosition = go.transform.localPosition + new Vector3(0, 6f, 0);
 
                 OreComponent ore2 = newore.GetComponent<OreComponent>();
-
-                foreach (GameObject orePart in ore2.orePlacement)
-                    orePart.SetActive(true);
-
                 ores.Add(ore2);
 
-                foreach (GameObject orePart in ore2.orePlacement)
-                    Destroy(orePart);
-                Destroy(ore);
+                foreach (GameObject orePart in ore.orePlacement)
+                    DestroyImmediate(orePart);
+                DestroyImmediate(ore);
             }
         }
-
         container.SetActive(false);
+
+        oreMaterials = new Dictionary<string, Material>();
+        foreach(Material m in oreMaterialsList)
+        {
+            oreMaterials[m.name] = m;
+        }
     }
 
     public Mesh GetDirtA() { return dirtMeshes[5 * diversity]; }
@@ -211,8 +216,24 @@ public class TilePrefabsContainer : MonoBehaviour
             default: return null;
         }
     }
-    /*public GameObject GetOre(int ressource)
+    public GameObject GetOre(string ressource)
     {
-        
-    }*/
+        GameObject go = Instantiate(ores[Random.Range(0, ores.Count - 1)].gameObject);
+        GameObject interactor = go.transform.Find("Interactor").gameObject;
+        InteractionType interaction = interactor.GetComponent<InteractionType>();
+
+        Material m = oreMaterials[ressource];
+        foreach (GameObject ore in go.GetComponent<OreComponent>().orePlacement)
+            ore.GetComponent<MeshRenderer>().material = m;
+
+        switch(ressource)
+        {
+            case "Iron": interaction.type = InteractionType.Type.collectIron; break;
+            case "Gold": interaction.type = InteractionType.Type.collectGold; break;
+            case "Crystal": interaction.type = InteractionType.Type.collectCrystal; break;
+            default: break;
+        }
+
+        return go;
+    }
 }

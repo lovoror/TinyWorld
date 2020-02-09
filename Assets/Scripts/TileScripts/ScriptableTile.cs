@@ -7,4 +7,5 @@ using UnityEngine.Tilemaps;
 public class ScriptableTile : Tile
 {
     public GameObject prefab3d;
+    public Material option1;
 }

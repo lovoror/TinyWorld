@@ -87,7 +87,7 @@
 
                 // apply fog
 				fixed4 col = fixed4(color, 1.0);
-                //UNITY_APPLY_FOG(i.fogCoord, col);
+                UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             ENDCG

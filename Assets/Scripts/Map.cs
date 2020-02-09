@@ -149,6 +149,13 @@ public class Map : MonoBehaviour
                             }
                             stone.Initialize(2 - grassNeighbours / 3);
                         }
+
+                        // minerals tiles initialization
+                        MineralRessource mineral = go.GetComponent<MineralRessource>();
+                        if (mineral)
+                        {
+                            mineral.Initialize(tile.option1);
+                        }
                     }
                 }
             }
