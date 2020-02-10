@@ -49,9 +49,9 @@ public class WindAnimation : MonoBehaviour
                     iterativePath.Push(child);
 
                 // process current bone
-                Vector3 axis = Vector3.Cross(transform.InverseTransformDirection(wind), bone.localPosition);
+                Vector3 axis = Vector3.Cross(transform.InverseTransformDirection(wind), bone.localPosition).normalized;
                 Quaternion q = Quaternion.AngleAxis(wind.magnitude * transform.lossyScale.y * 0.01f, axis);
-                bone.localRotation = initialRotation[bone] * q;
+                bone.localRotation = q * initialRotation[bone];
             }
         }
     }

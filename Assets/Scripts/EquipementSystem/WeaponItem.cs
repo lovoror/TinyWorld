@@ -48,4 +48,16 @@ public class WeaponItem : MonoBehaviour
         destination.animationCode = source.animationCode;
         destination.load = source.load;
     }
+
+    // helper for interaction system
+    static public bool isAxe(Type type)
+    {
+        Type[] axeList = { Type.AxeA, Type.AxeB, Type.AxeC, Type.AxeD, Type.AxeE, Type.BigAxeA, Type.BigAxeB };
+        foreach(Type axe in axeList)
+        {
+            if (axe == type)
+                return true;
+        }
+        return false;
+    }
 }

@@ -22,4 +22,12 @@ public class InteractionType : MonoBehaviour
         collectWheet
     };
     public Type type;
+
+    static public bool isCollectingMinerals(InteractionType.Type type)
+    {
+        Type[] mineralList = { Type.collectStone, Type.collectIron, Type.collectGold, Type.collectCrystal };
+        foreach (Type t in mineralList)
+            if (t == type) return true;
+        return false;
+    }
 }

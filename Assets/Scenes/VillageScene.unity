@@ -6019,7 +6019,7 @@ PrefabInstance:
     - target: {fileID: 274576173308503113, guid: 2a7956e97e3788244962de36794e6cee,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -69.8
+      value: -209.4
       objectReference: {fileID: 0}
     - target: {fileID: 274576173308503113, guid: 2a7956e97e3788244962de36794e6cee,
         type: 3}
@@ -6029,7 +6029,7 @@ PrefabInstance:
     - target: {fileID: 274576173308503113, guid: 2a7956e97e3788244962de36794e6cee,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.11
+      value: 131.3
       objectReference: {fileID: 0}
     - target: {fileID: 274576173308503113, guid: 2a7956e97e3788244962de36794e6cee,
         type: 3}
@@ -6070,6 +6070,236 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: collectMineralsClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: interactCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].time
+      value: 0.093821265
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].value
+      value: 0.9826896
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].time
+      value: 0.22237153
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[0].inSlope
+      value: 10.474061
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[0].outSlope
+      value: 10.474061
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].inSlope
+      value: 0.720521
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[1].outSlope
+      value: 0.720521
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].inSlope
+      value: -1.9026537
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].outSlope
+      value: -1.9026537
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].value
+      value: -0.17850739
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[2].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].time
+      value: 0.31868568
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].inSlope
+      value: -5.394604
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].outSlope
+      value: -5.394604
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].inWeight
+      value: 0.16128689
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].value
+      value: 0.32499522
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[3].outWeight
+      value: 0.1748434
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].time
+      value: 0.5659377
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].inSlope
+      value: 1.2772028
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].outSlope
+      value: 1.2772028
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].inWeight
+      value: 0.075715244
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].value
+      value: 0.03700362
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[4].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[5].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[5].inSlope
+      value: 0.27700317
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[5].outSlope
+      value: 0.27700317
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[5].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: woodCuttingAnimation.m_Curve.Array.data[5].inWeight
+      value: 0.11113613
+      objectReference: {fileID: 0}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: collectMineralsClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a851cf5c109f124296e9b20258eef6d, type: 3}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: collectMineralsClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e9be0cfe377e23c42a8b83ef2f778aa4, type: 3}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: collectMineralsClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 440737a9faa68c84ebf9b0f541ba895c, type: 3}
+    - target: {fileID: 274576174245912502, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: collectMineralsClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: f0ced281186a54942a2911510b31e48d, type: 3}
+    - target: {fileID: 5248489279427965496, guid: 2a7956e97e3788244962de36794e6cee,
+        type: 3}
+      propertyPath: type
+      value: 37
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a7956e97e3788244962de36794e6cee, type: 3}
@@ -6162,7 +6392,7 @@ PrefabInstance:
     - target: {fileID: 8730490982015208158, guid: a40a418a18d8333449d0e93b3032ed09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -70.3
+      value: -209.4
       objectReference: {fileID: 0}
     - target: {fileID: 8730490982015208158, guid: a40a418a18d8333449d0e93b3032ed09,
         type: 3}
@@ -6172,7 +6402,7 @@ PrefabInstance:
     - target: {fileID: 8730490982015208158, guid: a40a418a18d8333449d0e93b3032ed09,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.89
+      value: 125.7
       objectReference: {fileID: 0}
     - target: {fileID: 8730490982015208158, guid: a40a418a18d8333449d0e93b3032ed09,
         type: 3}
