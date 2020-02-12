@@ -22,6 +22,10 @@ public class HeadItem : MonoBehaviour
         CrownA, CrownB, CrownC, CrownD, CrownE,
         HelmK, HelmL
     };
+    public enum Category
+    {
+        Cloth, Light, Medium, Heavy
+    };
     public Type type = Type.None;
     public float load = 0f;
 
@@ -34,5 +38,67 @@ public class HeadItem : MonoBehaviour
     {
         destination.type = source.type;
         destination.load = source.load;
+    }
+
+    // helper for interaction system
+    static public Category getCategory(Type type)
+    {
+        switch (type)
+        {
+            case Type.ChainmailA:
+            case Type.ChainmailB:
+            case Type.ChainmailC:
+            case Type.ChainmailD:
+            case Type.ChainmailE:
+            case Type.ChainmailF:
+                return Category.Light;
+            case Type.SpangenhelmA:
+            case Type.SpangenhelmB:
+            case Type.SpangenhelmC:
+            case Type.SalletA:
+            case Type.SalletB:
+            case Type.SalletC:
+            case Type.SalletD:
+            case Type.SalletE:
+            case Type.SalletF:
+            case Type.SalletG:
+            case Type.SalletH:
+            case Type.SalletI:
+            case Type.SalletJ:
+
+
+            case Type.BacinetA:
+            case Type.BacinetB:
+            case Type.BacinetC:
+            case Type.BacinetD:
+            case Type.BacinetE:
+            case Type.HelmA:
+            case Type.HelmB:
+            case Type.HelmC:
+            case Type.HelmD:
+            case Type.HelmE:
+            case Type.HelmF:
+            case Type.HelmG:
+            case Type.HelmH:
+            case Type.HelmI:
+            case Type.HelmJ:
+            case Type.HelmK:
+            case Type.HelmL:
+            case Type.HornA:
+            case Type.HornB:
+            case Type.HornC:
+            case Type.HornD:
+            case Type.HornE:
+            case Type.HornF:
+            case Type.HornG:
+            case Type.HornH:
+            case Type.HornI:
+            case Type.CrownC:
+            case Type.CrownD:
+            case Type.CrownE:
+                return Category.Heavy;
+            default:
+                return Category.Cloth;
+        }
     }
 }

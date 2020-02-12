@@ -62,7 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\OreComponent.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -126,10 +125,13 @@
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponItem.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponSlot.cs" />
     <Compile Include="Assets\Scripts\GenerateBillboard.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\CollectData.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\InteractionJuicer.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionType.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\SpecialPickableShopArsenal.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
+    <Compile Include="Assets\Scripts\OreComponent.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Bridge.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Dirt.cs" />

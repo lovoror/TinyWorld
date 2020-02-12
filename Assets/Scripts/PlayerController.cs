@@ -34,15 +34,19 @@ public class PlayerController : MonoBehaviour
     public InteractionType.Type interactionType;
     private bool needEquipementAnimaionUpdate = false;
     private IEnumerator woodCuttingCoroutine;
+    public InteractionJuicer interactionJuicer;
 
     [Header("Sound data")]
     public List<AudioClip> chopWoodClips;
     private AudioSource audiosource;
     public List<AudioClip> collectMineralsClips;
+    public List<AudioClip> wearHead; // suitHeavyHarmor3
+    public List<AudioClip> wearBody; // suitHeavyHarmor4
+    public List<AudioClip> movementHeavy;
 
     [Header("Debug")]
     public Transform interactionBox;
-    public GameObject currentInteractor;
+    public GameObject currentInteractor = null;
 
     private CharacterController controller;
     private Animator animator;
@@ -78,8 +82,7 @@ public class PlayerController : MonoBehaviour
 
         AnimationParameterRefresh();
     }
-
-
+    
     void Update()
     {
         float speedFactor = Input.GetKey(KeyCode.LeftShift) ? 2 : 1;
@@ -115,7 +118,7 @@ public class PlayerController : MonoBehaviour
                     AnimationParameterRefresh();
             }
         }
-        interacting = interactionDelay > 0f;
+        interacting = currentInteractor && interactionDelay > 0f;
         animator.SetBool("interaction", interacting);
 
         // movement
@@ -155,10 +158,14 @@ public class PlayerController : MonoBehaviour
         {
             direction = (target - transform.position).normalized;
         }
+        else if(interacting)
+        {
+            direction = (currentInteractor.transform.position - transform.position).normalized;
+        }
         if (direction.x != 0f || direction.z != 0f)
         {
             Quaternion goal = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, goal, (attacking ? aimingAttackSpeed : aimingSpeed) * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, goal, (attacking | interacting ? aimingAttackSpeed : aimingSpeed) * Time.deltaTime);
         }
 
         if ((direction.x != 0f || direction.z != 0f) && Input.GetKey(KeyCode.LeftShift) && Random.Range(0,4) == 0)
@@ -301,7 +308,10 @@ public class PlayerController : MonoBehaviour
             if (item && head.Equip(item.type))
             {
                 success = true;
-                //needEquipementAnimaionUpdate = true;
+                needEquipementAnimaionUpdate = true;
+                int index = Mathf.Clamp((int)HeadItem.getCategory(head.equipedItem.type), 0, wearHead.Count - 1);
+                audiosource.clip = wearHead[index];
+                audiosource.Play();
             }
         }
         else if (type == InteractionType.Type.pickableSecond)
@@ -336,7 +346,10 @@ public class PlayerController : MonoBehaviour
             if (item && body.Equip(item.type))
             {
                 success = true;
-                //needEquipementAnimaionUpdate = true;
+                needEquipementAnimaionUpdate = true;
+                int index = Mathf.Clamp((int)BodyItem.getCategory(body.equipedItem.type), 0, wearBody.Count - 1);
+                audiosource.clip = wearBody[index];
+                audiosource.Play();
             }
         }
         return success;
@@ -352,15 +365,32 @@ public class PlayerController : MonoBehaviour
         interactionDelay = interactCooldown;
         if(currentInteractor && interactionType == InteractionType.Type.collectWood)
         {
-            woodCuttingCoroutine  = WoodCuttingAnimation(currentInteractor);
-            StartCoroutine(woodCuttingCoroutine);
-            audiosource.clip = chopWoodClips[Random.Range(0, chopWoodClips.Count)];
-            audiosource.Play();
+            CommonRessourceCollectionResolve(chopWoodClips[Random.Range(0, chopWoodClips.Count)]);
+            if(currentInteractor)
+            {
+                woodCuttingCoroutine = WoodCuttingAnimation(currentInteractor);
+                StartCoroutine(woodCuttingCoroutine);
+            }
         }
         else if(InteractionType.isCollectingMinerals(interactionType))
         {
-            audiosource.clip = collectMineralsClips[Random.Range(0, collectMineralsClips.Count)];
-            audiosource.Play();
+            CommonRessourceCollectionResolve(collectMineralsClips[Random.Range(0, collectMineralsClips.Count)]);
+        }
+    }
+    private void CommonRessourceCollectionResolve(AudioClip soundFx)
+    {
+        audiosource.clip = soundFx;
+        audiosource.Play();
+        interactionJuicer.LaunchAnim("+" + Random.Range(1, 4).ToString(), interactionType);
+
+        CollectData data = currentInteractor.GetComponent<CollectData>();
+        data.ressourceCount--;
+        if (data.ressourceCount <= 0)
+        {
+            Destroy(currentInteractor.transform.parent.gameObject);
+            interactionDelay = 0;
+            interacting = false;
+            currentInteractor = null;
         }
     }
     private IEnumerator WoodCuttingAnimation(GameObject interactor)
@@ -372,6 +402,8 @@ public class PlayerController : MonoBehaviour
         int speed = 30;
         for (int i = 0; i< speed; i++)
         {
+            if (!currentInteractor)
+                break;
             tree.rotation = Quaternion.Lerp(initial, q, woodCuttingAnimation.Evaluate((float)i / speed));
             yield return null;
         }

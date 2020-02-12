@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 3163897500171959505}
   - component: {fileID: 3651402119841974330}
   - component: {fileID: 8400165569827574034}
+  - component: {fileID: 8529089452741678729}
   m_Layer: 8
   m_Name: Interactor
   m_TagString: Untagged
@@ -503,6 +504,19 @@ CapsuleCollider:
   m_Height: 2.14
   m_Direction: 1
   m_Center: {x: 0, y: 0.69, z: 0}
+--- !u!114 &8529089452741678729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5896515940328060858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23d8c36ce23eb540810f9be9c9db04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ressourceCount: 0
 --- !u!1 &7454595954609278723
 GameObject:
   m_ObjectHideFlags: 0
