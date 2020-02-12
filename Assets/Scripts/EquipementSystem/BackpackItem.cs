@@ -9,7 +9,8 @@ public class BackpackItem : MonoBehaviour
     {
         None,
         QuiverA,
-        QuiverB
+        QuiverB,
+        RessourceContainer
     };
     public Type type = Type.None;
     public float load = 0f;

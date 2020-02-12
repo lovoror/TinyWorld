@@ -223,6 +223,8 @@ public class Arsenal : MonoBehaviour
             MeshFilter mf = item.Value.gameObject.GetComponent<MeshFilter>();
             SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
             pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
             if (mf) pickable.itemMesh.mesh = mf.mesh;
             else pickable.itemMesh.gameObject.SetActive(false);
             pickable.body.gameObject.SetActive(false);
@@ -247,6 +249,8 @@ public class Arsenal : MonoBehaviour
             MeshFilter mf = item.Value.gameObject.GetComponent<MeshFilter>();
             SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
             pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
             if (mf) pickable.itemMesh.mesh = mf.mesh;
             else pickable.itemMesh.gameObject.SetActive(false);
             pickable.body.gameObject.SetActive(false);
@@ -271,6 +275,8 @@ public class Arsenal : MonoBehaviour
             MeshFilter mf = item.Value.gameObject.GetComponent<MeshFilter>();
             SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
             pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
             if (mf) pickable.itemMesh.mesh = mf.mesh;
             else pickable.itemMesh.gameObject.SetActive(false);
             pickable.body.gameObject.SetActive(false);
@@ -295,6 +301,8 @@ public class Arsenal : MonoBehaviour
             MeshFilter mf = item.Value.gameObject.GetComponent<MeshFilter>();
             SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
             pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
             if (mf) pickable.itemMesh.mesh = mf.mesh;
             else pickable.itemMesh.gameObject.SetActive(false);
             pickable.body.gameObject.SetActive(false);
@@ -319,6 +327,8 @@ public class Arsenal : MonoBehaviour
             MeshFilter mf = item.Value.gameObject.GetComponent<MeshFilter>();
             SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
             pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
             if (mf) pickable.itemMesh.mesh = mf.mesh;
             else pickable.itemMesh.gameObject.SetActive(false);
             pickable.body.gameObject.SetActive(false);
@@ -343,6 +353,8 @@ public class Arsenal : MonoBehaviour
             SkinnedMeshRenderer skin = item.Value.gameObject.GetComponent<SkinnedMeshRenderer>();
             SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
             pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
             pickable.itemMesh.gameObject.SetActive(false);
 
             if (skin) BodySlot.CopySkinnedMesh(skin, pickable.body);

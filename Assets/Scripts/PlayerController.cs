@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private bool needEquipementAnimaionUpdate = false;
     private IEnumerator woodCuttingCoroutine;
     public InteractionJuicer interactionJuicer;
+    public RessourceContainer ressourceContainer;
+    public InventoryViewer inventoryViewer;
 
     [Header("Sound data")]
     public List<AudioClip> chopWoodClips;
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        float speedFactor = Input.GetKey(KeyCode.LeftShift) ? 2 : 1;
+        float speedFactor = Input.GetKey(KeyCode.LeftShift) && loadFactor > 0.75f ? 2 : 1;
         direction = Vector3.zero;
 
         // action or attack
@@ -106,20 +108,18 @@ public class PlayerController : MonoBehaviour
         // interaction
         else if(scanLength != 0 && Input.GetKeyDown(KeyCode.Space) && !interacting)
         {
-            for(int i=0; i<scanLength; i++)
+            GameObject go = scanResults[0].collider.gameObject;
+            InteractionType[] interactions = go.GetComponents<InteractionType>();
+            foreach (InteractionType interaction in interactions)
             {
-                GameObject go = scanResults[i].collider.gameObject;
-                InteractionType[] interactions = go.GetComponents<InteractionType>();
-                foreach(InteractionType interaction in interactions)
-                {
-                    Interact(interaction.type, go);
-                }
-                if(needEquipementAnimaionUpdate)
-                    AnimationParameterRefresh();
+                Interact(interaction.type, go);
             }
+            if (needEquipementAnimaionUpdate)
+                AnimationParameterRefresh();
         }
         interacting = currentInteractor && interactionDelay > 0f;
         animator.SetBool("interaction", interacting);
+
 
         // movement
         if ((controller.isGrounded || grounded < 0.2f) && !attacking && !interacting)
@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, goal, (attacking | interacting ? aimingAttackSpeed : aimingSpeed) * Time.deltaTime);
         }
 
-        if ((direction.x != 0f || direction.z != 0f) && Input.GetKey(KeyCode.LeftShift) && Random.Range(0,4) == 0)
+        if ((direction.x != 0f || direction.z != 0f) && speedFactor >= 2 && Random.Range(0,4) == 0)
         {
             particles.Emit(emitParams, 1);
         }
@@ -256,25 +256,36 @@ public class PlayerController : MonoBehaviour
     private bool collectRessourceInteraction(InteractionType.Type type, GameObject interactor)
     {
         bool success = false;
-        if(type == InteractionType.Type.collectWood)
+
+        // test if interraction possible and do it
+        if(backpack.equipedItem.type == BackpackItem.Type.RessourceContainer && ressourceContainer.HasSpace())
         {
-            if (WeaponItem.isAxe(weapon.equipedItem.type))
+            if(type == InteractionType.Type.collectWood)
             {
-                interactionDelay = interactCooldown;
-                animator.SetTrigger("interact");
-                currentInteractor = interactor;
-                interactionType = type;
+                if (WeaponItem.isAxe(weapon.equipedItem.type))
+                {
+                    interactionDelay = interactCooldown;
+                    animator.SetTrigger("interact");
+                    currentInteractor = interactor;
+                    interactionType = type;
+                }
+            }
+            else
+            {
+                if(weapon.equipedItem.type == WeaponItem.Type.Pickaxe)
+                {
+                    interactionDelay = interactCooldown;
+                    animator.SetTrigger("interact");
+                    currentInteractor = interactor;
+                    interactionType = type;
+                }
             }
         }
-        else
+
+        // something made it not possible
+        if(!success)
         {
-            if(weapon.equipedItem.type == WeaponItem.Type.Pickaxe)
-            {
-                interactionDelay = interactCooldown;
-                animator.SetTrigger("interact");
-                currentInteractor = interactor;
-                interactionType = type;
-            }
+            Debug.Log("interraction not possible");
         }
         return success;
     }
@@ -379,10 +390,22 @@ public class PlayerController : MonoBehaviour
     }
     private void CommonRessourceCollectionResolve(AudioClip soundFx)
     {
+        // play sound, and juice, and update inventory
         audiosource.clip = soundFx;
         audiosource.Play();
-        interactionJuicer.LaunchAnim("+" + Random.Range(1, 4).ToString(), interactionType);
+        int gain = Random.Range(1, 4);
+        interactionJuicer.LaunchAnim("+" + gain.ToString(), interactionType);
+        
+        // update inventory and compute load
+        ressourceContainer.AddItem(TilePrefabsContainer.Instance.GetRessourceMaterial(interactionType), gain);
+        if (inventoryViewer.visible)
+            inventoryViewer.UpdateContent();
+        backpack.equipedItem.load = 0.3f + 0.3f * ressourceContainer.load;
+        float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
+        loadFactor = loadCurve.Evaluate(0.1f * f);
+        animator.SetFloat("loadFactor", loadFactor);
 
+        // decrement interactor ressource count
         CollectData data = currentInteractor.GetComponent<CollectData>();
         data.ressourceCount--;
         if (data.ressourceCount <= 0)
@@ -391,6 +414,13 @@ public class PlayerController : MonoBehaviour
             interactionDelay = 0;
             interacting = false;
             currentInteractor = null;
+        }
+
+        // stop interaction loop if needed
+        if(!ressourceContainer.HasSpace())
+        {
+            interactionDelay = 0;
+            animator.SetBool("interaction", false);
         }
     }
     private IEnumerator WoodCuttingAnimation(GameObject interactor)
