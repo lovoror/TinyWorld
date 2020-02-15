@@ -10,13 +10,14 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 4;
     public float gravity = 8;
     public float attackCooldown = 0.8f;
-    private float attackDelay = 0f;
     public bool attacking;
     public float loadFactor = 0f;
     public AnimationCurve loadCurve;
-    private float grounded = 0f;
 
-    [Header("Equipement slots")]
+    private float grounded = 0f;
+    private float attackDelay = 0f;
+    
+    [Header("Equipement")]
     public WeaponSlot weapon;
     public SecondSlot secondHand;
     public ShieldSlot shield;
@@ -24,38 +25,40 @@ public class PlayerController : MonoBehaviour
     public HeadSlot head;
     public BodySlot body;
 
-    [Header("Interaction data")]
+    [Header("Interaction")]
     public bool interacting;
-    private RaycastHit[] scanResults = new RaycastHit[20];
-    private int scanLength;
-    public float interactCooldown = 0.8f;
-    private float interactionDelay = 0f;
-    public AnimationCurve woodCuttingAnimation;
+    public float collectCooldown = 0.8f;
+    public float pickCooldown = 2f;
     public InteractionType.Type interactionType;
-    private bool needEquipementAnimaionUpdate = false;
-    private IEnumerator woodCuttingCoroutine;
+    public GameObject currentInteractor = null;
     public InteractionJuicer interactionJuicer;
     public RessourceContainer ressourceContainer;
     public InventoryViewer inventoryViewer;
+    public InteractionHelper interactionHelper;
 
-    [Header("Sound data")]
+    private bool needEquipementAnimaionUpdate = false;
+    private float interactionDelay = 0f;
+    public float interactionConfirmedDelay = 0f;
+    private RaycastHit[] scanResults = new RaycastHit[20];
+    private int scanLength;
+    private Dictionary<string, string> interactionConditionList = new Dictionary<string, string>();
+
+    [Header("Sounds")]
     public List<AudioClip> chopWoodClips;
-    private AudioSource audiosource;
     public List<AudioClip> collectMineralsClips;
-    public List<AudioClip> wearHead; // suitHeavyHarmor3
-    public List<AudioClip> wearBody; // suitHeavyHarmor4
+    public List<AudioClip> wearHead;
+    public List<AudioClip> wearBody;
     public List<AudioClip> movementHeavy;
-
+    private AudioSource audiosource;
+    
     [Header("Debug")]
     public Transform interactionBox;
-    public GameObject currentInteractor = null;
 
     private CharacterController controller;
     private Animator animator;
-    protected AnimatorOverrideController animatorOverrideController;
-    protected AnimationClipOverrides clipOverrides;
+    private AnimatorOverrideController animatorOverrideController;
+    private AnimationClipOverrides clipOverrides;
     private ParticleSystem particles;
-
     private Vector3 direction = Vector3.zero;
     private Vector3 target;
     private ParticleSystem.EmitParams emitParams;
@@ -117,9 +120,21 @@ public class PlayerController : MonoBehaviour
             if (needEquipementAnimaionUpdate)
                 AnimationParameterRefresh();
         }
-        interacting = currentInteractor && interactionDelay > 0f;
+        interacting = currentInteractor && (interactionDelay > 0f || interactionConfirmedDelay > 0f);
         animator.SetBool("interaction", interacting);
 
+        // interaction time integral
+        if (interacting && Input.GetKey(KeyCode.Space) && interactionConfirmedDelay > 0f)
+        {
+            interactionConfirmedDelay += Time.deltaTime;
+            if (interactionConfirmedDelay >= pickCooldown)
+            {
+                InteractionConfirmed();
+                interactionConfirmedDelay = 0f;
+            }
+        }
+        else interactionConfirmedDelay = 0f;
+        interactionJuicer.loadingRate = interactionConfirmedDelay / pickCooldown;
 
         // movement
         if ((controller.isGrounded || grounded < 0.2f) && !attacking && !interacting)
@@ -179,6 +194,19 @@ public class PlayerController : MonoBehaviour
         if (interactionDelay > 0 && !Input.GetKey(KeyCode.Space))
             interactionDelay -= Time.deltaTime;
     }
+    private void LateUpdate()
+    {
+        Vector3 size = new Vector3(controller.radius * 1.1f, 0.5f * controller.height, controller.radius * 1.1f);
+        Vector3 position = transform.TransformPoint(controller.center);
+        scanLength = Physics.BoxCastNonAlloc(position, size, Vector3.forward, scanResults, Quaternion.identity, 1f, 1 << 8);
+
+        if (scanLength > 0)
+            interactionJuicer.hovered = scanResults[0].collider.gameObject;
+        else interactionJuicer.hovered = null;
+
+        interactionBox.position = position;
+        interactionBox.localScale = 2*size;
+    }
 
     private bool Interact(InteractionType.Type type, GameObject interactor)
     {
@@ -193,7 +221,11 @@ public class PlayerController : MonoBehaviour
             case InteractionType.Type.pickableSecond:
             case InteractionType.Type.pickableShield:
             case InteractionType.Type.pickableWeapon:
-                success = pickableInteraction(type, interactor);
+                //success = pickableInteraction(type, interactor);
+                interactionType = type;
+                currentInteractor = interactor;
+                success = true;
+                interactionConfirmedDelay = 0.001f;
                 break;
 
             // standart ressources collection
@@ -213,16 +245,33 @@ public class PlayerController : MonoBehaviour
         }
         return success;
     }
-
-    
-    private void LateUpdate()
+    private void InteractionConfirmed()
     {
-        Vector3 size = new Vector3(controller.radius * 1.1f, 0.5f * controller.height, controller.radius * 1.1f);
-        Vector3 position = transform.TransformPoint(controller.center);
-        scanLength = Physics.BoxCastNonAlloc(position, size, Vector3.forward, scanResults, Quaternion.identity, 1f, 1 << 8);
+        switch (interactionType)
+        {
+            // pick an item
+            case InteractionType.Type.pickableBackpack:
+            case InteractionType.Type.pickableBody:
+            case InteractionType.Type.pickableHead:
+            case InteractionType.Type.pickableSecond:
+            case InteractionType.Type.pickableShield:
+            case InteractionType.Type.pickableWeapon:
+                pickableInteraction(interactionType, currentInteractor);
+                break;
 
-        interactionBox.position = position;
-        interactionBox.localScale = 2*size;
+            // standart ressources collection -> no confirmed action
+            case InteractionType.Type.collectStone:
+            case InteractionType.Type.collectIron:
+            case InteractionType.Type.collectGold:
+            case InteractionType.Type.collectCrystal:
+            case InteractionType.Type.collectWood:
+                break;
+
+            // error
+            default:
+                Debug.LogWarning("no interaction defined for this type " + interactionType.ToString());
+                break;
+        }
     }
 
     private void AnimationParameterRefresh()
@@ -238,12 +287,13 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("shield", shield.equipedItem.type != ShieldItem.Type.None);
 
         // compute load
-        float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load;
+        float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
         loadFactor = loadCurve.Evaluate(0.1f * f);
         animator.SetFloat("loadFactor", loadFactor);
 
         // load clips
-        AnimationClip[] clips = Arsenal.Instance.GetAnimationClip(ref weapon.equipedItem, ref secondHand.equipedItem, ref shield.equipedItem, ref body.equipedItem, ref head.equipedItem, ref backpack.equipedItem);
+        AnimationClip[] clips = Arsenal.Instance.GetAnimationClip(ref weapon.equipedItem, ref secondHand.equipedItem, ref shield.equipedItem, 
+                                                                  ref body.equipedItem, ref head.equipedItem, ref backpack.equipedItem);
         clipOverrides["idle"] = clips[0];
         clipOverrides["walk"] = clips[1];
         clipOverrides["run"] = clips[2];
@@ -252,7 +302,6 @@ public class PlayerController : MonoBehaviour
 
         needEquipementAnimaionUpdate = false;
     }
-
     private bool collectRessourceInteraction(InteractionType.Type type, GameObject interactor)
     {
         bool success = false;
@@ -264,20 +313,22 @@ public class PlayerController : MonoBehaviour
             {
                 if (WeaponItem.isAxe(weapon.equipedItem.type))
                 {
-                    interactionDelay = interactCooldown;
+                    interactionDelay = collectCooldown;
                     animator.SetTrigger("interact");
                     currentInteractor = interactor;
                     interactionType = type;
+                    success = true;
                 }
             }
             else
             {
                 if(weapon.equipedItem.type == WeaponItem.Type.Pickaxe)
                 {
-                    interactionDelay = interactCooldown;
+                    interactionDelay = collectCooldown;
                     animator.SetTrigger("interact");
                     currentInteractor = interactor;
                     interactionType = type;
+                    success = true;
                 }
             }
         }
@@ -285,11 +336,11 @@ public class PlayerController : MonoBehaviour
         // something made it not possible
         if(!success)
         {
-            Debug.Log("interraction not possible");
+            ComputeInteractionConditions(type);
+            interactionHelper.UpdateContent(interactionConditionList);
         }
         return success;
     }
-
     private bool pickableInteraction(InteractionType.Type type, GameObject interactor)
     {
         bool success = false;
@@ -363,6 +414,7 @@ public class PlayerController : MonoBehaviour
                 audiosource.Play();
             }
         }
+
         return success;
     }
 
@@ -373,15 +425,11 @@ public class PlayerController : MonoBehaviour
     }
     public void InteractionTick()
     {
-        interactionDelay = interactCooldown;
+        interactionDelay = collectCooldown;
         if(currentInteractor && interactionType == InteractionType.Type.collectWood)
         {
             CommonRessourceCollectionResolve(chopWoodClips[Random.Range(0, chopWoodClips.Count)]);
-            if(currentInteractor)
-            {
-                woodCuttingCoroutine = WoodCuttingAnimation(currentInteractor);
-                StartCoroutine(woodCuttingCoroutine);
-            }
+            interactionJuicer.treeInteractor = currentInteractor;
         }
         else if(InteractionType.isCollectingMinerals(interactionType))
         {
@@ -394,7 +442,8 @@ public class PlayerController : MonoBehaviour
         audiosource.clip = soundFx;
         audiosource.Play();
         int gain = Random.Range(1, 4);
-        interactionJuicer.LaunchAnim("+" + gain.ToString(), interactionType);
+        interactionJuicer.treeInteractor = currentInteractor;
+        interactionJuicer.LaunchGainAnim("+" + gain.ToString(), interactionType);
         
         // update inventory and compute load
         ressourceContainer.AddItem(TilePrefabsContainer.Instance.GetRessourceMaterial(interactionType), gain);
@@ -419,23 +468,32 @@ public class PlayerController : MonoBehaviour
         // stop interaction loop if needed
         if(!ressourceContainer.HasSpace())
         {
+            ComputeInteractionConditions(interactionType);
+            interactionHelper.UpdateContent(interactionConditionList);
             interactionDelay = 0;
             animator.SetBool("interaction", false);
         }
     }
-    private IEnumerator WoodCuttingAnimation(GameObject interactor)
+    private void ComputeInteractionConditions(InteractionType.Type type)
     {
-        Transform tree = interactor.transform.parent.Find("Armature");
-        Quaternion initial = tree.rotation;
-        Vector3 v = (tree.position - transform.position).normalized;
-        Quaternion q = Quaternion.AngleAxis(-15f, Vector3.Cross(v, Vector3.up).normalized) * initial;
-        int speed = 30;
-        for (int i = 0; i< speed; i++)
+        interactionConditionList.Clear();
+        string containerStatus = (backpack.equipedItem.type == BackpackItem.Type.RessourceContainer) ? (ressourceContainer.HasSpace() ? "ok":"full") : "nok";
+        switch (type)
         {
-            if (!currentInteractor)
+            case InteractionType.Type.collectCrystal:
+            case InteractionType.Type.collectGold:
+            case InteractionType.Type.collectIron:
+            case InteractionType.Type.collectStone:
+                interactionConditionList.Add("Pickaxe", weapon.equipedItem.type == WeaponItem.Type.Pickaxe ? "ok" : "nok");
+                interactionConditionList.Add("Container", containerStatus);
                 break;
-            tree.rotation = Quaternion.Lerp(initial, q, woodCuttingAnimation.Evaluate((float)i / speed));
-            yield return null;
+
+            case InteractionType.Type.collectWood:
+                interactionConditionList.Add("Axe", WeaponItem.isAxe(weapon.equipedItem.type) ? "ok" : "nok");
+                interactionConditionList.Add("Container", containerStatus);
+                break;
+
+            default: break;
         }
     }
 }

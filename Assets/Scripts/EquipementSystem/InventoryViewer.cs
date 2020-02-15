@@ -15,6 +15,9 @@ public class InventoryViewer : MonoBehaviour
     public TextMesh loadSum;
     public Transform background;
     private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+    private AudioSource audiosource;
+    public AudioClip onsound;
+    public AudioClip offsound;
 
     
 
@@ -26,6 +29,7 @@ public class InventoryViewer : MonoBehaviour
             icons.Add(name, s);
         }
         pivot.SetActive(visible);
+        audiosource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,6 +42,7 @@ public class InventoryViewer : MonoBehaviour
                 pivot.SetActive(false);
                 foreach (Transform child in container)
                     Destroy(child.gameObject);
+                audiosource.clip = offsound;
             }
             else if(backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || backpack.load == 0)
             {
@@ -45,13 +50,16 @@ public class InventoryViewer : MonoBehaviour
                 loadSum.text = "empty or not\nequiped";
                 loadSum.transform.localPosition = new Vector3(0, 0, 0);
                 background.localScale = new Vector3(0, 0, 0);
+                audiosource.clip = onsound;
             }
             else
             {
                 pivot.SetActive(true);
                 UpdateContent();
+                audiosource.clip = onsound;
             }
-            
+
+            audiosource.Play();
             visible = !visible;
         }
     }

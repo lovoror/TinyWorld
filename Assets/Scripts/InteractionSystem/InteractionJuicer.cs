@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractionJuicer : MonoBehaviour
 {
+    [Header("Ressource collection")]
     public Transform pivot;
     public TextMesh textMesh;
 
@@ -12,20 +13,80 @@ public class InteractionJuicer : MonoBehaviour
     public Color iron;
     public Color gold;
     public Color crystal;
-
+    
     public float amplitude;
     public int duration;
     public AnimationCurve animCurve;
 
-    private IEnumerator animCoroutine;
+    [Header("WoodCutting anim")]
+    public GameObject treeInteractor = null;
+    public AnimationCurve woodCuttingAnimation;
 
-    public void LaunchAnim(string text, InteractionType.Type type)
+    private IEnumerator gainCoroutine;
+    private IEnumerator treeCoroutine;
+
+    [Header("Hovered item")]
+    public float ratio = 1f;
+    public GameObject hovered;
+    public Transform cornerPivot;
+    public List<Transform> corners;
+
+    [Header("Loading")]
+    public float loadingRate = 0f;
+    public GameObject loadingBar;
+    public SpriteMask loadingMask;
+
+    private void Update()
+    {
+        // hovered object identifier
+        if(hovered)
+        {
+            cornerPivot.transform.parent = null;
+            Collider box = hovered.GetComponent<Collider>();
+            cornerPivot.position = new Vector3(box.bounds.center.x, 0.02f, box.bounds.center.z);
+            cornerPivot.localEulerAngles = new Vector3(0, hovered.transform.rotation.eulerAngles.y, 0);
+            Vector3 s = Vector3.one;
+            if (box.bounds.extents.x < 0.7f || box.bounds.extents.z < 0.7f)
+                s *= 0.5f;
+
+            foreach (Transform c in corners)
+            {
+                c.gameObject.SetActive(true);
+                c.localScale = s;
+            }
+
+            corners[0].localPosition = ratio * new Vector3(-box.bounds.extents.x, 0, box.bounds.extents.z);
+            corners[1].localPosition = ratio * new Vector3( box.bounds.extents.x, 0, box.bounds.extents.z);
+            corners[2].localPosition = ratio * new Vector3(-box.bounds.extents.x, 0,-box.bounds.extents.z);
+            corners[3].localPosition = ratio * new Vector3( box.bounds.extents.x, 0,-box.bounds.extents.z);
+        }
+        else
+        {
+            foreach (Transform c in corners)
+                c.gameObject.SetActive(false);
+        }
+
+        // loading bar
+        if(loadingRate > 0f)
+        {
+            loadingBar.SetActive(true);
+            loadingMask.alphaCutoff = loadingRate;
+        }
+        else
+        {
+            loadingBar.SetActive(false);
+        }
+    }
+
+    public void LaunchGainAnim(string text, InteractionType.Type type)
     {
         textMesh.text = text;
         switch(type)
         {
             case InteractionType.Type.collectWood:
                 textMesh.color = wood;
+                treeCoroutine = WoodCuttingAnimation();
+                StartCoroutine(treeCoroutine);
                 break;
             case InteractionType.Type.collectIron:
                 textMesh.color = iron;
@@ -44,11 +105,10 @@ public class InteractionJuicer : MonoBehaviour
                 break;
         }
 
-        animCoroutine = Anim();
-        StartCoroutine(animCoroutine);
+        gainCoroutine = RessourceGainAnimation();
+        StartCoroutine(gainCoroutine);
     }
-
-    private IEnumerator Anim()
+    private IEnumerator RessourceGainAnimation()
     {
         pivot.gameObject.SetActive(true);
         for (int i = 0; i < duration; i++)
@@ -58,5 +118,30 @@ public class InteractionJuicer : MonoBehaviour
             yield return null;
         }
         pivot.gameObject.SetActive(false);
+    }
+    private IEnumerator WoodCuttingAnimation()
+    {
+        Transform tree = treeInteractor.transform.parent.Find("Armature");
+        Quaternion initial = tree.rotation;
+        Vector3 v = (tree.position - transform.position).normalized;
+        Quaternion q = Quaternion.AngleAxis(-15f, Vector3.Cross(v, Vector3.up).normalized) * initial;
+        int speed = 30;
+        for (int i = 0; i < speed; i++)
+        {
+            if (!treeInteractor)
+                break;
+
+            tree.rotation = Lerp(initial, q, woodCuttingAnimation.Evaluate((float)i / speed) - 0.5f);
+            yield return null;
+        }
+    }
+    private Quaternion Lerp(Quaternion a, Quaternion b, float t)
+    {
+        Quaternion q = new Quaternion();
+        q.x = (1f - t) * a.x + t * b.x;
+        q.y = (1f - t) * a.y + t * b.y;
+        q.z = (1f - t) * a.z + t * b.z;
+        q.w = (1f - t) * a.w + t * b.w;
+        return q.normalized;
     }
 }

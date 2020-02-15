@@ -129,6 +129,8 @@
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponSlot.cs" />
     <Compile Include="Assets\Scripts\GenerateBillboard.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\CollectData.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\InteractionConditionTemplate.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\InteractionHelper.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionJuicer.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionType.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\SpecialPickableShopArsenal.cs" />
