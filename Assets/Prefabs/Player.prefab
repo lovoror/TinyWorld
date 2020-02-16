@@ -133,6 +133,7 @@ MonoBehaviour:
   iron: {r: 1, g: 0.7036163, b: 0.3160377, a: 1}
   gold: {r: 1, g: 0.90659, b: 0.2783019, a: 1}
   crystal: {r: 0, g: 0.8867924, b: 0.7981133, a: 1}
+  wheet: {r: 1, g: 0.90588236, b: 0.2784314, a: 1}
   amplitude: 0.8
   duration: 30
   animCurve:
@@ -1169,6 +1170,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8ef5cb5e6b12d734b8cc741969c18c30, type: 3}
   - {fileID: 21300000, guid: 3b65c8220b57abd468d4e575c4029d8c, type: 3}
   - {fileID: 21300000, guid: 82324f3f354dd784c9ce1da961817825, type: 3}
+  - {fileID: 21300000, guid: b949c4b2119e71647bbce01735ce0e3c, type: 3}
   backpackSlot: {fileID: 443076384804824349}
   template: {fileID: 1944613777}
   pivot: {fileID: 669689309}
@@ -2399,7 +2401,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cf9d495fee7b2ef4d9331181ffc1977f, type: 3}
   - {fileID: 8300000, guid: 00e7fa103edac19409129e59372e5a5d, type: 3}
   movementHeavy: []
-  effortSound: {fileID: 8300000, guid: 8a217fd5922b3d94b91f27d69479b08e, type: 3}
+  effortSound: {fileID: 8300000, guid: 91313b9d18a416541aa6f5462e72e5a7, type: 3}
   interactionBox: {fileID: 626509970}
 --- !u!198 &274576173308142987
 ParticleSystem:
@@ -8792,7 +8794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6345456602188754099
 Transform:
   m_ObjectHideFlags: 0
@@ -9170,6 +9172,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 927a1d7ce9ca9834b8497317ec8238ed, type: 3}
   - {fileID: 21300000, guid: bb06e32ae13e7724cb5692cb0468eab9, type: 3}
   - {fileID: 21300000, guid: a83d40c5a3be3464d90aa562c027e907, type: 3}
+  - {fileID: 21300000, guid: 667f70a8276bb0145b6d587371884588, type: 3}
   container: {fileID: 8663580806425822287}
   template: {fileID: 4256718119662179266}
   valid: {fileID: 1395869697155817394, guid: 31647f2e5b2801145ad2bf0d6cb271d2, type: 3}

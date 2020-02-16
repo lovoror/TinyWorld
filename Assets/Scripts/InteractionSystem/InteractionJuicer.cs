@@ -13,7 +13,8 @@ public class InteractionJuicer : MonoBehaviour
     public Color iron;
     public Color gold;
     public Color crystal;
-    
+    public Color wheet;
+
     public float amplitude;
     public int duration;
     public AnimationCurve animCurve;
@@ -99,6 +100,9 @@ public class InteractionJuicer : MonoBehaviour
                 break;
             case InteractionType.Type.collectStone:
                 textMesh.color = stone;
+                break;
+            case InteractionType.Type.collectWheet:
+                textMesh.color = wheet;
                 break;
             default:
                 textMesh.color = Color.white;

@@ -237,6 +237,7 @@ public class PlayerController : MonoBehaviour
             case InteractionType.Type.collectGold:
             case InteractionType.Type.collectCrystal:
             case InteractionType.Type.collectWood:
+            case InteractionType.Type.collectWheet:
                 success = collectRessourceInteraction(type, interactor);
                 break;
 
@@ -305,6 +306,13 @@ public class PlayerController : MonoBehaviour
 
         needEquipementAnimaionUpdate = false;
     }
+    private void InitiateRessourceInteraction(InteractionType.Type type, GameObject interactor)
+    {
+        interactionDelay = collectCooldown;
+        animator.SetTrigger("interact");
+        currentInteractor = interactor;
+        interactionType = type;
+    }
     private bool collectRessourceInteraction(InteractionType.Type type, GameObject interactor)
     {
         bool success = false;
@@ -316,10 +324,15 @@ public class PlayerController : MonoBehaviour
             {
                 if (WeaponItem.isAxe(weapon.equipedItem.type))
                 {
-                    interactionDelay = collectCooldown;
-                    animator.SetTrigger("interact");
-                    currentInteractor = interactor;
-                    interactionType = type;
+                    InitiateRessourceInteraction(type, interactor);
+                    success = true;
+                }
+            }
+            else if(type == InteractionType.Type.collectWheet)
+            {
+                if(weapon.equipedItem.type == WeaponItem.Type.Sickle)
+                {
+                    InitiateRessourceInteraction(type, interactor);
                     success = true;
                 }
             }
@@ -327,10 +340,7 @@ public class PlayerController : MonoBehaviour
             {
                 if(weapon.equipedItem.type == WeaponItem.Type.Pickaxe)
                 {
-                    interactionDelay = collectCooldown;
-                    animator.SetTrigger("interact");
-                    currentInteractor = interactor;
-                    interactionType = type;
+                    InitiateRessourceInteraction(type, interactor);
                     success = true;
                 }
             }
@@ -438,12 +448,17 @@ public class PlayerController : MonoBehaviour
         {
             CommonRessourceCollectionResolve(collectMineralsClips[Random.Range(0, collectMineralsClips.Count)]);
         }
+        else if (currentInteractor && interactionType == InteractionType.Type.collectWheet)
+        {
+            CommonRessourceCollectionResolve(null);
+        }
     }
     private void CommonRessourceCollectionResolve(AudioClip soundFx)
     {
         // play sound, and juice, and update inventory
         audiosource.clip = soundFx;
-        audiosource.Play();
+        if(soundFx)
+            audiosource.Play();
         int gain = Random.Range(1, 4);
         interactionJuicer.treeInteractor = currentInteractor;
         interactionJuicer.LaunchGainAnim("+" + gain.ToString(), interactionType);
@@ -493,6 +508,11 @@ public class PlayerController : MonoBehaviour
 
             case InteractionType.Type.collectWood:
                 interactionConditionList.Add("Axe", WeaponItem.isAxe(weapon.equipedItem.type) ? "ok" : "nok");
+                interactionConditionList.Add("Container", containerStatus);
+                break;
+
+            case InteractionType.Type.collectWheet:
+                interactionConditionList.Add("Sickle", weapon.equipedItem.type == WeaponItem.Type.Sickle ? "ok" : "nok");
                 interactionConditionList.Add("Container", containerStatus);
                 break;
 
