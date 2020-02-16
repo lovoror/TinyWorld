@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public List<AudioClip> wearHead;
     public List<AudioClip> wearBody;
     public List<AudioClip> movementHeavy;
+    public AudioClip effortSound;
     private AudioSource audiosource;
     
     [Header("Debug")]
@@ -99,6 +100,8 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("attack");
             attackDelay = attackCooldown;
             attacking = true;
+            audiosource.clip = effortSound;
+            audiosource.Play();
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

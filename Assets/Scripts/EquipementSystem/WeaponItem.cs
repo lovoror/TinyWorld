@@ -23,7 +23,9 @@ public class WeaponItem : MonoBehaviour
         Pike,
         Sabre,
         Claymore,
-        Spear
+        Spear,
+
+        Sickle
     };
     public Type type = Type.None;
     public bool forbidSecond = false;

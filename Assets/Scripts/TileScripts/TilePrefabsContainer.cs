@@ -180,10 +180,10 @@ public class TilePrefabsContainer : MonoBehaviour
     }
 
     public Mesh GetDirtA() { return dirtMeshes[5 * diversity]; }
-    public Mesh GetDirtB() { return dirtMeshes[4 * diversity + Random.Range(0, diversity - 1)]; }
-    public Mesh GetDirtC() { return dirtMeshes[2 * diversity + Random.Range(0, diversity - 1)]; }
-    public Mesh GetDirtD() { return dirtMeshes[3 * diversity + Random.Range(0, diversity - 1)]; }
-    public Mesh GetDirtE() { return dirtMeshes[1 * diversity + Random.Range(0, diversity - 1)]; }
+    public Mesh GetDirtB() { return dirtMeshes[4 * diversity + Random.Range(0, diversity)]; }
+    public Mesh GetDirtC() { return dirtMeshes[2 * diversity + Random.Range(0, diversity)]; }
+    public Mesh GetDirtD() { return dirtMeshes[3 * diversity + Random.Range(0, diversity)]; }
+    public Mesh GetDirtE() { return dirtMeshes[1 * diversity + Random.Range(0, diversity)]; }
     public Mesh GetDirtF() { return dirtMeshes[Random.Range(0, diversity - 1)]; }
 
     public Mesh GetGrass(int n) { return grassMeshes[n * diversity + Random.Range(0, diversity - 1)]; }

@@ -76,7 +76,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   density: 0
   dispersion: 0.25
-  initOnStart: 0
 --- !u!33 &1140177784818928523
 MeshFilter:
   m_ObjectHideFlags: 0

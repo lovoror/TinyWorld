@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 0.035
   height: 1
-  density: 20
+  prefab: {fileID: -2432090755550338912, guid: b2a80818896e94c4db0d0ed2c76c1aa7, type: 3}
+  density: 15
 --- !u!33 &3768509174729779788
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wheet
-  m_Shader: {fileID: 4800000, guid: c4488c7a744a5774eb82716cd1bff497, type: 3}
+  m_Shader: {fileID: 4800000, guid: 6864615fc63fb304dbe514d76c1814f4, type: 3}
   m_ShaderKeywords: _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -79,10 +79,11 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Thickness: 1
+    - _Tilling: 20
     - _UVSec: 0
-    - _WindFactor: 0.093
+    - _WindFactor: 0.147
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.9295865, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.7646005, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SubColor: {r: 1, g: 0.8841267, b: 0, a: 1}
+    - _SubColor: {r: 1, g: 0.4154284, b: 0, a: 1}

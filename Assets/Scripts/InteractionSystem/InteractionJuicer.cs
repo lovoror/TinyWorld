@@ -70,7 +70,7 @@ public class InteractionJuicer : MonoBehaviour
         if(loadingRate > 0f)
         {
             loadingBar.SetActive(true);
-            loadingMask.alphaCutoff = loadingRate;
+            loadingMask.alphaCutoff = 1f - loadingRate;
         }
         else
         {
