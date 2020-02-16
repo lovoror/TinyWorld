@@ -19,12 +19,13 @@ Shader "Perso/Vegetation"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+
 			#include "UnityCG.cginc"
 			#include "Lighting.cginc"
 
 		// compile shader into multiple variants, with and without shadows
 		// (we don't care about any lightmaps yet, so skip these variants)
-		#pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
+		#pragma multi_compile_fog multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
 		// shadow helper functions and macros
 		#include "AutoLight.cginc"
 
@@ -40,6 +41,7 @@ Shader "Perso/Vegetation"
 			fixed3 ambient : COLOR1;
 			fixed3 trans : COLOR2;
 			float4 pos : SV_POSITION;
+			UNITY_FOG_COORDS(1)
 		};
 
 		float3 Wind(float u, float v, float y)
@@ -67,7 +69,8 @@ Shader "Perso/Vegetation"
 			o.trans = nl * _LightColor0.rgb * _SubColor.rgb;
 
 			// compute shadows data
-			TRANSFER_SHADOW(o)
+			TRANSFER_SHADOW(o);
+			UNITY_TRANSFER_FOG(o, o.pos);
 			return o;
 		}
 
@@ -80,8 +83,9 @@ Shader "Perso/Vegetation"
 			fixed3 lighting = i.diff * shadow + i.ambient;
 			fixed3 transAlbedo = i.trans;
 
-			fixed3 col = _Color.rgb * lighting + transAlbedo;
-			return fixed4(col, 1);
+			fixed4 col = fixed4(_Color.rgb * lighting + transAlbedo, 1);
+			UNITY_APPLY_FOG(i.fogCoord, col);
+			return col;
 		}
 		ENDCG
 	}
