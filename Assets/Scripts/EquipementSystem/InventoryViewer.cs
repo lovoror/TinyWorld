@@ -6,7 +6,6 @@ public class InventoryViewer : MonoBehaviour
 {
     public bool visible = false;
     public float spacing;
-    public List<Sprite> ressourceIcons;
     public BackpackSlot backpackSlot;
     public InventoryLineTemplate template;
     public GameObject pivot;
@@ -14,7 +13,6 @@ public class InventoryViewer : MonoBehaviour
     public RessourceContainer backpack;
     public TextMesh loadSum;
     public Transform background;
-    private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
     private AudioSource audiosource;
     public AudioClip onsound;
     public AudioClip offsound;
@@ -23,11 +21,6 @@ public class InventoryViewer : MonoBehaviour
 
     void Start()
     {
-        foreach(Sprite s in ressourceIcons)
-        {
-            string name = s.name.Substring(0, s.name.IndexOf("Icon"));
-            icons.Add(name, s);
-        }
         pivot.SetActive(visible);
         audiosource = GetComponent<AudioSource>();
     }
@@ -42,7 +35,8 @@ public class InventoryViewer : MonoBehaviour
                 pivot.SetActive(false);
                 foreach (Transform child in container)
                     Destroy(child.gameObject);
-                audiosource.clip = offsound;
+                if(audiosource)
+                    audiosource.clip = offsound;
             }
             else if(backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || backpack.load == 0)
             {
@@ -50,16 +44,19 @@ public class InventoryViewer : MonoBehaviour
                 loadSum.text = "empty or not\nequiped";
                 loadSum.transform.localPosition = new Vector3(0, 0, 0);
                 background.localScale = new Vector3(0, 0, 0);
-                audiosource.clip = onsound;
+                if (audiosource)
+                    audiosource.clip = onsound;
             }
             else
             {
                 pivot.SetActive(true);
                 UpdateContent();
-                audiosource.clip = onsound;
+                if (audiosource)
+                    audiosource.clip = onsound;
             }
 
-            audiosource.Play();
+            if (audiosource)
+                audiosource.Play();
             visible = !visible;
         }
     }
@@ -84,7 +81,7 @@ public class InventoryViewer : MonoBehaviour
             go.gameObject.SetActive(true);
 
             go.count.text = entry.Value.ToString();
-            go.icon.sprite = icons[entry.Key];
+            go.icon.sprite = ResourceDictionary.Instance.Get(entry.Key).icon;
 
             position.y += spacing;
         }

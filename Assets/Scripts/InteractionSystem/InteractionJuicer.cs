@@ -7,14 +7,7 @@ public class InteractionJuicer : MonoBehaviour
     [Header("Ressource collection")]
     public Transform pivot;
     public TextMesh textMesh;
-
-    public Color wood;
-    public Color stone;
-    public Color iron;
-    public Color gold;
-    public Color crystal;
-    public Color wheet;
-
+    
     public float amplitude;
     public int duration;
     public AnimationCurve animCurve;
@@ -36,7 +29,7 @@ public class InteractionJuicer : MonoBehaviour
     public float loadingRate = 0f;
     public GameObject loadingBar;
     public SpriteMask loadingMask;
-
+    
     private void Update()
     {
         // hovered object identifier
@@ -82,33 +75,12 @@ public class InteractionJuicer : MonoBehaviour
     public void LaunchGainAnim(string text, InteractionType.Type type)
     {
         textMesh.text = text;
-        switch(type)
+        if (type == InteractionType.Type.collectWood)
         {
-            case InteractionType.Type.collectWood:
-                textMesh.color = wood;
-                treeCoroutine = WoodCuttingAnimation();
-                StartCoroutine(treeCoroutine);
-                break;
-            case InteractionType.Type.collectIron:
-                textMesh.color = iron;
-                break;
-            case InteractionType.Type.collectGold:
-                textMesh.color = gold;
-                break;
-            case InteractionType.Type.collectCrystal:
-                textMesh.color = crystal;
-                break;
-            case InteractionType.Type.collectStone:
-                textMesh.color = stone;
-                break;
-            case InteractionType.Type.collectWheet:
-                textMesh.color = wheet;
-                break;
-            default:
-                textMesh.color = Color.white;
-                break;
+            treeCoroutine = WoodCuttingAnimation();
+            StartCoroutine(treeCoroutine);
         }
-
+        textMesh.color = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(type)).gainColor;
         gainCoroutine = RessourceGainAnimation();
         StartCoroutine(gainCoroutine);
     }

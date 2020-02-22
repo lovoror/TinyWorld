@@ -28,6 +28,7 @@ public class WeaponItem : MonoBehaviour
         Sickle
     };
     public Type type = Type.None;
+    public string toolFamily = "None";
     public bool forbidSecond = false;
     public bool forbidShield = false;
     public int animationCode = 1;
@@ -37,6 +38,7 @@ public class WeaponItem : MonoBehaviour
     public void Clear()
     {
         type = Type.None;
+        toolFamily = "None";
         forbidSecond = false;
         forbidShield = false;
         animationCode = 0;
@@ -45,6 +47,7 @@ public class WeaponItem : MonoBehaviour
     public static void Copy(WeaponItem source, WeaponItem destination)
     {
         destination.type = source.type;
+        destination.toolFamily = source.toolFamily;
         destination.forbidSecond = source.forbidSecond;
         destination.forbidShield = source.forbidShield;
         destination.animationCode = source.animationCode;
@@ -52,7 +55,7 @@ public class WeaponItem : MonoBehaviour
     }
 
     // helper for interaction system
-    static public bool isAxe(Type type)
+    /*static public bool isAxe(Type type)
     {
         Type[] axeList = { Type.AxeA, Type.AxeB, Type.AxeC, Type.AxeD, Type.AxeE, Type.BigAxeA, Type.BigAxeB };
         foreach(Type axe in axeList)
@@ -61,5 +64,5 @@ public class WeaponItem : MonoBehaviour
                 return true;
         }
         return false;
-    }
+    }*/
 }

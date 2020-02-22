@@ -238,26 +238,4 @@ public class TilePrefabsContainer : MonoBehaviour
 
         return go;
     }
-
-    public Material GetRessourceMaterial(InteractionType.Type type)
-    {
-        string ressourceName;
-        switch (type)
-        {
-            case InteractionType.Type.collectCrystal: ressourceName = "Crystal"; break;
-            case InteractionType.Type.collectGold: ressourceName = "Gold"; break;
-            case InteractionType.Type.collectIron: ressourceName = "Iron"; break;
-            case InteractionType.Type.collectStone: ressourceName = "Stone"; break;
-            case InteractionType.Type.collectWood: ressourceName = "Wood"; break;
-            case InteractionType.Type.collectWheet: ressourceName = "Wheet"; break;
-            default: ressourceName = ressourceMaterialList[0].name; break;
-        }
-
-        foreach(Material m in ressourceMaterialList)
-        {
-            if (m.name == ressourceName)
-                return m;
-        }
-        return ressourceMaterialList[0];
-    }
 }

@@ -13,16 +13,19 @@ public class BackpackItem : MonoBehaviour
         RessourceContainer
     };
     public Type type = Type.None;
+    public string toolFamily = "None";
     public float load = 0f;
 
     public void Clear()
     {
         type = Type.None;
+        toolFamily = "None";
         load = 0f;
     }
     public static void Copy(BackpackItem source, BackpackItem destination)
     {
         destination.type = source.type;
         destination.load = source.load;
+        destination.toolFamily = source.toolFamily;
     }
 }

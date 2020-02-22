@@ -19,7 +19,9 @@ public class InteractionType : MonoBehaviour
         collectGold,
         collectCrystal,
 
-        collectWheet
+        collectWheet,
+
+        storeRessources
     };
     public Type type;
 

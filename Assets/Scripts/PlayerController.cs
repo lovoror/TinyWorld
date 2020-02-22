@@ -44,11 +44,10 @@ public class PlayerController : MonoBehaviour
     private Dictionary<string, string> interactionConditionList = new Dictionary<string, string>();
 
     [Header("Sounds")]
-    public List<AudioClip> chopWoodClips;
-    public List<AudioClip> collectMineralsClips;
     public List<AudioClip> wearHead;
     public List<AudioClip> wearBody;
     public List<AudioClip> movementHeavy;
+    public AudioClip backpackClear;
     public AudioClip effortSound;
     private AudioSource audiosource;
     
@@ -87,6 +86,13 @@ public class PlayerController : MonoBehaviour
         backpack.Equip(backpack.equipedItem.type, true);
 
         AnimationParameterRefresh();
+
+        ressourceContainer.AddItem(ResourceDictionary.Instance.Get("Gold").material, 10);
+        ressourceContainer.AddItem(ResourceDictionary.Instance.Get("Iron").material, 10);
+        ressourceContainer.AddItem(ResourceDictionary.Instance.Get("Stone").material, 10);
+        ressourceContainer.AddItem(ResourceDictionary.Instance.Get("Wood").material, 10);
+        if (inventoryViewer.visible)
+            inventoryViewer.UpdateContent();
     }
     
     void Update()
@@ -224,7 +230,8 @@ public class PlayerController : MonoBehaviour
             case InteractionType.Type.pickableSecond:
             case InteractionType.Type.pickableShield:
             case InteractionType.Type.pickableWeapon:
-                //success = pickableInteraction(type, interactor);
+
+            case InteractionType.Type.storeRessources:
                 interactionType = type;
                 currentInteractor = interactor;
                 success = true;
@@ -271,6 +278,11 @@ public class PlayerController : MonoBehaviour
             case InteractionType.Type.collectWood:
                 break;
 
+            // store all ressources
+            case InteractionType.Type.storeRessources:
+                storeAllInteraction(interactionType, currentInteractor);
+                break;
+
             // error
             default:
                 Debug.LogWarning("no interaction defined for this type " + interactionType.ToString());
@@ -315,43 +327,21 @@ public class PlayerController : MonoBehaviour
     }
     private bool collectRessourceInteraction(InteractionType.Type type, GameObject interactor)
     {
-        bool success = false;
-
-        // test if interraction possible and do it
-        if(backpack.equipedItem.type == BackpackItem.Type.RessourceContainer && ressourceContainer.HasSpace())
+        bool success = true;
+        ComputeInteractionConditions(type);
+        foreach(KeyValuePair<string, string> entry in interactionConditionList)
         {
-            if(type == InteractionType.Type.collectWood)
+            if(entry.Value != "ok")
             {
-                if (WeaponItem.isAxe(weapon.equipedItem.type))
-                {
-                    InitiateRessourceInteraction(type, interactor);
-                    success = true;
-                }
-            }
-            else if(type == InteractionType.Type.collectWheet)
-            {
-                if(weapon.equipedItem.type == WeaponItem.Type.Sickle)
-                {
-                    InitiateRessourceInteraction(type, interactor);
-                    success = true;
-                }
-            }
-            else
-            {
-                if(weapon.equipedItem.type == WeaponItem.Type.Pickaxe)
-                {
-                    InitiateRessourceInteraction(type, interactor);
-                    success = true;
-                }
+                success = false;
+                break;
             }
         }
-
-        // something made it not possible
+        
         if(!success)
-        {
-            ComputeInteractionConditions(type);
             interactionHelper.UpdateContent(interactionConditionList);
-        }
+        else
+            InitiateRessourceInteraction(type, interactor);
         return success;
     }
     private bool pickableInteraction(InteractionType.Type type, GameObject interactor)
@@ -430,6 +420,27 @@ public class PlayerController : MonoBehaviour
 
         return success;
     }
+    private bool storeAllInteraction(InteractionType.Type type, GameObject interactor)
+    {
+        RessourceContainer storehouse = interactor.GetComponent<RessourceContainer>();
+        if(storehouse)
+        {
+            foreach (KeyValuePair<string, int> entry in ressourceContainer.inventory)
+            {
+                storehouse.AddItem(ResourceDictionary.Instance.Get(entry.Key).material, entry.Value);
+                if (inventoryViewer.visible)
+                    inventoryViewer.UpdateContent();
+                backpack.equipedItem.load = 0.3f;
+                float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
+                loadFactor = loadCurve.Evaluate(0.1f * f);
+                animator.SetFloat("loadFactor", loadFactor);
+            }
+            ressourceContainer.Clear();
+            audiosource.clip = backpackClear;
+            audiosource.Play();
+        }
+        return true;
+    }
 
     // Callbacks and coroutine
     public void AttackEnd()
@@ -441,21 +452,23 @@ public class PlayerController : MonoBehaviour
         interactionDelay = collectCooldown;
         if(currentInteractor && interactionType == InteractionType.Type.collectWood)
         {
-            CommonRessourceCollectionResolve(chopWoodClips[Random.Range(0, chopWoodClips.Count)]);
+            CommonRessourceCollectionResolve();
             interactionJuicer.treeInteractor = currentInteractor;
         }
         else if(InteractionType.isCollectingMinerals(interactionType))
         {
-            CommonRessourceCollectionResolve(collectMineralsClips[Random.Range(0, collectMineralsClips.Count)]);
+            CommonRessourceCollectionResolve();
         }
         else if (currentInteractor && interactionType == InteractionType.Type.collectWheet)
         {
-            CommonRessourceCollectionResolve(null);
+            CommonRessourceCollectionResolve();
         }
     }
-    private void CommonRessourceCollectionResolve(AudioClip soundFx)
+    private void CommonRessourceCollectionResolve()
     {
         // play sound, and juice, and update inventory
+        List<AudioClip> sounds = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(interactionType)).collectionSound;
+        AudioClip soundFx = sounds[Random.Range(0, sounds.Count)];
         audiosource.clip = soundFx;
         if(soundFx)
             audiosource.Play();
@@ -464,7 +477,7 @@ public class PlayerController : MonoBehaviour
         interactionJuicer.LaunchGainAnim("+" + gain.ToString(), interactionType);
         
         // update inventory and compute load
-        ressourceContainer.AddItem(TilePrefabsContainer.Instance.GetRessourceMaterial(interactionType), gain);
+        ressourceContainer.AddItem(ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(interactionType)).material, gain);
         if (inventoryViewer.visible)
             inventoryViewer.UpdateContent();
         backpack.equipedItem.load = 0.3f + 0.3f * ressourceContainer.load;
@@ -495,28 +508,21 @@ public class PlayerController : MonoBehaviour
     private void ComputeInteractionConditions(InteractionType.Type type)
     {
         interactionConditionList.Clear();
-        string containerStatus = (backpack.equipedItem.type == BackpackItem.Type.RessourceContainer) ? (ressourceContainer.HasSpace() ? "ok":"full") : "nok";
-        switch (type)
+        string[] equiped = { backpack.equipedItem.toolFamily , weapon.equipedItem.toolFamily };
+        ResourceType resource = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(type));
+        foreach (string tool in resource.collectionTools)
         {
-            case InteractionType.Type.collectCrystal:
-            case InteractionType.Type.collectGold:
-            case InteractionType.Type.collectIron:
-            case InteractionType.Type.collectStone:
-                interactionConditionList.Add("Pickaxe", weapon.equipedItem.type == WeaponItem.Type.Pickaxe ? "ok" : "nok");
-                interactionConditionList.Add("Container", containerStatus);
-                break;
-
-            case InteractionType.Type.collectWood:
-                interactionConditionList.Add("Axe", WeaponItem.isAxe(weapon.equipedItem.type) ? "ok" : "nok");
-                interactionConditionList.Add("Container", containerStatus);
-                break;
-
-            case InteractionType.Type.collectWheet:
-                interactionConditionList.Add("Sickle", weapon.equipedItem.type == WeaponItem.Type.Sickle ? "ok" : "nok");
-                interactionConditionList.Add("Container", containerStatus);
-                break;
-
-            default: break;
+            string status = "nok";
+            foreach (string s in equiped)
+            {
+                if(s == tool)
+                {
+                    if (tool == "Container")
+                        status = ressourceContainer.HasSpace() ? "ok" : "full";
+                    else status = "ok";
+                }
+            }
+            interactionConditionList.Add(tool, status);
         }
     }
 }
