@@ -7,7 +7,6 @@ public class InteractionHelper : MonoBehaviour
     //public bool visible = false;
     public float spacing;
     public float duration = 1f;
-    public List<Sprite> toolsIcons;
     public GameObject container;
     public InteractionConditionTemplate template;
     public Sprite valid;
@@ -15,15 +14,9 @@ public class InteractionHelper : MonoBehaviour
     private AudioSource audiosource;
     public AudioClip errorSound;
     private IEnumerator timerCoroutine;
-    private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
     
     void Start()
     {
-        foreach (Sprite s in toolsIcons)
-        {
-            string name = s.name.Substring(0, s.name.IndexOf("Icon"));
-            icons.Add(name, s);
-        }
         audiosource = GetComponent<AudioSource>();
         audiosource.clip = errorSound;
     }
@@ -42,8 +35,10 @@ public class InteractionHelper : MonoBehaviour
             go.transform.localPosition = position;
             go.gameObject.SetActive(true);
 
-            if (icons.ContainsKey(entry.Key))
-                go.toolIcon.sprite = icons[entry.Key];
+            if (ToolDictionary.Instance.toolTypes.ContainsKey(entry.Key))
+                go.mainIcon.sprite = ToolDictionary.Instance.Get(entry.Key).icon;
+            else if (ResourceDictionary.Instance.resourceTypes.ContainsKey(entry.Key))
+                go.mainIcon.sprite = ResourceDictionary.Instance.Get(entry.Key).icon;
             else
                 Debug.Log("no tool icon for this entry : " + entry.Key);
 

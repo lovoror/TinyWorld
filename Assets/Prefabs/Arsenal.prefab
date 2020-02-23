@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 42
+  toolFamily: Sickle
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -5445,6 +5446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  toolFamily: None
   load: 0.1
 --- !u!1 &7388010046170874242
 GameObject:
@@ -5540,6 +5542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  toolFamily: None
   load: 0.1
 --- !u!1 &7388010046170874244
 GameObject:
@@ -5634,6 +5637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 29
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -5732,6 +5736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 16
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -10354,6 +10359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 10
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -10451,6 +10457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
+  toolFamily: Axe
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -10738,6 +10745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 33
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -10835,6 +10843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 31
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -10933,6 +10942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 23
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -11031,6 +11041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 20
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 3
@@ -11128,6 +11139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 35
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -11226,6 +11238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 14
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -11422,6 +11435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 12
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -15072,6 +15086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 13
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -15464,6 +15479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 18
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -15562,6 +15578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 40
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -15660,6 +15677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -15758,6 +15776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -15855,6 +15874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 27
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -15952,6 +15972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 28
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -16050,6 +16071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 15
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -16147,6 +16169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 34
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
@@ -17004,6 +17027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  toolFamily: Axe
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -17386,6 +17410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 8
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 1
@@ -17483,6 +17508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
+  toolFamily: Axe
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -17580,6 +17606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  toolFamily: Axe
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -17677,6 +17704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  toolFamily: Axe
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -17775,6 +17803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 22
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -17873,6 +17902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 21
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -17971,6 +18001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 19
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 1
   animationCode: 3
@@ -18069,6 +18100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 9
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -18264,6 +18296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 25
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 0
   animationCode: 7
@@ -18361,6 +18394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 24
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 0
   animationCode: 7
@@ -18556,6 +18590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 38
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 0
   animationCode: 5
@@ -18653,6 +18688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 36
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -18750,6 +18786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 30
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -18848,6 +18885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 41
+  toolFamily: None
   forbidSecond: 1
   forbidShield: 0
   animationCode: 5
@@ -18946,6 +18984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 11
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -19141,6 +19180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 39
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -20212,6 +20252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 17
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -20309,6 +20350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 26
+  toolFamily: Hammer
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -20406,6 +20448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 32
+  toolFamily: None
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -20503,6 +20546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 37
+  toolFamily: Pickaxe
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
@@ -21294,6 +21338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
+  toolFamily: Container
   load: 0.3
 --- !u!1 &9082372437866918891
 GameObject:

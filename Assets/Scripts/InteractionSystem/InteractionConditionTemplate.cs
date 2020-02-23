@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractionConditionTemplate : MonoBehaviour
 {
-    public SpriteRenderer toolIcon;
+    public SpriteRenderer mainIcon;
     public SpriteRenderer validationIcon;
     public TextMesh specialText;
 }
