@@ -238,6 +238,7 @@ MonoBehaviour:
   load: 0
   acceptedResources:
   - Wheat
+  start: []
 --- !u!114 &7630650427832765311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f9cecc977978e94da8260bc2db0c398, type: 3}
+  - {fileID: 2100000, guid: 9972752390a47ae4c986859fdc8951a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -570,6 +571,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 7630650427683628705}
   count: {fileID: 7630650428496863876}
+  up: {fileID: 0}
+  up2: {fileID: 0}
+  down: {fileID: 0}
+  down2: {fileID: 0}
+  buttons: []
 --- !u!1 &7630650428744318391
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +626,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f9cecc977978e94da8260bc2db0c398, type: 3}
+  - {fileID: 2100000, guid: 9972752390a47ae4c986859fdc8951a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

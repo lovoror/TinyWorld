@@ -88,12 +88,13 @@ public class PlayerController : MonoBehaviour
         AnimationParameterRefresh();
 
         ressourceContainer.AddItem("Gold", 10);
-        //ressourceContainer.AddItem("Iron", 10);
-        //ressourceContainer.AddItem("Stone", 10);
-        //ressourceContainer.AddItem("Wood", 10);
-        //ressourceContainer.AddItem("Wheat", 10);
+        ressourceContainer.AddItem("Iron", 10);
+        ressourceContainer.AddItem("Stone", 10);
+        ressourceContainer.AddItem("Wood", 10);
+        ressourceContainer.AddItem("Wheat", 10);
         if (inventoryViewer.visible)
-            inventoryViewer.UpdateContent();
+            inventoryViewer.UpdateContent(ressourceContainer.inventory);
+        inventoryViewer.transform.parent = null;
     }
     
     void Update()
@@ -104,16 +105,15 @@ public class PlayerController : MonoBehaviour
         // action or attack
         if (Input.GetMouseButtonDown(0) && attackDelay <= 0)
         {
-            animator.SetTrigger("attack");
-            attackDelay = attackCooldown;
-            attacking = true;
-            audiosource.clip = effortSound;
-            audiosource.Play();
-
+            // not click on UI
             RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f, 1 << LayerMask.NameToLayer("PlayerUI")))
             {
+                animator.SetTrigger("attack");
+                attackDelay = attackCooldown;
+                attacking = true;
+                audiosource.clip = effortSound;
+                audiosource.Play();
                 target = hit.point;
             }
         }
@@ -213,7 +213,9 @@ public class PlayerController : MonoBehaviour
         if (scanLength > 0)
             interactionJuicer.hovered = scanResults[0].collider.gameObject;
         else interactionJuicer.hovered = null;
-        inventoryViewer.storage = (interactionJuicer.hovered != null && interactionJuicer.hovered.GetComponent<RessourceContainer>() != null);
+        if (interactionJuicer.hovered != null && interactionJuicer.hovered.GetComponent<RessourceContainer>() != null)
+            inventoryViewer.storage = interactionJuicer.hovered.GetComponent<RessourceContainer>();
+        else inventoryViewer.storage = null;
 
         interactionBox.position = position;
         interactionBox.localScale = 2*size;
@@ -462,12 +464,6 @@ public class PlayerController : MonoBehaviour
                 if(storehouse.acceptedResources.Contains(entry.Key) || storehouse.acceptedResources.Count == 0)
                 {
                     storehouse.AddItem(ResourceDictionary.Instance.Get(entry.Key).name, entry.Value);
-                    if (inventoryViewer.visible)
-                        inventoryViewer.UpdateContent();
-                    backpack.equipedItem.load = 0.3f;
-                    float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
-                    loadFactor = loadCurve.Evaluate(0.1f * f);
-                    animator.SetFloat("loadFactor", loadFactor);
                     emptySlots.Add(entry.Key);
                 }
             }
@@ -478,16 +474,24 @@ public class PlayerController : MonoBehaviour
                     ressourceContainer.inventory.Remove(slot);
                 ressourceContainer.UpdateContent();
                 if (inventoryViewer.visible)
-                    inventoryViewer.UpdateContent();
+                    inventoryViewer.UpdateContent(inventoryViewer.GetFusionInventory());
+                RecomputeLoadFactor();
                 audiosource.clip = backpackClear;
                 audiosource.Play();
             }
             else
             {
-                interactionConditionList.Clear();
-                foreach(string acceptance in storehouse.acceptedResources)
-                    interactionConditionList.Add(acceptance, "nor");
-                interactionHelper.UpdateContent(interactionConditionList);
+                if (ressourceContainer.inventory.Count == 0)
+                {
+                    Debug.LogWarning("Impossible to be here, pb in container load computing");
+                }
+                else
+                {
+                    interactionConditionList.Clear();
+                    foreach (string acceptance in storehouse.acceptedResources)
+                        interactionConditionList.Add(acceptance, "nor");
+                    interactionHelper.UpdateContent(interactionConditionList);
+                }
             }
         }
         return true;
@@ -529,13 +533,10 @@ public class PlayerController : MonoBehaviour
         
         // update inventory and compute load
         ressourceContainer.AddItem(ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(interactionType)).name, gain);
+        RecomputeLoadFactor();
         if (inventoryViewer.visible)
-            inventoryViewer.UpdateContent();
-        backpack.equipedItem.load = 0.3f + 0.3f * ressourceContainer.load;
-        float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
-        loadFactor = loadCurve.Evaluate(0.1f * f);
-        animator.SetFloat("loadFactor", loadFactor);
-
+            inventoryViewer.UpdateContent(ressourceContainer.inventory);
+        
         // decrement interactor ressource count
         CollectData data = currentInteractor.GetComponent<CollectData>();
         data.ressourceCount--;
@@ -575,6 +576,15 @@ public class PlayerController : MonoBehaviour
             }
             interactionConditionList.Add(tool, status);
         }
+    }
+
+    // helper
+    public void RecomputeLoadFactor()
+    {
+        backpack.equipedItem.load = 0.3f + 0.3f * ressourceContainer.RecomputeLoad();
+        float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
+        loadFactor = loadCurve.Evaluate(0.1f * f);
+        animator.SetFloat("loadFactor", loadFactor);
     }
 }
 

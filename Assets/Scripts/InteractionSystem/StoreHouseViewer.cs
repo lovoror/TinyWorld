@@ -26,6 +26,9 @@ public class StoreHouseViewer : MonoBehaviour
         pivot.SetActive(visible);
         if(prevLoad != container.load)
         {
+            foreach (Transform child in list)
+                Destroy(child.gameObject);
+
             if (container.load == 0)
             {
                 loadSum.text = "empty";
@@ -34,9 +37,6 @@ public class StoreHouseViewer : MonoBehaviour
             }
             else
             {
-                foreach (Transform child in list)
-                    Destroy(child.gameObject);
-
                 loadSum.text = container.load.ToString() + "/" + container.capacity.ToString();
 
                 int rest = container.inventory.Count - 3 * (int)(container.inventory.Count / 3f);

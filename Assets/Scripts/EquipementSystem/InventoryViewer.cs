@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class InventoryViewer : MonoBehaviour
 {
     public bool visible = false;
-    public bool storage = false;
+    public RessourceContainer storage;
     public float spacing;
+    public PlayerController player;
     public Vector2 backgroundWidth = new Vector2(2.4f, 1.5f);
     public BackpackSlot backpackSlot;
     public InventoryLineTemplate template;
@@ -18,14 +20,13 @@ public class InventoryViewer : MonoBehaviour
     private AudioSource audiosource;
     public AudioClip onsound;
     public AudioClip offsound;
+    public AudioClip noktransaction;
+    public AudioClip oktransaction;
 
-    private bool callback = false;
-    private string callbackCommand = "";
-    private string callbackResource = "";
+    private bool prevStorage = false;
 
     void Start()
     {
-        callback = false;
         pivot.SetActive(visible);
         audiosource = GetComponent<AudioSource>();
     }
@@ -33,6 +34,7 @@ public class InventoryViewer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //  show update
         if(Input.GetKeyDown(KeyCode.I))
         {
             if(visible)
@@ -43,7 +45,7 @@ public class InventoryViewer : MonoBehaviour
                 if(audiosource)
                     audiosource.clip = offsound;
             }
-            else if(backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || backpack.load == 0)
+            else if(storage == null && (backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || backpack.load == 0))
             {
                 pivot.SetActive(true);
                 loadSum.text = "empty or not\nequiped";
@@ -55,7 +57,10 @@ public class InventoryViewer : MonoBehaviour
             else
             {
                 pivot.SetActive(true);
-                UpdateContent();
+                if(storage == null)
+                    UpdateContent(backpack.inventory);
+                else
+                    UpdateContent(GetFusionInventory());
                 if (audiosource)
                     audiosource.clip = onsound;
             }
@@ -65,96 +70,159 @@ public class InventoryViewer : MonoBehaviour
             visible = !visible;
         }
 
+        //  storage update
+        if(visible && prevStorage != (storage != null))
+        {
+            if (storage == null && (backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || backpack.load == 0))
+            {
+                pivot.SetActive(true);
+                loadSum.text = "empty or not\nequiped";
+                loadSum.transform.localPosition = new Vector3(0, 0, 0);
+                background.localScale = new Vector3(0, 0, 0);
+                foreach (Transform child in container)
+                    Destroy(child.gameObject);
+            }
+            else
+            {
+                pivot.SetActive(true);
+                if (storage == null)
+                    UpdateContent(backpack.inventory);
+                else
+                    UpdateContent(GetFusionInventory());
+            }
+        }
+
+        // other update
         if (visible)
         {
-            foreach (Transform child in container)
-            {
-                InventoryLineTemplate line = child.GetComponent<InventoryLineTemplate>();
-                line.up.enabled = storage;
-                line.up2.enabled = storage;
-                line.down.enabled = storage;
-                line.down2.enabled = storage;
-            }
+            UpdateArrowVisibility();
 
             Vector3 s = background.localScale;
-            background.localScale = new Vector3((storage ? backgroundWidth.x : backgroundWidth.y), s.y, s.z);
+            background.localScale = new Vector3(((storage != null) ? backgroundWidth.x : backgroundWidth.y), s.y, s.z);
 
-            //if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                string command = "";
-                string resource = "";
-                bool collision = false;
-                foreach (Transform child in container)
-                {
-                    InventoryLineTemplate line = child.GetComponent<InventoryLineTemplate>();
-                    foreach(Collider box in line.buttons)
-                    {
-                        /*Ray ray2 = new Ray();
-                        ray2.origin = box.transform.InverseTransformPoint(ray.origin);
-                        ray2.direction = box.transform.InverseTransformDirection(ray.direction);
-                        if (box.bounds.IntersectRay(ray2))
-                        {
-                            collision = true;
-                            command = box.gameObject.name;
-                            resource = box.transform.parent.name;
-                            break;
-                        }
-                        if(RayVsObb(ray.origin, ray.direction, box.transform.worldToLocalMatrix, box.bounds.min, box.bounds.max))
-                        {
-                            collision = true;
-                            command = box.gameObject.name;
-                            resource = box.transform.parent.name;
-                            break;
-                        }*/
-
-                        Debug.Log(box.bounds.center.ToString() + " " + box.bounds.extents.ToString());
-                    }
-                    if (collision)
-                        break;
-                }
-
-                if(collision)
-                {
-                    Debug.Log(resource + " " + command);
-                }
-
-
-                /*RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                //RaycastHit[] hit = Physics.RaycastAll(ray, 50f);
-
-                if (Physics.Raycast(ray, out hit, 50f, 1 << LayerMask.NameToLayer("PlayerUI"), QueryTriggerInteraction.Collide))
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f, 1 << LayerMask.NameToLayer("PlayerUI")))
                 {
                     string command = hit.collider.gameObject.name;
                     string resource = hit.collider.transform.parent.name;
+                    InventoryLineTemplate line = hit.collider.transform.parent.GetComponent<InventoryLineTemplate>();
 
-                    Debug.Log(resource + " " + command);
-                }*/
-
-                    /*for (int i=0; i< hit.Length;i++)
+                    if (command == "arrow-" && line.down.enabled)
                     {
-                        string command = hit[i].collider.gameObject.name;
-                        string resource = hit[i].collider.transform.parent.name;
+                        if (backpack.inventory[resource] <= 0 || !storage.HasSpace())
+                        {
+                            if (audiosource)
+                            { 
+                                audiosource.clip = noktransaction;
+                                audiosource.Play();
+                            }
+                        }
+                        else
+                        {
+                            if (audiosource)
+                            {
+                                audiosource.clip = oktransaction;
+                                audiosource.Play();
+                            }
+                            backpack.inventory[resource]--;
+                            storage.AddItem(resource, 1);
+                            if (backpack.inventory[resource] <= 0)
+                                backpack.inventory.Remove(resource);
+                            UpdateContent(GetFusionInventory());
+                        }
+                    }
+                    else if (command == "arrow--" && line.down2.enabled)
+                    {
+                        if (backpack.inventory[resource] <= 0 || !storage.HasSpace())
+                        {
+                            if (audiosource)
+                            {
+                                audiosource.clip = noktransaction;
+                                audiosource.Play();
+                            }
+                        }
+                        else
+                        {
+                            int maximumTransfert = Mathf.Min(storage.capacity - storage.load, backpack.inventory[resource]);
+                            if (audiosource)
+                            {
+                                audiosource.clip = oktransaction;
+                                audiosource.Play();
+                            }
+                            storage.AddItem(resource, maximumTransfert);
+                            backpack.inventory[resource] -= maximumTransfert;
+                            if (backpack.inventory[resource] <= 0)
+                                backpack.inventory.Remove(resource);
+                            UpdateContent(GetFusionInventory());
+                        }
+                    }
+                    else if (command == "arrow+" && line.up.enabled)
+                    {
+                        if (storage.inventory[resource] <= 0 || !backpack.HasSpace())
+                        {
+                            if (audiosource)
+                            {
+                                audiosource.clip = noktransaction;
+                                audiosource.Play();
+                            }
+                        }
+                        else
+                        {
+                            if (audiosource)
+                            {
+                                audiosource.clip = oktransaction;
+                                audiosource.Play();
+                            }
+                            storage.inventory[resource]--;
+                            backpack.AddItem(resource, 1);
+                            if (storage.inventory[resource] <= 0)
+                                storage.inventory.Remove(resource);
+                            UpdateContent(GetFusionInventory());
+                        }
+                    }
+                    else if (command == "arrow++" && line.up2.enabled)
+                    {
+                        if (storage.inventory[resource] <= 0 || !backpack.HasSpace())
+                        {
+                            if (audiosource)
+                            {
+                                audiosource.clip = noktransaction;
+                                audiosource.Play();
+                            }
+                        }
+                        else
+                        {
+                            if (audiosource)
+                            {
+                                audiosource.clip = oktransaction;
+                                audiosource.Play();
+                            }
+                            int maximumTransfert = Mathf.Min(backpack.capacity - backpack.load, storage.inventory[resource]);
+                            backpack.AddItem(resource, storage.inventory[resource]);
+                            storage.inventory[resource] -= maximumTransfert;
+                            if (storage.inventory[resource] <= 0)
+                                storage.inventory.Remove(resource);
+                            UpdateContent(GetFusionInventory());
+                        }
+                    }
 
-                        Debug.Log(resource + " " + command);
-                    }*/
-                    //Debug.Log(hit.Length);
+                    storage.RecomputeLoad();
+                    player.RecomputeLoadFactor();
+                }
             }
         }
-    }
-    public void OnDrawGizmos()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Gizmos.DrawRay(ray.origin, 50f * ray.direction);
-    }
 
-    public void UpdateContent()
+        prevStorage = (storage != null);
+    }
+    
+    public void UpdateContent(SortedDictionary<string, int> list)
     {
         foreach (Transform child in container)
             Destroy(child.gameObject);
 
-        if (backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || backpack.load == 0)
+        if (backpackSlot.equipedItem.type != BackpackItem.Type.RessourceContainer || list.Count == 0)
         {
             loadSum.text = "empty or not\nequiped";
             loadSum.transform.localPosition = new Vector3(0, 0, 0);
@@ -164,21 +232,17 @@ public class InventoryViewer : MonoBehaviour
         {
             loadSum.text = backpack.load.ToString() + "/" + backpack.capacity.ToString();
 
-            int lines = backpack.inventory.Count;
-            background.localScale = new Vector3((storage ? backgroundWidth.x : backgroundWidth.y), spacing * lines + 0.1f, 1);
+            int lines = list.Count;
+            background.localScale = new Vector3(((storage != null) ? backgroundWidth.x : backgroundWidth.y), spacing * lines + 0.1f, 1);
             background.localPosition = new Vector3(0, 0.5f * spacing * lines + 0.05f, 0);
             loadSum.transform.localPosition = new Vector3(0, spacing * lines + 0.1f, 0);
 
             Vector3 position = Vector3.zero;
-            foreach (KeyValuePair<string, int> entry in backpack.inventory)
+            foreach (KeyValuePair<string, int> entry in list)
             {
                 InventoryLineTemplate go = Instantiate(template, container);
                 go.transform.localPosition = position;
                 go.name = entry.Key;
-                go.up.enabled = storage;
-                go.up2.enabled = storage;
-                go.down.enabled = storage;
-                go.down2.enabled = storage;
                 go.gameObject.SetActive(true);
 
                 go.count.text = entry.Value.ToString();
@@ -186,108 +250,33 @@ public class InventoryViewer : MonoBehaviour
 
                 position.y += spacing;
             }
+
+            UpdateArrowVisibility();
         }
     }
-    public void ButtonCallback(string name1, string name2)
+
+    public SortedDictionary<string, int> GetFusionInventory()
     {
-        callback = true;
-        callbackCommand = name1;
-        callbackResource = name2;
-        Debug.Log(callbackCommand + " " + callbackResource);
+        SortedDictionary<string, int> extendedContainer = new SortedDictionary<string, int>();
+        foreach (KeyValuePair<string, int> entry in backpack.inventory)
+            extendedContainer.Add(entry.Key, entry.Value);
+        foreach (KeyValuePair<string, int> entry in storage.inventory)
+        {
+            if (!extendedContainer.ContainsKey(entry.Key))
+                extendedContainer.Add(entry.Key, 0);
+        }
+        
+        return extendedContainer;
     }
-    private bool RayVsObb(Vector3 origin, Vector3 direction, Matrix4x4 boxTranform, Vector3 boxMin, Vector3 boxMax)
+    public void UpdateArrowVisibility()
     {
-        //http://www.opengl-tutorial.org/fr/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/
-
-        Vector4 tmp = boxTranform.GetColumn(3);
-        Vector3 delta = new Vector3(tmp.x, tmp.y, tmp.z) - origin;
-
-        float tmin = 0f;
-        float tmax = Mathf.Infinity;
-
-        //	test on the two axis of local x
-        tmp = boxTranform.GetColumn(0);
-        Vector3 bx = new Vector3(tmp.x, tmp.y, tmp.z).normalized;
-	    float e = Vector3.Dot(bx, delta);
-	    if (Vector3.Dot(bx, direction) == 0f) // segment parallel to selected plane
-	    {
-		    if (-e + boxMin.x > 0.0f || -e + boxMax.x< 0.0f)
-                return false;
-	    }
-	    else
-	    {
-		    float t1 = (e + boxMin.x) / Vector3.Dot(bx, direction); // Intersection with the "left" plane
-            float t2 = (e + boxMax.x) / Vector3.Dot(bx, direction); // Intersection with the "right" plane
-		    if (t1 > t2)
-            {
-                float f = t1;
-                t1 = t2;
-                t2 = f;
-            }
-
-            Debug.Log("x " + bx.ToString() + " " + t2.ToString());
-
-		    if (t2 < tmax) tmax = t2;
-		    if (t1 > tmin) tmin = t1;
-		    if (tmax < tmin)
-                return false;
-	    }
-
-        //	test on the two axis of local y
-        tmp = boxTranform.GetColumn(1);
-        Vector3 by = new Vector3(tmp.x, tmp.y, tmp.z).normalized;
-        e = Vector3.Dot(by, delta);
-	    if (Vector3.Dot(by, direction) == 0f) // segment parallel to selected plane
-	    {
-		    if (-e + boxMin.y > 0.0f || -e + boxMax.y< 0.0f)
-                return false;
-	    }
-	    else
-	    {
-		    float t1 = (e + boxMin.y) / Vector3.Dot(by, direction); // Intersection with the "left" plane
-            float t2 = (e + boxMax.y) / Vector3.Dot(by, direction); // Intersection with the "right" plane
-		    if (t1 > t2)
-            {
-                float f = t1;
-                t1 = t2;
-                t2 = f;
-            }
-
-            Debug.Log("y " + t1.ToString() + " " + t2.ToString());
-
-            if (t2 < tmax) tmax = t2;
-		    if (t1 > tmin) tmin = t1;
-		    if (tmax < tmin)
-                return false;
-	    }
-
-        //	test on the two axis of local z
-        tmp = boxTranform.GetColumn(2);
-        Vector3 bz = new Vector3(tmp.x, tmp.y, tmp.z).normalized;
-        e = Vector3.Dot(bz, delta);
-	    if (Vector3.Dot(bz, direction) == 0f) // segment parallel to selected plane
-	    {
-		    if (-e + boxMin.z > 0.0f || -e + boxMax.z< 0.0f)
-                return false;
-	    }
-	    else
-	    {
-		    float t1 = (e + boxMin.z) / Vector3.Dot(bz, direction); // Intersection with the "left" plane
-            float t2 = (e + boxMax.z) / Vector3.Dot(bz, direction); // Intersection with the "right" plane
-		    if (t1 > t2)
-            {
-                float f = t1;
-                t1 = t2;
-                t2 = f;
-            }
-
-            Debug.Log("z " + t1.ToString() + " " + t2.ToString());
-
-            if (t2 < tmax) tmax = t2;
-		    if (t1 > tmin) tmin = t1;
-		    if (tmax < tmin)
-                return false;
-	    }
-	    return true;
+        foreach (Transform child in container)
+        {
+            InventoryLineTemplate line = child.GetComponent<InventoryLineTemplate>();
+            line.up.enabled = (storage != null && storage.inventory.ContainsKey(line.gameObject.name));
+            line.up2.enabled = (storage != null && storage.inventory.ContainsKey(line.gameObject.name));
+            line.down.enabled = (storage != null && line.count.text != "0");
+            line.down2.enabled = (storage != null && line.count.text != "0");
+        }
     }
 }

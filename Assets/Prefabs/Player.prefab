@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 302393356}
   - component: {fileID: 302393358}
   - component: {fileID: 302393357}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: arrow--
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,8 +766,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.35}
-  m_Center: {x: 0.00000047683716, y: -0.0000038146973, z: 0}
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &394440404
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +860,7 @@ GameObject:
   - component: {fileID: 571418666}
   - component: {fileID: 571418668}
   - component: {fileID: 571418667}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: arrow++
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,8 +942,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.35}
-  m_Center: {x: 0.00000047683716, y: 0, z: 0}
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &626509969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883683956}
   - component: {fileID: 883683957}
+  - component: {fileID: 5945416877366145374}
   - component: {fileID: 883683958}
   - component: {fileID: 1234145489}
   m_Layer: 0
@@ -1326,7 +1327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883683955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.85, z: 0}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1944613776}
@@ -1347,8 +1348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible: 0
-  storage: 0
+  storage: {fileID: 0}
   spacing: 0.32
+  player: {fileID: 274576174245912502}
   backgroundWidth: {x: 2.4, y: 1.5}
   backpackSlot: {fileID: 443076384804824349}
   template: {fileID: 1944613777}
@@ -1359,6 +1361,21 @@ MonoBehaviour:
   background: {fileID: 223107794}
   onsound: {fileID: 8300000, guid: 4b19d60811b11b447bf2f097d49e70b9, type: 3}
   offsound: {fileID: 8300000, guid: fb65fb9b33f502b4b9eb8ac06ab2ed5f, type: 3}
+  noktransaction: {fileID: 8300000, guid: 5069fe0dcd2d6784d9218572f7c6fad5, type: 3}
+  oktransaction: {fileID: 8300000, guid: 4b19d60811b11b447bf2f097d49e70b9, type: 3}
+--- !u!114 &5945416877366145374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883683955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd92f7af23d76e4192b93ab52565b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 274576174700800080}
 --- !u!114 &883683958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1988,7 +2005,7 @@ GameObject:
   - component: {fileID: 1563193954}
   - component: {fileID: 1563193956}
   - component: {fileID: 1563193955}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: arrow-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2070,8 +2087,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.35}
-  m_Center: {x: 0, y: 0.0000076293945, z: 0}
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1757528638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2244,7 +2261,7 @@ GameObject:
   - component: {fileID: 1815037491}
   - component: {fileID: 1815037493}
   - component: {fileID: 1815037492}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: arrow+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2326,8 +2343,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.35}
-  m_Center: {x: 0.00000047683716, y: 0, z: 0}
+  m_Size: {x: 1.0000001, y: 1.0000001, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1857817986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,6 +2509,11 @@ MonoBehaviour:
   up2: {fileID: 571418668}
   down: {fileID: 1563193956}
   down2: {fileID: 302393358}
+  buttons:
+  - {fileID: 1815037492}
+  - {fileID: 571418667}
+  - {fileID: 1563193955}
+  - {fileID: 302393357}
 --- !u!1 &1976022291
 GameObject:
   m_ObjectHideFlags: 0

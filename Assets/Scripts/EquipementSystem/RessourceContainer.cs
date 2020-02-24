@@ -8,7 +8,17 @@ public class RessourceContainer : MonoBehaviour
     public MeshRenderer[] itemMeshes;
     public int load = 0;
     public List<string> acceptedResources = new List<string>();
-    public Dictionary<string, int> inventory = new Dictionary<string, int>();
+    public SortedDictionary<string, int> inventory = new SortedDictionary<string, int>();
+    public List<string> start = new List<string>();
+
+    private void Start()
+    {
+        foreach(string s in start)
+        {
+            string[] array = s.Split(' ');
+            AddItem(array[0], int.Parse(array[1]));
+        }
+    }
 
     public bool HasSpace()
     {
@@ -58,5 +68,12 @@ public class RessourceContainer : MonoBehaviour
             foreach (KeyValuePair<string, int> entry in inventory)
                 load += entry.Value;
         }
+    }
+    public int RecomputeLoad()
+    {
+        load = 0;
+        foreach (KeyValuePair<string, int> entry in inventory)
+            load += entry.Value;
+        return load;
     }
 }

@@ -107,7 +107,6 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-    <Compile Include="Assets\Scripts\Billboard.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ChickController.cs" />
     <Compile Include="Assets\Scripts\ChikenController.cs" />
@@ -128,6 +127,9 @@
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponItem.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\WeaponSlot.cs" />
     <Compile Include="Assets\Scripts\GenerateBillboard.cs" />
+    <Compile Include="Assets\Scripts\Helper\Billboard.cs" />
+    <Compile Include="Assets\Scripts\Helper\Follower.cs" />
+    <Compile Include="Assets\Scripts\Helper\WindAnimation.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\Button3D.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\CollectData.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionConditionTemplate.cs" />
@@ -155,13 +157,13 @@
     <Compile Include="Assets\Scripts\TileScripts\Wall.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Water.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Wheet.cs" />
-    <Compile Include="Assets\Scripts\WindAnimation.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\GrainGen.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Resources\Shaders\FXAA3.cginc" />
     <None Include="Assets\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
     <None Include="Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\Materials\Specials\Text3D.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
