@@ -17,6 +17,7 @@ public class Dirt : MonoBehaviour
     static protected Vector3 n = Vector3.up;
 
     public int configuration;
+    public Transform childPivot = null;
 
     public void Initialize(bool xp, bool xm, bool zp, bool zm, float borderStrengh)
     {
@@ -99,6 +100,11 @@ public class Dirt : MonoBehaviour
         MeshFilter mf = GetComponent<MeshFilter>();
         mf.mesh = mesh;
         transform.localEulerAngles = new Vector3(0, rotation, 0);
+        if (childPivot)
+        {
+            childPivot.localEulerAngles -= transform.localEulerAngles;
+            Debug.Log(childPivot.eulerAngles);
+        }
     }
     public void InitializeFromPool(bool xp, bool xm, bool zp, bool zm, float borderStrengh)
     {
@@ -184,6 +190,8 @@ public class Dirt : MonoBehaviour
         // set mesh and orientation 
         MeshFilter mf = GetComponent<MeshFilter>();
         mf.sharedMesh = mesh;
+        if (childPivot)
+            childPivot.localEulerAngles -= new Vector3(0, rotation - transform.localEulerAngles.y, 0);
         transform.localEulerAngles = new Vector3(0, rotation, 0);
     }
 

@@ -125,7 +125,7 @@ public class GenerateBillboard : ScriptableWizard
                     //Rect rec = new Rect(xRatio * atlasPixelWidth, yRatio * atlasPixelHeight, (float)1 / atlasColumnImageCount * atlasPixelWidth, (float)1 / atlasRowImageCount * atlasPixelHeight);
                     //texture.ReadPixels(rec, i / atlasColumnImageCount * atlasPixelWidth, (atlasRowImageCount - j - 1) / atlasRowImageCount * atlasPixelHeight);
 
-                    toRotateCamera.transform.eulerAngles -= Vector3.up * (360 / totalImageCount);
+                    toRotateCamera.transform.eulerAngles += Vector3.up * (360 / totalImageCount);
                 }
             }
         }

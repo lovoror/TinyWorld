@@ -21,7 +21,8 @@ public class InteractionType : MonoBehaviour
 
         collectWheet,
 
-        storeRessources
+        storeRessources,
+        forge
     };
     public Type type;
 

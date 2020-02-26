@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CollectData : MonoBehaviour
 {
-    public int ressourceCount;
+    public int ressourceCount = 0;
     private void Start()
     {
-        ressourceCount = Random.Range(3, 5);
+        if (ressourceCount == 0)
+            ressourceCount = Random.Range(3, 5);
     }
 }

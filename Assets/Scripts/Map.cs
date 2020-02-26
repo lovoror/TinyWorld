@@ -40,6 +40,7 @@ public class Map : MonoBehaviour
                         GameObject go = Instantiate(tile.prefab3d);
                         go.transform.parent = prefabContainer.transform;
                         go.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
+                        go.transform.localEulerAngles = new Vector3(0, -tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
                         go.SetActive(true);
                         
                         // add variability and suscribe to meteo
@@ -81,10 +82,10 @@ public class Map : MonoBehaviour
                             ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
                             ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, 1,  0));
 
-                            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.name == "Dirt" || xm.prefab3d.name == "Bridge" || xm.prefab3d.name.Contains("Crop")));
-                            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.name == "Dirt" || xp.prefab3d.name == "Bridge" || xp.prefab3d.name.Contains("Crop")));
-                            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.name == "Dirt" || zm.prefab3d.name == "Bridge" || zm.prefab3d.name.Contains("Crop")));
-                            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.name == "Dirt" || zp.prefab3d.name == "Bridge" || zp.prefab3d.name.Contains("Crop")));
+                            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.GetComponent<Dirt>() != null || xm.prefab3d.name == "Bridge"));
+                            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.GetComponent<Dirt>() != null || xp.prefab3d.name == "Bridge"));
+                            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.GetComponent<Dirt>() != null || zm.prefab3d.name == "Bridge"));
+                            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.GetComponent<Dirt>() != null || zp.prefab3d.name == "Bridge"));
 
                             dirt.InitializeFromPool(xpb, xmb, zmb, zpb, 0.3f);
                         }

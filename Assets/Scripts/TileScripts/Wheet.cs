@@ -9,11 +9,17 @@ public class Wheet : MonoBehaviour
     public Mesh prefab;
     public int density;
     static float dispersion = 0.3f;
-    
+    public bool initOnValidate = false;
 
     private void Start()
     {
         InitializeFromPool();
+    }
+
+    private void OnValidate()
+    {
+        if (initOnValidate)
+            Initialize();
     }
 
     public void Initialize()
