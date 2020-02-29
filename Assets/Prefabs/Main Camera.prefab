@@ -45,7 +45,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0, g: 1, b: 0.29078388, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -121,12 +121,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8730490982015208155}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 28b31359697777e45879ad39898c8d27, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.169
+  m_Volume: 0.467
   m_Pitch: 1
   Loop: 1
   Mute: 1

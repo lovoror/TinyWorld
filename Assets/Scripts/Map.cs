@@ -10,6 +10,26 @@ public class Map : MonoBehaviour
     private Grid grid;
     public Tilemap tilemap;
     public TilemapRenderer tilemapRenderer;
+    private GameObject prefabContainer;
+    public List<Tile> tileList;
+    private Dictionary<string, Tile> tileDictionary;
+    public TileInitializer placeTileTemplate;
+
+    // Singleton struct
+    private static Map _instance;
+    public static Map Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
 
     void Start()
     {
@@ -17,15 +37,20 @@ public class Map : MonoBehaviour
         tilemap.enabled = false;
         grid = GetComponent<Grid>();
 
+        tileDictionary = new Dictionary<string, Tile>();
+        foreach (Tile tile in tileList)
+            tileDictionary.Add(tile.name, tile);
+
         Vector3 dy = new Vector3(0, 0.5f * grid.cellSize.z, 0);
 
         Meteo meteo = Meteo.Instance;
-        GameObject prefabContainer = new GameObject();
+        prefabContainer = new GameObject();
         prefabContainer.name = "PrefabContainer";
         prefabContainer.transform.localPosition = Vector3.zero;
         prefabContainer.transform.localScale = Vector3.one;
         prefabContainer.transform.localRotation = Quaternion.identity;
         prefabContainer.transform.parent = this.transform;
+        int initializedTileCount = 0;
 
         for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax; x++)
             for (int z = tilemap.cellBounds.yMin; z < tilemap.cellBounds.yMax; z++)
@@ -37,128 +62,182 @@ public class Map : MonoBehaviour
                     ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
                     if(tile.prefab3d)
                     {
-                        GameObject go = Instantiate(tile.prefab3d);
-                        go.transform.parent = prefabContainer.transform;
-                        go.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
-                        go.transform.localEulerAngles = new Vector3(0, -tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
-                        go.SetActive(true);
-                        
-                        // add variability and suscribe to meteo
-                        Transform pivot = go.transform.Find("Pivot");
-                        if(pivot)
-                        {
-                            pivot.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
-                            pivot.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
-                            float scale = Random.Range(0.7f, 1.3f);
-                            pivot.localScale = new Vector3(scale, scale, scale);
-                            meteo.treesList.Add(pivot.GetComponent<TreeComponent>());
-                        }
-
-                        // grass tiles initialization
-                        Grass grass = go.GetComponent<Grass>();
-                        if(grass)
-                        {
-                            BoundsInt area = new BoundsInt();
-                            area.min = cellPosition + new Vector3Int(-1, -1, 0);
-                            area.max = cellPosition + new Vector3Int(2, 2, 1);
-                            TileBase[] neighbours = tilemap.GetTilesBlock(area);
-                            
-                            int grassNeighbours = 0;
-                            for (int i=0; i<neighbours.Length; i++)
-                            {
-                                ScriptableTile n = (ScriptableTile)neighbours[i];
-                                if (n && n.name == "Grass")
-                                    grassNeighbours++;
-                            }
-                            grass.InitializeFromPool(Mathf.Clamp(grassNeighbours - 1 + Random.Range(-1, 1), 0, 8));
-                        }
-
-                        // dirt tiles initialization
-                        Dirt dirt = go.GetComponent<Dirt>();
-                        if(dirt)
-                        {
-                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1,  0, 0));
-                            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 1,  0, 0));
-                            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
-                            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, 1,  0));
-
-                            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.GetComponent<Dirt>() != null || xm.prefab3d.name == "Bridge"));
-                            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.GetComponent<Dirt>() != null || xp.prefab3d.name == "Bridge"));
-                            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.GetComponent<Dirt>() != null || zm.prefab3d.name == "Bridge"));
-                            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.GetComponent<Dirt>() != null || zp.prefab3d.name == "Bridge"));
-
-                            dirt.InitializeFromPool(xpb, xmb, zmb, zpb, 0.3f);
-                        }
-
-                        // dirt tiles initialization
-                        Wall wall = go.GetComponent<Wall>();
-                        if (wall)
-                        {
-                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1,  0, 0));
-                            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 1,  0, 0));
-                            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0, -1, 0));
-                            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 0,  1, 0));
-
-                            bool xmb = (xm && xm.prefab3d && xm.prefab3d.name.Contains("Wall"));
-                            bool xpb = (xp && xp.prefab3d && xp.prefab3d.name.Contains("Wall"));
-                            bool zmb = (zm && zm.prefab3d && zm.prefab3d.name.Contains("Wall"));
-                            bool zpb = (zp && zp.prefab3d && zp.prefab3d.name.Contains("Wall"));
-
-                            wall.Initialize(xpb, xmb, zmb, zpb);
-                        }
-
-                        // water tiles initialization
-                        Water water = go.GetComponent<Water>();
-                        if (water)
-                        {
-                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
-                            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(1, 0, 0));
-                            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
-                            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
-
-                            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.name == "Water" || xm.prefab3d.name == "Bridge"));
-                            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.name == "Water" || xp.prefab3d.name == "Bridge"));
-                            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.name == "Water" || zm.prefab3d.name == "Bridge"));
-                            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.name == "Water" || zp.prefab3d.name == "Bridge"));
-
-                            water.Initialize(xpb, xmb, zmb, zpb, 0.3f);
-                        }
-
-                        // bridges tiles
-                        Bridge bridge = go.GetComponent<Bridge>();
-                        if (bridge)
-                        {
-                            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
-                            bridge.Initialize(xm && xm.prefab3d && xm.prefab3d.name == "Dirt");
-                        }
-
-                        // stone tiles initialization
-                        Stone stone = go.GetComponent<Stone>();
-                        if (stone)
-                        {
-                            BoundsInt area = new BoundsInt();
-                            area.min = cellPosition + new Vector3Int(-1, -1, 0);
-                            area.max = cellPosition + new Vector3Int(2, 2, 1);
-                            TileBase[] neighbours = tilemap.GetTilesBlock(area);
-
-                            int grassNeighbours = 0;
-                            for (int i = 0; i < neighbours.Length; i++)
-                            {
-                                ScriptableTile n = (ScriptableTile)neighbours[i];
-                                if (n && (n.name == "Grass" || n.name.Contains("Crop")))
-                                    grassNeighbours++;
-                            }
-                            stone.Initialize(2 - grassNeighbours / 3);
-                        }
-
-                        // minerals tiles initialization
-                        MineralRessource mineral = go.GetComponent<MineralRessource>();
-                        if (mineral)
-                        {
-                            mineral.Initialize(tile.option1);
-                        }
+                        TileInit(tile, cellPosition);
+                        initializedTileCount++;
                     }
                 }
             }
+        Debug.Log("TileCount : " + initializedTileCount.ToString());
+    }
+
+    public void PlaceTile(Vector3 position, GameObject original, string tileName)
+    {
+        if(original)
+            Destroy(original);
+        Vector3Int cell = tilemap.WorldToCell(position);
+        if (tileDictionary.ContainsKey(tileName))
+        {
+            tilemap.SetTile(cell, tileDictionary[tileName]);
+            ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
+            if (tile)
+                TileInit(tile, cell);
+        }
+        else Debug.LogWarning("no " + tileName + " in dictionary");
+    }
+    public void PlaceTiles(List<Vector3> positions, List<GameObject> originals, string tileName)
+    {
+        foreach (GameObject original in originals)
+            Destroy(original);
+        if (tileDictionary.ContainsKey(tileName))
+        {
+            List<KeyValuePair < ScriptableTile, Vector3Int >> list = new List<KeyValuePair<ScriptableTile, Vector3Int>>();
+            foreach(Vector3 p in positions)
+            {
+                Vector3Int cell = tilemap.WorldToCell(p);
+                tilemap.SetTile(cell, tileDictionary[tileName]);
+                ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
+                if(tile)
+                    list.Add(new KeyValuePair<ScriptableTile, Vector3Int>(tile, cell));
+            }
+            foreach(KeyValuePair<ScriptableTile, Vector3Int> entry in list)
+                TileInit(entry.Key, entry.Value);
+        }
+        else Debug.LogWarning("no " + tileName + " in dictionary");
+    }
+    public List<GameObject> SearchAt(Vector3 position, float radius)
+    {
+        List<GameObject> result = new List<GameObject>();
+        foreach (Transform child in prefabContainer.transform)
+        {
+            if ((child.position - position).sqrMagnitude < radius * radius)
+                result.Add(child.gameObject);
+        }
+        return result;
+    }
+
+    public void TileInit(ScriptableTile tile, Vector3Int cellPosition)
+    {
+        Vector3 dy = new Vector3(0, 0.5f * grid.cellSize.z, 0);
+
+        GameObject go = Instantiate(tile.prefab3d);
+        go.transform.parent = prefabContainer.transform;
+        go.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
+        go.transform.localEulerAngles = new Vector3(0, -tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
+        go.SetActive(true);
+
+        // add variability and suscribe to meteo
+        Transform pivot = go.transform.Find("Pivot");
+        if (pivot)
+        {
+            pivot.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+            pivot.localEulerAngles = new Vector3(0, Random.Range(-180f, 180f), 0);
+            float scale = Random.Range(0.7f, 1.3f);
+            pivot.localScale = new Vector3(scale, scale, scale);
+            Meteo.Instance.treesList.Add(pivot.GetComponent<TreeComponent>());
+        }
+
+        // grass tiles initialization
+        Grass grass = go.GetComponent<Grass>();
+        if (grass)
+        {
+            BoundsInt area = new BoundsInt();
+            area.min = cellPosition + new Vector3Int(-1, -1, 0);
+            area.max = cellPosition + new Vector3Int(2, 2, 1);
+            TileBase[] neighbours = tilemap.GetTilesBlock(area);
+
+            int grassNeighbours = 0;
+            for (int i = 0; i < neighbours.Length; i++)
+            {
+                ScriptableTile n = (ScriptableTile)neighbours[i];
+                if (n && n.name == "Grass")
+                    grassNeighbours++;
+            }
+            grass.InitializeFromPool(Mathf.Clamp(grassNeighbours - 1 + Random.Range(-1, 1), 0, 8));
+        }
+
+        // dirt tiles initialization
+        Dirt dirt = go.GetComponent<Dirt>();
+        if (dirt)
+        {
+            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(1, 0, 0));
+            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
+            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
+
+            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.GetComponent<Dirt>() != null || xm.prefab3d.name == "Bridge"));
+            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.GetComponent<Dirt>() != null || xp.prefab3d.name == "Bridge"));
+            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.GetComponent<Dirt>() != null || zm.prefab3d.name == "Bridge"));
+            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.GetComponent<Dirt>() != null || zp.prefab3d.name == "Bridge"));
+
+            dirt.InitializeFromPool(xpb, xmb, zmb, zpb, 0.3f);
+        }
+
+        // walls tiles initialization
+        Wall wall = go.GetComponent<Wall>();
+        if (wall)
+        {
+            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(1, 0, 0));
+            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
+            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
+
+            bool xmb = (xm && xm.prefab3d && xm.prefab3d.name.Contains("Wall"));
+            bool xpb = (xp && xp.prefab3d && xp.prefab3d.name.Contains("Wall"));
+            bool zmb = (zm && zm.prefab3d && zm.prefab3d.name.Contains("Wall"));
+            bool zpb = (zp && zp.prefab3d && zp.prefab3d.name.Contains("Wall"));
+
+            wall.Initialize(xpb, xmb, zmb, zpb);
+        }
+
+        // water tiles initialization
+        Water water = go.GetComponent<Water>();
+        if (water)
+        {
+            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(1, 0, 0));
+            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
+            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
+
+            bool xmb = (xm && xm.prefab3d && (xm.prefab3d.name == "Water" || xm.prefab3d.name == "Bridge"));
+            bool xpb = (xp && xp.prefab3d && (xp.prefab3d.name == "Water" || xp.prefab3d.name == "Bridge"));
+            bool zmb = (zm && zm.prefab3d && (zm.prefab3d.name == "Water" || zm.prefab3d.name == "Bridge"));
+            bool zpb = (zp && zp.prefab3d && (zp.prefab3d.name == "Water" || zp.prefab3d.name == "Bridge"));
+
+            water.Initialize(xpb, xmb, zmb, zpb, 0.3f);
+        }
+
+        // bridges tiles
+        Bridge bridge = go.GetComponent<Bridge>();
+        if (bridge)
+        {
+            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+            bridge.Initialize(xm && xm.prefab3d && xm.prefab3d.name == "Dirt");
+        }
+
+        // stone tiles initialization
+        Stone stone = go.GetComponent<Stone>();
+        if (stone)
+        {
+            BoundsInt area = new BoundsInt();
+            area.min = cellPosition + new Vector3Int(-1, -1, 0);
+            area.max = cellPosition + new Vector3Int(2, 2, 1);
+            TileBase[] neighbours = tilemap.GetTilesBlock(area);
+
+            int grassNeighbours = 0;
+            for (int i = 0; i < neighbours.Length; i++)
+            {
+                ScriptableTile n = (ScriptableTile)neighbours[i];
+                if (n && (n.name == "Grass" || n.name.Contains("Crop")))
+                    grassNeighbours++;
+            }
+            stone.Initialize(2 - grassNeighbours / 3);
+        }
+
+        // minerals tiles initialization
+        MineralRessource mineral = go.GetComponent<MineralRessource>();
+        if (mineral)
+        {
+            mineral.Initialize(tile.option1);
+        }
     }
 }

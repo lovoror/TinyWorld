@@ -134,7 +134,10 @@
     <Compile Include="Assets\Scripts\InteractionSystem\AppleTree.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\Button3D.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\CollectData.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionCamera.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionDictionary.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\ConstructionTemplate.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionViewer.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionConditionTemplate.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionHelper.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionJuicer.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Assets\Scripts\InteractionSystem\ResourceType.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\SpecialPickableShopArsenal.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\StoreHouseViewer.cs" />
+    <Compile Include="Assets\Scripts\InteractionSystem\TileInitializer.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\ToolDictionary.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\ToolType.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />

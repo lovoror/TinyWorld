@@ -32,6 +32,34 @@ public class RessourceContainer : MonoBehaviour
             inventory[ressourceName] += ressourceCount;
         UpdateContent();
     }
+    public void RemoveItem(string ressourceName, int ressourceCount, bool forceUpdate = true)
+    {
+        if (inventory.ContainsKey(ressourceName))
+        {
+            inventory[ressourceName] = Mathf.Max(0, inventory[ressourceName] - ressourceCount);
+            if (inventory[ressourceName] == 0)
+                inventory.Remove(ressourceName);
+        }
+        if (forceUpdate)
+            UpdateContent();
+    }
+    public Dictionary<string, int> GetAcceptance()
+    {
+        Dictionary<string, int> acceptance = new Dictionary<string, int>();
+
+        char[] separator = { ' ' };
+        foreach(string acc in acceptedResources)
+        {
+            if (acc.Contains(" "))
+            {
+                string[] s = acc.Split(separator);
+                acceptance.Add(s[0], int.Parse(s[1]));
+            }
+            else acceptance.Add(acc, -1);
+        }
+
+        return acceptance;
+    }
     public void Clear()
     {
         inventory.Clear();

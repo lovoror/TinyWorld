@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    
     public Transform target;
     public float rotationSpeed = 1f;
     public float zoomSpeed = 1f;

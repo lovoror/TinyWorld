@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 1692986561055113681}
   - component: {fileID: 1692986560585823744}
   m_Layer: 0
-  m_Name: market
+  m_Name: Market
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,7 +193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c064c7feb1fe32c40bd9e2cc5a0e618a, type: 2}
+  - {fileID: 2100000, guid: ee90f878377271b4fbbf915249f24476, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

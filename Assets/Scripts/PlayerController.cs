@@ -35,9 +35,10 @@ public class PlayerController : MonoBehaviour
     public RessourceContainer ressourceContainer;
     public InventoryViewer inventoryViewer;
     public InteractionHelper interactionHelper;
+    public ConstructionCamera constructionCamera;
 
     private bool needEquipementAnimaionUpdate = false;
-    private float interactionDelay = 0f;
+    public  float interactionDelay = 0f;
     public float interactionConfirmedDelay = 0f;
     private RaycastHit[] scanResults = new RaycastHit[20];
     private int scanLength;
@@ -87,11 +88,12 @@ public class PlayerController : MonoBehaviour
 
         AnimationParameterRefresh();
 
-        ressourceContainer.AddItem("Gold", 10);
-        ressourceContainer.AddItem("Iron", 10);
-        ressourceContainer.AddItem("Stone", 10);
-        ressourceContainer.AddItem("Wood", 10);
-        ressourceContainer.AddItem("Wheat", 10);
+        ressourceContainer.AddItem("Gold", 100);
+        ressourceContainer.AddItem("Iron", 100);
+        ressourceContainer.AddItem("Stone", 300);
+        ressourceContainer.AddItem("Wood", 300);
+        ressourceContainer.AddItem("Wheat", 100);
+        ressourceContainer.AddItem("Crystal", 10);
         if (inventoryViewer.visible)
             inventoryViewer.UpdateContent(ressourceContainer.inventory);
         inventoryViewer.transform.parent = null;
@@ -99,6 +101,9 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
+        if (constructionCamera.activated)
+            return;
+
         float speedFactor = Input.GetKey(KeyCode.LeftShift) && loadFactor > 0.75f ? 2 : 1;
         direction = Vector3.zero;
 
@@ -129,6 +134,12 @@ public class PlayerController : MonoBehaviour
             }
             if (needEquipementAnimaionUpdate)
                 AnimationParameterRefresh();
+        }
+        else if(Input.GetKeyDown(KeyCode.Space) && scanLength == 0 && weapon.equipedItem.toolFamily == "Hammer" && !interacting)
+        {
+            interactionType = InteractionType.Type.constructionMode;
+            currentInteractor = constructionCamera.gameObject;
+            interactionConfirmedDelay = 0.001f;
         }
         interacting = currentInteractor && (interactionDelay > 0f || interactionConfirmedDelay > 0f);
         animator.SetBool("interaction", interacting);
@@ -199,9 +210,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // update timers
-        if (attackDelay > 0)
+        if (attackDelay > 0f)
             attackDelay -= Time.deltaTime;
-        if (interactionDelay > 0 && !Input.GetKey(KeyCode.Space))
+        if (interactionDelay > 0f && !Input.GetKey(KeyCode.Space))
             interactionDelay -= Time.deltaTime;
     }
     private void LateUpdate()
@@ -264,9 +275,10 @@ public class PlayerController : MonoBehaviour
             case InteractionType.Type.collectCrystal:
             case InteractionType.Type.collectWood:
             case InteractionType.Type.collectWheet:
-                success = collectRessourceInteraction(type, interactor);
+            case InteractionType.Type.construction:
+                success = InitiateInteractionTick(type, interactor);
                 break;
-
+                
             // error
             default:
                 Debug.LogWarning("no interaction defined for this type " + type.ToString());
@@ -300,6 +312,10 @@ public class PlayerController : MonoBehaviour
             // store all ressources
             case InteractionType.Type.storeRessources:
                 storeAllInteraction(interactionType, currentInteractor);
+                break;
+
+            case InteractionType.Type.constructionMode:
+                constructionCamera.activated = true;
                 break;
 
             // error
@@ -337,14 +353,7 @@ public class PlayerController : MonoBehaviour
 
         needEquipementAnimaionUpdate = false;
     }
-    private void InitiateRessourceInteraction(InteractionType.Type type, GameObject interactor)
-    {
-        interactionDelay = collectCooldown;
-        animator.SetTrigger("interact");
-        currentInteractor = interactor;
-        interactionType = type;
-    }
-    private bool collectRessourceInteraction(InteractionType.Type type, GameObject interactor)
+    private bool InitiateInteractionTick(InteractionType.Type type, GameObject interactor)
     {
         bool success = true;
         ComputeInteractionConditions(type);
@@ -360,7 +369,12 @@ public class PlayerController : MonoBehaviour
         if(!success)
             interactionHelper.UpdateContent(interactionConditionList);
         else
-            InitiateRessourceInteraction(type, interactor);
+        {
+            interactionDelay = collectCooldown;
+            animator.SetTrigger("interact");
+            currentInteractor = interactor;
+            interactionType = type;
+        }
         return success;
     }
     private bool pickableInteraction(InteractionType.Type type, GameObject interactor)
@@ -458,20 +472,30 @@ public class PlayerController : MonoBehaviour
         RessourceContainer storehouse = interactor.GetComponent<RessourceContainer>();
         if(storehouse)
         {
-            List<string> emptySlots = new List<string>();
+            Dictionary<string, int> transfers = new Dictionary<string, int>();
+            Dictionary<string, int> accepted = storehouse.GetAcceptance();
             foreach (KeyValuePair<string, int> entry in ressourceContainer.inventory)
             {
-                if(storehouse.acceptedResources.Contains(entry.Key) || storehouse.acceptedResources.Count == 0)
+                if (accepted.Count == 0 || accepted.ContainsKey(entry.Key))
                 {
-                    storehouse.AddItem(ResourceDictionary.Instance.Get(entry.Key).name, entry.Value);
-                    emptySlots.Add(entry.Key);
+                    int currentCount = storehouse.inventory.ContainsKey(entry.Key) ? storehouse.inventory[entry.Key] : 0;
+                    int maxCount = storehouse.capacity - storehouse.load;
+                    if (accepted.ContainsKey(entry.Key) && accepted[entry.Key] > 0)
+                        maxCount = accepted[entry.Key];
+                    
+                    if (storehouse.HasSpace() && maxCount != currentCount)
+                    {
+                        int maximumTransfert = Mathf.Min(entry.Value, maxCount - currentCount);
+                        storehouse.AddItem(ResourceDictionary.Instance.Get(entry.Key).name, maximumTransfert);
+                        transfers.Add(entry.Key, maximumTransfert);
+                    }
                 }
             }
 
-            if (emptySlots.Count != 0)
+            if (transfers.Count != 0)
             {
-                foreach (string slot in emptySlots)
-                    ressourceContainer.inventory.Remove(slot);
+                foreach(KeyValuePair<string, int> entry in transfers)
+                    ressourceContainer.RemoveItem(entry.Key, entry.Value, false);
                 ressourceContainer.UpdateContent();
                 if (inventoryViewer.visible)
                     inventoryViewer.UpdateContent(inventoryViewer.GetFusionInventory());
@@ -489,7 +513,15 @@ public class PlayerController : MonoBehaviour
                 {
                     interactionConditionList.Clear();
                     foreach (string acceptance in storehouse.acceptedResources)
-                        interactionConditionList.Add(acceptance, "nor");
+                    {
+                        string accName = acceptance;
+                        if(acceptance.Contains(" "))
+                        {
+                            char[] separator = { ' ' };
+                            accName = acceptance.Split(separator)[0];
+                        }
+                        interactionConditionList.Add(accName, "nor");
+                    }
                     interactionHelper.UpdateContent(interactionConditionList);
                 }
             }
@@ -505,18 +537,43 @@ public class PlayerController : MonoBehaviour
     public void InteractionTick()
     {
         interactionDelay = collectCooldown;
-        if(currentInteractor && interactionType == InteractionType.Type.collectWood)
+        if (currentInteractor && interactionType == InteractionType.Type.collectWood)
         {
             CommonRessourceCollectionResolve();
             interactionJuicer.treeInteractor = currentInteractor;
         }
-        else if(InteractionType.isCollectingMinerals(interactionType))
+        else if (InteractionType.isCollectingMinerals(interactionType))
         {
             CommonRessourceCollectionResolve();
         }
         else if (currentInteractor && interactionType == InteractionType.Type.collectWheet)
         {
             CommonRessourceCollectionResolve();
+        }
+        else if (currentInteractor && interactionType == InteractionType.Type.construction)
+        {
+            // hammer on stone is close to pickake on stone for Iron collection
+            List<AudioClip> sounds = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(InteractionType.Type.collectIron)).collectionSound;
+            AudioClip soundFx = sounds[Random.Range(0, sounds.Count)];
+            audiosource.clip = soundFx;
+            if (soundFx)
+                audiosource.Play();
+
+            // increment progress bar
+            ConstructionTemplate construction = currentInteractor.GetComponent<ConstructionTemplate>();
+            if (construction.Increment())
+            {
+                interactionDelay = 0f;
+                currentInteractor = null;
+            }
+        }
+        else
+        {
+            interacting = false;
+            currentInteractor = null;
+            interactionDelay = 0f;
+            animator.SetBool("interaction", false);
+            Debug.LogWarning("no interaction tick for this type implemented");
         }
     }
     private void CommonRessourceCollectionResolve()
@@ -554,28 +611,37 @@ public class PlayerController : MonoBehaviour
             ComputeInteractionConditions(interactionType);
             interactionHelper.UpdateContent(interactionConditionList);
             interactionDelay = 0;
+            interacting = false;
             animator.SetBool("interaction", false);
         }
     }
     private void ComputeInteractionConditions(InteractionType.Type type)
     {
         interactionConditionList.Clear();
-        string[] equiped = { backpack.equipedItem.toolFamily , weapon.equipedItem.toolFamily };
-        ResourceType resource = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(type));
-        foreach (string tool in resource.collectionTools)
+        if(type == InteractionType.Type.construction || type == InteractionType.Type.forge)
         {
-            string status = "nok";
-            foreach (string s in equiped)
-            {
-                if(s == tool)
-                {
-                    if (tool == "Container")
-                        status = ressourceContainer.HasSpace() ? "ok" : "full";
-                    else status = "ok";
-                }
-            }
-            interactionConditionList.Add(tool, status);
+            interactionConditionList.Add("Hammer", weapon.equipedItem.toolFamily == "Hammer" ? "ok" : "nok");
         }
+        else // try whith standart ressource collection
+        {
+            string[] equiped = { backpack.equipedItem.toolFamily , weapon.equipedItem.toolFamily };
+            ResourceType resource = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(type));
+            foreach (string tool in resource.collectionTools)
+            {
+                string status = "nok";
+                foreach (string s in equiped)
+                {
+                    if(s == tool)
+                    {
+                        if (tool == "Container")
+                            status = ressourceContainer.HasSpace() ? "ok" : "full";
+                        else status = "ok";
+                    }
+                }
+                interactionConditionList.Add(tool, status);
+            }
+        }
+
     }
 
     // helper

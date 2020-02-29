@@ -110,103 +110,13 @@ public class InventoryViewer : MonoBehaviour
                     InventoryLineTemplate line = hit.collider.transform.parent.GetComponent<InventoryLineTemplate>();
 
                     if (command == "arrow-" && line.down.enabled)
-                    {
-                        if (backpack.inventory[resource] <= 0 || !storage.HasSpace())
-                        {
-                            if (audiosource)
-                            { 
-                                audiosource.clip = noktransaction;
-                                audiosource.Play();
-                            }
-                        }
-                        else
-                        {
-                            if (audiosource)
-                            {
-                                audiosource.clip = oktransaction;
-                                audiosource.Play();
-                            }
-                            backpack.inventory[resource]--;
-                            storage.AddItem(resource, 1);
-                            if (backpack.inventory[resource] <= 0)
-                                backpack.inventory.Remove(resource);
-                            UpdateContent(GetFusionInventory());
-                        }
-                    }
+                        StoreTransfert(resource, 1);
                     else if (command == "arrow--" && line.down2.enabled)
-                    {
-                        if (backpack.inventory[resource] <= 0 || !storage.HasSpace())
-                        {
-                            if (audiosource)
-                            {
-                                audiosource.clip = noktransaction;
-                                audiosource.Play();
-                            }
-                        }
-                        else
-                        {
-                            int maximumTransfert = Mathf.Min(storage.capacity - storage.load, backpack.inventory[resource]);
-                            if (audiosource)
-                            {
-                                audiosource.clip = oktransaction;
-                                audiosource.Play();
-                            }
-                            storage.AddItem(resource, maximumTransfert);
-                            backpack.inventory[resource] -= maximumTransfert;
-                            if (backpack.inventory[resource] <= 0)
-                                backpack.inventory.Remove(resource);
-                            UpdateContent(GetFusionInventory());
-                        }
-                    }
+                        StoreTransfert(resource, backpack.capacity);
                     else if (command == "arrow+" && line.up.enabled)
-                    {
-                        if (storage.inventory[resource] <= 0 || !backpack.HasSpace())
-                        {
-                            if (audiosource)
-                            {
-                                audiosource.clip = noktransaction;
-                                audiosource.Play();
-                            }
-                        }
-                        else
-                        {
-                            if (audiosource)
-                            {
-                                audiosource.clip = oktransaction;
-                                audiosource.Play();
-                            }
-                            storage.inventory[resource]--;
-                            backpack.AddItem(resource, 1);
-                            if (storage.inventory[resource] <= 0)
-                                storage.inventory.Remove(resource);
-                            UpdateContent(GetFusionInventory());
-                        }
-                    }
+                        GetTransfert(resource, 1);
                     else if (command == "arrow++" && line.up2.enabled)
-                    {
-                        if (storage.inventory[resource] <= 0 || !backpack.HasSpace())
-                        {
-                            if (audiosource)
-                            {
-                                audiosource.clip = noktransaction;
-                                audiosource.Play();
-                            }
-                        }
-                        else
-                        {
-                            if (audiosource)
-                            {
-                                audiosource.clip = oktransaction;
-                                audiosource.Play();
-                            }
-                            int maximumTransfert = Mathf.Min(backpack.capacity - backpack.load, storage.inventory[resource]);
-                            backpack.AddItem(resource, storage.inventory[resource]);
-                            storage.inventory[resource] -= maximumTransfert;
-                            if (storage.inventory[resource] <= 0)
-                                storage.inventory.Remove(resource);
-                            UpdateContent(GetFusionInventory());
-                        }
-                    }
+                        GetTransfert(resource, backpack.capacity);
 
                     storage.RecomputeLoad();
                     player.RecomputeLoadFactor();
@@ -273,10 +183,69 @@ public class InventoryViewer : MonoBehaviour
         foreach (Transform child in container)
         {
             InventoryLineTemplate line = child.GetComponent<InventoryLineTemplate>();
-            line.up.enabled = (storage != null && storage.inventory.ContainsKey(line.gameObject.name));
-            line.up2.enabled = (storage != null && storage.inventory.ContainsKey(line.gameObject.name));
-            line.down.enabled = (storage != null && line.count.text != "0");
-            line.down2.enabled = (storage != null && line.count.text != "0");
+            line.up.enabled = (storage != null && storage.inventory.ContainsKey(line.gameObject.name) && backpack.HasSpace());
+            line.up2.enabled = (storage != null && storage.inventory.ContainsKey(line.gameObject.name) && backpack.HasSpace());
+            line.down.enabled = (storage != null && line.count.text != "0" && storage.HasSpace());
+            line.down2.enabled = (storage != null && line.count.text != "0" && storage.HasSpace());
+        }
+    }
+    private void StoreTransfert(string resourceName, int transfertCount)
+    {
+        Dictionary<string, int> accepted = storage.GetAcceptance();
+        int currentCount = storage.inventory.ContainsKey(resourceName) ? storage.inventory[resourceName] : 0;
+        int maxCount = storage.capacity - storage.load;
+        if (accepted.ContainsKey(resourceName) && accepted[resourceName] > 0)
+            maxCount = accepted[resourceName];
+        
+        if (backpack.inventory[resourceName] <= 0 || !storage.HasSpace() || maxCount == currentCount)
+        {
+            if (audiosource)
+            {
+                audiosource.clip = noktransaction;
+                audiosource.Play();
+            }
+        }
+        else
+        {
+            if (audiosource)
+            {
+                audiosource.clip = oktransaction;
+                audiosource.Play();
+            }
+            int transfert = Mathf.Min(maxCount - currentCount, transfertCount);
+            //backpack.inventory[resourceName] -= transfert;
+            backpack.RemoveItem(resourceName, transfert);
+            storage.AddItem(resourceName, transfert);
+            //if (backpack.inventory[resourceName] <= 0)
+            //    backpack.inventory.Remove(resourceName);
+            UpdateContent(GetFusionInventory());
+        }
+    }
+    private void GetTransfert(string resourceName, int transfertCount)
+    {
+        if (storage.inventory[resourceName] <= 0 || !backpack.HasSpace())
+        {
+            if (audiosource)
+            {
+                audiosource.clip = noktransaction;
+                audiosource.Play();
+            }
+        }
+        else
+        {
+            if (audiosource)
+            {
+                audiosource.clip = oktransaction;
+                audiosource.Play();
+            }
+            int maximumTransfert = Mathf.Min(backpack.capacity - backpack.load, storage.inventory[resourceName]);
+            int transfert =  Mathf.Min(maximumTransfert, transfertCount);
+            //storage.inventory[resource] -= transfert;
+            storage.RemoveItem(resourceName, transfert);
+            backpack.AddItem(resourceName, transfert);
+            //if (storage.inventory[resource] <= 0)
+            //    storage.inventory.Remove(resource);
+            UpdateContent(GetFusionInventory());
         }
     }
 }
