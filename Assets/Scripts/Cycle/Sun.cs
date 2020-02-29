@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float daySpeed = 1f;
+    public Vector2 tresholds;
 
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(Vector3.zero, Vector3.right, 10f * Time.deltaTime);
+        transform.RotateAround(Vector3.zero, Vector3.right, daySpeed * Time.deltaTime);
         transform.LookAt(Vector3.zero);
+
+
     }
 }
