@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ConstructionTemplate : MonoBehaviour
 {
+    public string buildingFamily;
     public float incrementSpeed = 0.03f;
     public Mesh[] steps;
+    public Mesh preview;
     public List<string> transition;
     public Sprite sprite;
+    public Sprite additionalIcon;
 
     [Range(0f, 1f)]
     public float progress;
@@ -19,6 +22,7 @@ public class ConstructionTemplate : MonoBehaviour
     public InteractionType interactor;
     public ConstructionViewer viewer;
     private RessourceContainer container;
+    public Vector3 colliderSize;
     private char[] separator = { ' ' };
     public string tileInitializerOption = "Dirt";
     public float tileSearchRadius = 0.1f;
@@ -73,6 +77,7 @@ public class ConstructionTemplate : MonoBehaviour
                     go.transform.parent = transform.parent.parent;
                     go.transform.localPosition = transform.parent.localPosition;
                     go.transform.localEulerAngles = new Vector3(-90, transform.parent.localEulerAngles.y, transform.parent.localEulerAngles.z);
+                    go.SetActive(true);
                 }
                 else Debug.Log("Nothing to instanciate at end of construction process");
 

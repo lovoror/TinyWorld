@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class InventoryViewer : MonoBehaviour
 {
@@ -193,9 +192,7 @@ public class InventoryViewer : MonoBehaviour
     {
         Dictionary<string, int> accepted = storage.GetAcceptance();
         int currentCount = storage.inventory.ContainsKey(resourceName) ? storage.inventory[resourceName] : 0;
-        int maxCount = storage.capacity - storage.load;
-        if (accepted.ContainsKey(resourceName) && accepted[resourceName] > 0)
-            maxCount = accepted[resourceName];
+        int maxCount = (accepted.ContainsKey(resourceName) && accepted[resourceName] > 0) ? accepted[resourceName] : storage.capacity;
         
         if (backpack.inventory[resourceName] <= 0 || !storage.HasSpace() || maxCount == currentCount)
         {
@@ -213,11 +210,9 @@ public class InventoryViewer : MonoBehaviour
                 audiosource.Play();
             }
             int transfert = Mathf.Min(maxCount - currentCount, transfertCount);
-            //backpack.inventory[resourceName] -= transfert;
+            
             backpack.RemoveItem(resourceName, transfert);
             storage.AddItem(resourceName, transfert);
-            //if (backpack.inventory[resourceName] <= 0)
-            //    backpack.inventory.Remove(resourceName);
             UpdateContent(GetFusionInventory());
         }
     }
@@ -240,11 +235,8 @@ public class InventoryViewer : MonoBehaviour
             }
             int maximumTransfert = Mathf.Min(backpack.capacity - backpack.load, storage.inventory[resourceName]);
             int transfert =  Mathf.Min(maximumTransfert, transfertCount);
-            //storage.inventory[resource] -= transfert;
             storage.RemoveItem(resourceName, transfert);
             backpack.AddItem(resourceName, transfert);
-            //if (storage.inventory[resource] <= 0)
-            //    storage.inventory.Remove(resource);
             UpdateContent(GetFusionInventory());
         }
     }

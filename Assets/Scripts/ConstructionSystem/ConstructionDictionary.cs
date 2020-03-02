@@ -7,7 +7,7 @@ public class ConstructionDictionary : MonoBehaviour
     public string defaultName = "ConstructionBarracks";
     public List<GameObject> templateList;
     public Dictionary<string, GameObject> dictionary;
-    public Dictionary<string, Sprite> spriteDictionary;
+    public Dictionary<string, ConstructionTemplate> templateDictionary;
 
     // Singleton struct
     private static ConstructionDictionary _instance;
@@ -30,15 +30,16 @@ public class ConstructionDictionary : MonoBehaviour
     private void Initialize()
     {
         dictionary = new Dictionary<string, GameObject>();
-        spriteDictionary = new Dictionary<string, Sprite>();
+        templateDictionary = new Dictionary<string, ConstructionTemplate>();
         foreach (GameObject go in templateList)
         {
             dictionary.Add(go.name, go);
-            spriteDictionary.Add(go.name, go.transform.Find("interactor").GetComponent<ConstructionTemplate>().sprite);
+            ConstructionTemplate template = go.transform.Find("interactor").GetComponent<ConstructionTemplate>();
+            templateDictionary.Add(go.name, template);
         }
     }
 
-    GameObject Get(string constructionName)
+    public GameObject Get(string constructionName)
     {
         if(dictionary.ContainsKey(constructionName))
         {
@@ -51,16 +52,16 @@ public class ConstructionDictionary : MonoBehaviour
         }
     }
 
-    Sprite GetSprite(string constructionName)
+    public Sprite GetSprite(string constructionName)
     {
-        if (spriteDictionary.ContainsKey(constructionName))
+        if (templateDictionary.ContainsKey(constructionName))
         {
-            return spriteDictionary[constructionName];
+            return templateDictionary[constructionName].sprite;
         }
         else
         {
             Debug.LogWarning("No construction template named " + constructionName);
-            return spriteDictionary[defaultName];
+            return templateDictionary[defaultName].sprite;
         }
     }
 }

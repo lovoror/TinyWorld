@@ -110,6 +110,11 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ChickController.cs" />
     <Compile Include="Assets\Scripts\ChikenController.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionCamera.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionDictionary.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionHelperArrowAnim.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionTemplate.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionViewer.cs" />
     <Compile Include="Assets\Scripts\Cycle\Sun.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\Arsenal.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\BackpackItem.cs" />
@@ -132,12 +137,7 @@
     <Compile Include="Assets\Scripts\Helper\Follower.cs" />
     <Compile Include="Assets\Scripts\Helper\WindAnimation.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\AppleTree.cs" />
-    <Compile Include="Assets\Scripts\InteractionSystem\Button3D.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\CollectData.cs" />
-    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionCamera.cs" />
-    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionDictionary.cs" />
-    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionTemplate.cs" />
-    <Compile Include="Assets\Scripts\InteractionSystem\ConstructionViewer.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionConditionTemplate.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionHelper.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\InteractionJuicer.cs" />
@@ -146,7 +146,6 @@
     <Compile Include="Assets\Scripts\InteractionSystem\ResourceType.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\SpecialPickableShopArsenal.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\StoreHouseViewer.cs" />
-    <Compile Include="Assets\Scripts\InteractionSystem\TileInitializer.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\ToolDictionary.cs" />
     <Compile Include="Assets\Scripts\InteractionSystem\ToolType.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
@@ -165,6 +164,10 @@
     <Compile Include="Assets\Scripts\TileScripts\Wall.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Water.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Wheet.cs" />
+    <Compile Include="Assets\Scripts\UI\BuildingFamilyTemplate.cs" />
+    <Compile Include="Assets\Scripts\UI\BuildingIconTemplate.cs" />
+    <Compile Include="Assets\Scripts\UI\QuitButton.cs" />
+    <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\GrainGen.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />

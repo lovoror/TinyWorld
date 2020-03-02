@@ -37,3 +37,4 @@ MonoBehaviour:
   m_ColliderType: 0
   prefab3d: {fileID: 413935372908655832, guid: 321bcd436dc7a094299501eff731260a, type: 3}
   option1: {fileID: 0}
+  neighbourUpdate: 1

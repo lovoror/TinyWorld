@@ -37,3 +37,4 @@ MonoBehaviour:
   prefab3d: {fileID: 2310153697235246174, guid: e9745d8cb34ce464bb727ac51c04475b,
     type: 3}
   option1: {fileID: 0}
+  neighbourUpdate: 1

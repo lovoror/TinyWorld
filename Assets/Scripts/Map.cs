@@ -7,13 +7,13 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Grid))]
 public class Map : MonoBehaviour
 {
-    private Grid grid;
+    public Grid grid;
     public Tilemap tilemap;
     public TilemapRenderer tilemapRenderer;
-    private GameObject prefabContainer;
+    public GameObject prefabContainer;
+    public GameObject constructionContainer;
     public List<Tile> tileList;
     private Dictionary<string, Tile> tileDictionary;
-    public TileInitializer placeTileTemplate;
 
     // Singleton struct
     private static Map _instance;
@@ -44,6 +44,14 @@ public class Map : MonoBehaviour
         Vector3 dy = new Vector3(0, 0.5f * grid.cellSize.z, 0);
 
         Meteo meteo = Meteo.Instance;
+
+        /*constructionContainer = new GameObject();
+        constructionContainer.name = "ConstructionContainer";
+        constructionContainer.transform.localPosition = Vector3.zero;
+        constructionContainer.transform.localScale = Vector3.one;
+        constructionContainer.transform.localRotation = Quaternion.identity;
+        constructionContainer.transform.parent = this.transform;*/
+
         prefabContainer = new GameObject();
         prefabContainer.name = "PrefabContainer";
         prefabContainer.transform.localPosition = Vector3.zero;
@@ -70,7 +78,7 @@ public class Map : MonoBehaviour
         Debug.Log("TileCount : " + initializedTileCount.ToString());
     }
 
-    public void PlaceTile(Vector3 position, GameObject original, string tileName)
+    /*public void PlaceTile(Vector3 position, GameObject original, string tileName)
     {
         if(original)
             Destroy(original);
@@ -83,23 +91,60 @@ public class Map : MonoBehaviour
                 TileInit(tile, cell);
         }
         else Debug.LogWarning("no " + tileName + " in dictionary");
-    }
+    }*/
     public void PlaceTiles(List<Vector3> positions, List<GameObject> originals, string tileName)
     {
+        Vector3 dy = new Vector3(0, 0.5f * grid.cellSize.z, 0);
+
         foreach (GameObject original in originals)
             Destroy(original);
         if (tileDictionary.ContainsKey(tileName))
         {
-            List<KeyValuePair < ScriptableTile, Vector3Int >> list = new List<KeyValuePair<ScriptableTile, Vector3Int>>();
+            // 
+            List<KeyValuePair<ScriptableTile, Vector3Int>> list = new List<KeyValuePair<ScriptableTile, Vector3Int>>();
             foreach(Vector3 p in positions)
             {
                 Vector3Int cell = tilemap.WorldToCell(p);
                 tilemap.SetTile(cell, tileDictionary[tileName]);
                 ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
                 if(tile)
+                {
                     list.Add(new KeyValuePair<ScriptableTile, Vector3Int>(tile, cell));
+                }
             }
-            foreach(KeyValuePair<ScriptableTile, Vector3Int> entry in list)
+
+            // neighbours to update
+            HashSet<Vector3Int> neighbourgs = new HashSet<Vector3Int>();
+            foreach (KeyValuePair<ScriptableTile, Vector3Int> entry in list)
+            {
+                Vector3Int n1 = entry.Value + new Vector3Int(1, 0, 0);
+                Vector3Int n2 = entry.Value + new Vector3Int(-1, 0, 0);
+                Vector3Int n3 = entry.Value + new Vector3Int(0, 1, 0);
+                Vector3Int n4 = entry.Value + new Vector3Int(0, -1, 0);
+
+                if (!InList(n1, ref list))
+                    neighbourgs.Add(n1);
+                if (!InList(n2, ref list))
+                    neighbourgs.Add(n2);
+                if (!InList(n3, ref list))
+                    neighbourgs.Add(n3);
+                if (!InList(n4, ref list))
+                    neighbourgs.Add(n4);
+            }
+
+            foreach(Vector3Int cell in neighbourgs)
+            {
+                List<GameObject> neighbourgGo = SearchAt(grid.GetCellCenterWorld(cell) - dy, 0.5f);
+                foreach (GameObject go in neighbourgGo)
+                    Destroy(go);
+                ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
+                if (tile && tile.neighbourUpdate)
+                {
+                    list.Add(new KeyValuePair<ScriptableTile, Vector3Int>(tile, cell));
+                }
+            }
+
+            foreach (KeyValuePair<ScriptableTile, Vector3Int> entry in list)
                 TileInit(entry.Key, entry.Value);
         }
         else Debug.LogWarning("no " + tileName + " in dictionary");
@@ -111,6 +156,19 @@ public class Map : MonoBehaviour
         {
             if ((child.position - position).sqrMagnitude < radius * radius)
                 result.Add(child.gameObject);
+        }
+        return result;
+    }
+    public List<GameObject> MultiSearch(List<Vector3> positions, float radius)
+    {
+        List<GameObject> result = new List<GameObject>();
+        foreach (Transform child in prefabContainer.transform)
+        {
+            foreach(Vector3 p in positions)
+            {
+                if ((child.position - p).sqrMagnitude < radius * radius)
+                    result.Add(child.gameObject);
+            }
         }
         return result;
     }
@@ -239,5 +297,15 @@ public class Map : MonoBehaviour
         {
             mineral.Initialize(tile.option1);
         }
+    }
+
+    private bool InList(Vector3Int search, ref List<KeyValuePair<ScriptableTile, Vector3Int>> list)
+    {
+        foreach(KeyValuePair<ScriptableTile, Vector3Int> entry in list)
+        {
+            if (entry.Value == search)
+                return true;
+        }
+        return false;
     }
 }

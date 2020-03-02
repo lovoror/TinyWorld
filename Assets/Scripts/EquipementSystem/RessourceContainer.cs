@@ -37,7 +37,7 @@ public class RessourceContainer : MonoBehaviour
         if (inventory.ContainsKey(ressourceName))
         {
             inventory[ressourceName] = Mathf.Max(0, inventory[ressourceName] - ressourceCount);
-            if (inventory[ressourceName] == 0)
+            if (inventory[ressourceName] <= 0)
                 inventory.Remove(ressourceName);
         }
         if (forceUpdate)
@@ -69,11 +69,13 @@ public class RessourceContainer : MonoBehaviour
     }
     public void UpdateContent()
     {
+        load = 0;
         if (itemMeshes.Length != 0)
         {
             List<string> names = new List<string>();
             foreach (KeyValuePair<string, int> entry in inventory)
             {
+                load += entry.Value;
                 for (int i = 0; i < entry.Value; i++)
                     names.Add(entry.Key);
             }
@@ -87,12 +89,9 @@ public class RessourceContainer : MonoBehaviour
                 }
                 else itemMeshes[i].enabled = false;
             }
-
-            load = names.Count;
         }
         else
         {
-            load = 0;
             foreach (KeyValuePair<string, int> entry in inventory)
                 load += entry.Value;
         }

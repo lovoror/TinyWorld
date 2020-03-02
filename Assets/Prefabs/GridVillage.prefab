@@ -58,8 +58,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830f11dfcfc25e340bb1d86bc4908c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 0}
   tilemap: {fileID: 7900350192211739417}
   tilemapRenderer: {fileID: 7900350192211739416}
+  prefabContainer: {fileID: 0}
+  constructionContainer: {fileID: 0}
   tileList:
   - {fileID: 11400000, guid: 9a71946a250b1f247a7a766a63ec2cdd, type: 2}
   - {fileID: 11400000, guid: ea1f1f5c4fa39cb45885c7dd9b8838a4, type: 2}
@@ -77,7 +80,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31b1394021795dc48b90d084f09f25a2, type: 2}
   - {fileID: 11400000, guid: 50d0d8b9bd0a32844a32a959b9e0c0f6, type: 2}
   - {fileID: 11400000, guid: cbecfc181e103ab48a59c63cdb8d4a29, type: 2}
-  placeTileTemplate: {fileID: 0}
 --- !u!1 &7900350192211739422
 GameObject:
   m_ObjectHideFlags: 0
@@ -56595,7 +56597,7 @@ GameObject:
   - component: {fileID: 7900350192489454403}
   - component: {fileID: 7900350192489454402}
   - component: {fileID: 7900350192489454413}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

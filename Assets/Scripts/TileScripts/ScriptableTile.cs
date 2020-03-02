@@ -8,4 +8,5 @@ public class ScriptableTile : Tile
 {
     public GameObject prefab3d;
     public Material option1;
+    public bool neighbourUpdate = false;
 }

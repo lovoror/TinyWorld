@@ -479,9 +479,7 @@ public class PlayerController : MonoBehaviour
                 if (accepted.Count == 0 || accepted.ContainsKey(entry.Key))
                 {
                     int currentCount = storehouse.inventory.ContainsKey(entry.Key) ? storehouse.inventory[entry.Key] : 0;
-                    int maxCount = storehouse.capacity - storehouse.load;
-                    if (accepted.ContainsKey(entry.Key) && accepted[entry.Key] > 0)
-                        maxCount = accepted[entry.Key];
+                    int maxCount = (accepted.ContainsKey(entry.Key) && accepted[entry.Key] > 0) ? accepted[entry.Key] : storehouse.capacity;
                     
                     if (storehouse.HasSpace() && maxCount != currentCount)
                     {
