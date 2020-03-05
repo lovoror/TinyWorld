@@ -26,6 +26,7 @@ public class UIHandler : MonoBehaviour
 
     public int iconSpacing;
     private int lineCount;
+    public string toolName;
 
     private void Start()
     {
@@ -34,13 +35,9 @@ public class UIHandler : MonoBehaviour
         options = new Dictionary<string, Sprite>();
         foreach(Sprite s in optionList)
             options.Add(s.name, s);
+        toolName = "";
     }
 
-    private void OnEnable()
-    {
-        familyList[0].activated = true;
-        Initialize(familyList[0].name);
-    }
 
     public void OnFamilyClick(BuildingFamilyTemplate click)
     {
@@ -68,10 +65,13 @@ public class UIHandler : MonoBehaviour
         audiosource.clip = selectedSound;
         audiosource.Play();
         Initialize(family);
+
+        toolName = (family == "Terrain") ? "terrain" : "building";
     }
     public void OnIconClick(BuildingIconTemplate click)
     {
-        mainController.SelectedBuilding(click.gameObject);
+        if(!click.nok.enabled)
+            mainController.SelectedBuilding(click.gameObject);
         audiosource.clip = click.nok.enabled ? nokSound : selectedSound;
         audiosource.Play();
     }
@@ -93,50 +93,97 @@ public class UIHandler : MonoBehaviour
     {
         mainController.quit = true;
     }
+    public void BuildingDelete()
+    {
+        toolName = "delete";
+        audiosource.clip = selectedSound;
+        audiosource.Play();
+    }
     private void Initialize(string family)
     {
         foreach (Transform t in iconContainer)
             Destroy(t.gameObject);
 
-        Dictionary<string, ConstructionTemplate> list = ConstructionDictionary.Instance.templateDictionary;
-        Vector3 p = new Vector3(95, 236, 0);
-        int column = 0;
-        lineCount = 1;
-        foreach(KeyValuePair<string, ConstructionTemplate> entry in list)
+        if(family == "Terrain")
         {
-            if(entry.Value.buildingFamily == family)
+            List<ScriptableTile> terrainTile = Map.Instance.tileList;
+            Vector3 p = new Vector3(95, 236, 0);
+            int column = 0;
+            lineCount = 1;
+            foreach (ScriptableTile st in terrainTile)
             {
-                BuildingIconTemplate go = Instantiate(iconTemplate);
-                go.transform.localPosition = p;
-                go.transform.SetParent(iconContainer, false);
-                go.transform.localEulerAngles = new Vector3(0, 0, -90);
-                go.transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
-
-                go.image.sprite = entry.Value.sprite;
-                go.helper = entry.Key;
-                go.name = entry.Key;
-                go.handler = this;
-                go.nok.enabled = false;
-
-                if (entry.Value.additionalIcon)
+                if(st.isTerrain)
                 {
-                    go.option.enabled = true;
-                    go.option.sprite = entry.Value.additionalIcon;
-                }
-                else go.option.enabled = false;
+                    BuildingIconTemplate go = Instantiate(iconTemplate);
+                    go.transform.localPosition = p;
+                    go.transform.SetParent(iconContainer, false);
+                    go.transform.localEulerAngles = new Vector3(0, 0, -90);
+                    go.transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
 
-                column++;
-                if(column >= 4)
-                {
-                    p.y = 236;
-                    p.x -= iconSpacing;
-                    column = 0;
-                    lineCount++;
+                    go.image.sprite = st.optionalSprite;
+                    go.helper = st.helperText;
+                    go.name = st.name;
+                    go.handler = this;
+                    go.nok.enabled = false;
+                    go.option.enabled = false;
+
+                    column++;
+                    if (column >= 4)
+                    {
+                        p.y = 236;
+                        p.x -= iconSpacing;
+                        column = 0;
+                        lineCount++;
+                    }
+                    else p.y -= iconSpacing;
                 }
-                else p.y -= iconSpacing;
             }
+            slider.gameObject.SetActive(lineCount > 2);
+            slider.value = 0f;
         }
-        slider.gameObject.SetActive(lineCount > 2);
-        slider.value = 0f;
+        else
+        {
+            Dictionary<string, ConstructionTemplate> list = ConstructionDictionary.Instance.templateDictionary;
+            Vector3 p = new Vector3(95, 236, 0);
+            int column = 0;
+            lineCount = 1;
+            foreach(KeyValuePair<string, ConstructionTemplate> entry in list)
+            {
+                if(entry.Value.buildingFamily == family)
+                {
+                    BuildingIconTemplate go = Instantiate(iconTemplate);
+                    go.transform.localPosition = p;
+                    go.transform.SetParent(iconContainer, false);
+                    go.transform.localEulerAngles = new Vector3(0, 0, -90);
+                    go.transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
+
+                    go.image.sprite = entry.Value.sprite;
+                    go.helper = entry.Key;
+                    go.name = entry.Key;
+                    go.handler = this;
+                    go.nok.enabled = false;
+
+                    if (entry.Value.additionalIcon)
+                    {
+                        go.option.enabled = true;
+                        go.option.sprite = entry.Value.additionalIcon;
+                    }
+                    else go.option.enabled = false;
+
+                    column++;
+                    if(column >= 4)
+                    {
+                        p.y = 236;
+                        p.x -= iconSpacing;
+                        column = 0;
+                        lineCount++;
+                    }
+                    else p.y -= iconSpacing;
+                }
+            }
+            slider.gameObject.SetActive(lineCount > 2);
+            slider.value = 0f;
+        }
+        
     }
 }

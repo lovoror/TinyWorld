@@ -35,7 +35,10 @@ MonoBehaviour:
     type: 3}
   m_Flags: 1
   m_ColliderType: 1
-  prefab3d: {fileID: 5272124936892203807, guid: a12ffc65c885c4b4887bb2834aa0efb7,
+  tilePrefab: {fileID: 5272124936892203807, guid: a12ffc65c885c4b4887bb2834aa0efb7,
     type: 3}
-  option1: {fileID: 0}
+  buildingPrefab: {fileID: 1954841156178716055, guid: 524e21a51a9334544bcebefafb74e0ad,
+    type: 3}
+  optionalMaterial: {fileID: 0}
   neighbourUpdate: 1
+  buildingUpdate: 1

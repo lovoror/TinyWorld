@@ -15,7 +15,7 @@ public class Water : MonoBehaviour
     public int configuration;
     public MeshFilter water;
     public MeshCollider waterCollider;
-
+    
     public void Initialize(bool xp, bool xm, bool zp, bool zm, float borderStrengh)
     {
         // compute configuration and choose the resolve mesh algorithm accordingly

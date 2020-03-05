@@ -123,7 +123,7 @@ public class Meteo : MonoBehaviour
         return windBase * Mathf.Sin(alpha1 * Vector3.Dot(windBase.normalized, position) + alpha2 * t);
     }
     
-    protected void InitializeWater()
+    private void InitializeWater()
     {
         List<Vector3> verticesL = new List<Vector3>();
         for (int x=0; x< waterDiv; x++)

@@ -8,6 +8,8 @@ public class ConstructionDictionary : MonoBehaviour
     public List<GameObject> templateList;
     public Dictionary<string, GameObject> dictionary;
     public Dictionary<string, ConstructionTemplate> templateDictionary;
+    public List<GameObject> wallPrefabsStone;
+    public List<GameObject> wallPrefabsWood;
 
     // Singleton struct
     private static ConstructionDictionary _instance;
@@ -62,6 +64,38 @@ public class ConstructionDictionary : MonoBehaviour
         {
             Debug.LogWarning("No construction template named " + constructionName);
             return templateDictionary[defaultName].sprite;
+        }
+    }
+
+    public GameObject GetStoneWall(char configuration)
+    {
+        switch(configuration)
+        {
+            case 'A': case 'a': return wallPrefabsStone[0];
+            case 'B': case 'b': return wallPrefabsStone[1];
+            case 'C': case 'c': return wallPrefabsStone[2];
+            case 'D': case 'd': return wallPrefabsStone[3];
+            case 'E': case 'e': return wallPrefabsStone[4];
+            case 'F': case 'f': return wallPrefabsStone[5];
+            default:
+                Debug.LogWarning("No corresponding wall configuration");
+                return wallPrefabsStone[0];
+        }
+    }
+
+    public GameObject GetWoodWall(char configuration)
+    {
+        switch (configuration)
+        {
+            case 'A': case 'a': return wallPrefabsWood[0];
+            case 'B': case 'b': return wallPrefabsWood[1];
+            case 'C': case 'c': return wallPrefabsWood[2];
+            case 'D': case 'd': return wallPrefabsWood[3];
+            case 'E': case 'e': return wallPrefabsWood[4];
+            case 'F': case 'f': return wallPrefabsWood[5];
+            default:
+                Debug.LogWarning("No corresponding wall configuration");
+                return wallPrefabsWood[0];
         }
     }
 }

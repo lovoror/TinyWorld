@@ -2,14 +2,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class QuitButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class UIButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public UIHandler handler;
     public string helper;
+    public EventTrigger.TriggerEvent callback;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        handler.Exit();
+        callback.Invoke(eventData);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

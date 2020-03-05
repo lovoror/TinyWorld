@@ -74,7 +74,7 @@ public class ConstructionTemplate : MonoBehaviour
                 if (finished)
                 {
                     GameObject go = Instantiate(finished);
-                    go.transform.parent = transform.parent.parent;
+                    go.transform.parent = Map.Instance.buildingsContainer.transform;
                     go.transform.localPosition = transform.parent.localPosition;
                     go.transform.localEulerAngles = new Vector3(-90, transform.parent.localEulerAngles.y, transform.parent.localEulerAngles.z);
                     go.SetActive(true);
@@ -84,10 +84,10 @@ public class ConstructionTemplate : MonoBehaviour
                 Destroy(transform.parent.gameObject);
 
                 List<Vector3> positions = new List<Vector3>();
-                List<GameObject> list = Map.Instance.SearchAt(transform.parent.transform.position, tileSearchRadius);
-                foreach (GameObject go2 in list)
+                List<GameObject> tileList = Map.Instance.SearchTilesGameObject(transform.parent.transform.position, tileSearchRadius);
+                foreach (GameObject go2 in tileList)
                     positions.Add(go2.transform.position);
-                Map.Instance.PlaceTiles(positions, list, tileInitializerOption);
+                Map.Instance.PlaceTiles(positions, tileList, tileInitializerOption);
             }
         }
         mask1.alphaCutoff = 1f - Mathf.Clamp(2 * progress, 0f, 1f);

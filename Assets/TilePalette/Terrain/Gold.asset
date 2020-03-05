@@ -35,6 +35,12 @@ MonoBehaviour:
     type: 3}
   m_Flags: 1
   m_ColliderType: 0
-  prefab3d: {fileID: 9063761464962733646, guid: eab3fd85befe7da4e8cd3140b808d149,
+  tilePrefab: {fileID: 9063761464962733646, guid: eab3fd85befe7da4e8cd3140b808d149,
     type: 3}
-  option1: {fileID: 2100000, guid: e1ba9032a4c4c634d9eb984a854c5b14, type: 2}
+  buildingPrefab: {fileID: 0}
+  neighbourUpdate: 0
+  buildingUpdate: 0
+  isTerrain: 1
+  optionalMaterial: {fileID: 2100000, guid: e1ba9032a4c4c634d9eb984a854c5b14, type: 2}
+  optionalSprite: {fileID: 21300000, guid: 55b3c5362d4ec964aac192ba9dcb60be, type: 3}
+  helperText: Gold ore

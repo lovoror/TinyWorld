@@ -112,7 +112,7 @@
     <Compile Include="Assets\Scripts\ChikenController.cs" />
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionCamera.cs" />
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionDictionary.cs" />
-    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionHelperArrowAnim.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionHelper.cs" />
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionTemplate.cs" />
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionViewer.cs" />
     <Compile Include="Assets\Scripts\Cycle\Sun.cs" />
@@ -166,7 +166,7 @@
     <Compile Include="Assets\Scripts\TileScripts\Wheet.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingFamilyTemplate.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingIconTemplate.cs" />
-    <Compile Include="Assets\Scripts\UI\QuitButton.cs" />
+    <Compile Include="Assets\Scripts\UI\UIButton.cs" />
     <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\GrainGen.shader" />
