@@ -218,11 +218,13 @@ public class Map : MonoBehaviour
     {
         if(tile.buildingPrefab)
         {
-            GameObject buildinggo = Instantiate(tile.buildingPrefab);
-            buildinggo.transform.parent = buildingsContainer.transform;
+            GameObject buildinggo = Instantiate(tile.buildingPrefab, buildingsContainer.transform);
+            buildinggo.name = tile.buildingPrefab.name;
             buildinggo.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
-            buildinggo.transform.localEulerAngles = new Vector3(0, -tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
+            buildinggo.transform.localEulerAngles = new Vector3(-90, 90-tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
+            //buildinggo.transform.localEulerAngles = new Vector3(-90, tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
             buildinggo.SetActive(true);
+
             InitWall(buildinggo.GetComponent<Wall>(), cellPosition, tile.name);
         }
     }

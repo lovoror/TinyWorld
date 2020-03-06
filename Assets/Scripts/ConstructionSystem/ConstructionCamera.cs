@@ -158,9 +158,10 @@ public class ConstructionCamera : MonoBehaviour
 
                         if (Input.GetMouseButtonDown(0))
                         {
-                            if (orientation || currentObject.name.Contains("Wall"))
+                            if (orientation || (currentObject.name.Contains("Wall") && scan <= 1))
                             {
                                 GameObject go = Instantiate(currentObject);
+                                go.name = currentObject.name;
                                 go.transform.parent = map.buildingsContainer.transform;
                                 go.transform.position = currentObject.transform.position;
                                 go.transform.rotation = currentObject.transform.rotation;

@@ -71,10 +71,10 @@ public class ConstructionTemplate : MonoBehaviour
                     GameObject go = Instantiate(finished);
                     go.transform.parent = Map.Instance.buildingsContainer.transform;
                     go.transform.localPosition = transform.parent.localPosition;
-                    go.transform.localEulerAngles = new Vector3(-90, transform.parent.localEulerAngles.y, transform.parent.localEulerAngles.z);
+                    go.transform.localEulerAngles = new Vector3(-90, transform.parent.localEulerAngles.y, 0);
                     go.SetActive(true);
                 }
-                else Debug.Log("Nothing to instanciate at end of construction process");
+                else Debug.Log("Nothing to instanciate at end of construction process, check template " + gameObject.name);
 
                 Destroy(transform.parent.gameObject);
 

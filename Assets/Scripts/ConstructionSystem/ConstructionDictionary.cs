@@ -43,15 +43,17 @@ public class ConstructionDictionary : MonoBehaviour
 
     public GameObject Get(string constructionName)
     {
-        if(dictionary.ContainsKey(constructionName))
+        GameObject go = null;
+        if (dictionary.ContainsKey(constructionName))
         {
-            return Instantiate(dictionary[constructionName]);
+            go = Instantiate(dictionary[constructionName]);
         }
         else
         {
             Debug.LogWarning("No construction template named " + constructionName);
-            return Instantiate(dictionary[defaultName]);
+            go = Instantiate(dictionary[defaultName]);
         }
+        return go;
     }
 
     public Sprite GetSprite(string constructionName)
