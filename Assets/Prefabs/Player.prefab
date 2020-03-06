@@ -1615,7 +1615,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f9cecc977978e94da8260bc2db0c398, type: 3}
+  - {fileID: 2100000, guid: 9972752390a47ae4c986859fdc8951a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1869,7 +1869,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f9cecc977978e94da8260bc2db0c398, type: 3}
+  - {fileID: 2100000, guid: 9972752390a47ae4c986859fdc8951a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2683,7 +2683,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3aaa0702c2c7af14f81935e8c74964b2, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2701,7 +2701,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2738,7 +2738,7 @@ MonoBehaviour:
   aimingSpeed: 350
   aimingAttackSpeed: 500
   runSpeed: 5
-  gravity: 8
+  gravity: 30
   attackCooldown: 0.8
   attacking: 0
   loadFactor: 0
@@ -2748,20 +2748,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.15483856
       value: 1
-      inSlope: -0.700394
-      outSlope: -0.700394
-      tangentMode: 34
+      inSlope: -0.22598636
+      outSlope: -0.22598636
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.075591974
     - serializedVersion: 3
       time: 0.7996826
       value: 0.5483551
-      inSlope: -0.700394
-      outSlope: -0.700394
-      tangentMode: 34
+      inSlope: -1.5229933
+      outSlope: -1.5229933
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.016393485
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2773,7 +2773,7 @@ MonoBehaviour:
   head: {fileID: 1124911193217812051}
   body: {fileID: 8742383873535976710}
   interacting: 0
-  collectCooldown: 0.8
+  collectCooldown: 0.7
   pickCooldown: 1.5
   interactionType: 0
   currentInteractor: {fileID: 0}
@@ -2781,6 +2781,8 @@ MonoBehaviour:
   ressourceContainer: {fileID: 5249210446158254621}
   inventoryViewer: {fileID: 883683957}
   interactionHelper: {fileID: 4789774433358392225}
+  constructionCamera: {fileID: 0}
+  interactionDelay: 0
   interactionConfirmedDelay: 0
   wearHead:
   - {fileID: 8300000, guid: 2e8f3c9f516c1ea45befdf92db902ae7, type: 3}
@@ -7548,7 +7550,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.577
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -8983,6 +8985,7 @@ MonoBehaviour:
   - {fileID: 673461853}
   load: 0
   acceptedResources: []
+  start: []
 --- !u!1 &6192619722522151285
 GameObject:
   m_ObjectHideFlags: 0
@@ -9768,7 +9771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfc9c88ca93fb247a789b76aaf23b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 42
+  type: 26
   toolFamily: None
   forbidSecond: 0
   forbidShield: 0

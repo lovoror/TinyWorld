@@ -15,7 +15,7 @@ public class ConstructionViewer : MonoBehaviour
     public TextMesh loadSum;
     public Transform background;
     public ConstructionTemplate construction;
-    private int prevLoad;
+    public int prevLoad;
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class ConstructionViewer : MonoBehaviour
             foreach (Transform child in list)
                 Destroy(child.gameObject);
 
-            Dictionary<string, int> conditions = construction.GetCondition();
+            Dictionary<string, int> conditions = construction.GetCondition(construction.progress == 0f ? construction.resourcesStep0 : construction.resourcesStep1);
             loadSum.text = container.load.ToString() + "/" + container.capacity.ToString();
 
             int rest = conditions.Count - 3 * (int)(conditions.Count / 3f);

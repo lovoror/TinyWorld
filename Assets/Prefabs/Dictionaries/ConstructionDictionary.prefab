@@ -1057,9 +1057,13 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 8bfa3476d6d02f04aac71fd7a8d1da0a, type: 3}
   - {fileID: 4300000, guid: 1fa72418f34eb6d42adaa061aa64c0d9, type: 3}
-  transition:
-  - Wood 30
-  - Stone 10
+  preview: {fileID: 4300000, guid: c5f43a47e4b64c14da6e0081f639fdd3, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 3
+  resourcesStep1:
+  - Wood 2
+  - Gold 1
   sprite: {fileID: 21300000, guid: dece9702ba40aa6409a4149fa5f17fe1, type: 3}
   additionalIcon: {fileID: 21300000, guid: 379ec4d2d765ef44e8c7d5a0fef13f4a, type: 3}
   progress: 0
@@ -1096,6 +1100,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413145096762}
   background: {fileID: 4161922413035897876}
   construction: {fileID: 4161922411960896283}
+  prevLoad: 0
 --- !u!1 &4161922411966450790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,11 +1198,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 23f5e8bfeddc6454da643b5f31d0ff9a, type: 3}
   - {fileID: 4300000, guid: f1d267045620d8f40a446655a93df223, type: 3}
-  transition:
-  - Wood 10
-  - Stone 20
-  - Gold 3
-  - Crystal 3
+  preview: {fileID: 4300000, guid: fc4ed9ef41f9dc944af60388921a8746, type: 3}
+  resourcesStep0:
+  - Stone 4
+  - Wood 3
+  resourcesStep1:
+  - Wood 1
+  - Gold 1
+  - Crystal 1
   sprite: {fileID: 21300000, guid: 49075edae9c602344a6728378695981f, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -1234,6 +1242,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412707711244}
   background: {fileID: 4161922412662679303}
   construction: {fileID: 4161922411966450785}
+  prevLoad: 0
 --- !u!1 &4161922411974163146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,10 +2633,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 48f5ed055a55d3e4e8a0d58338a79109, type: 3}
   - {fileID: 4300000, guid: 05435a1c90d6a9d4b88a33afe6adc4cd, type: 3}
-  transition:
-  - Stone 15
-  - Wood 5
-  - Iron 3
+  preview: {fileID: 4300002, guid: c73c37430c8ac1e43831ddacfa77c180, type: 3}
+  resourcesStep0:
+  - Stone 4
+  - Wood 1
+  resourcesStep1:
+  - Stone 3
+  - Wood 1
+  - Iron 1
   sprite: {fileID: 21300000, guid: db58acb93d38ae543bd6ab053871b79e, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -2664,6 +2677,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412466268686}
   background: {fileID: 4161922412973356119}
   construction: {fileID: 4161922412100374672}
+  prevLoad: 0
 --- !u!1 &4161922412110625926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,15 +2775,18 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: b18013bceef29894d95932ffbdf069c0, type: 3}
   - {fileID: 4300000, guid: 25ef05172876b8742b290e10ba4393cf, type: 3}
-  transition:
-  - Wood 5
-  - Stone 3
+  preview: {fileID: 4300002, guid: aec20226064bbcc4d850e8da90e49a4b, type: 3}
+  resourcesStep0:
+  - Stone 2
+  - Wood 1
+  resourcesStep1:
+  - Stone 1
+  - Wood 1
   sprite: {fileID: 21300000, guid: 503d8db2c2e6ce24fae787968a45e1c3, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
   meshFilter: {fileID: 4161922413892003616}
-  finished: {fileID: 7096075181365906075, guid: 3d7740a79a4780148a7f263ad07405a6,
-    type: 3}
+  finished: {fileID: 0}
   mask1: {fileID: 4161922412347241294}
   mask2: {fileID: 4161922413071146441}
   interactor: {fileID: 4161922412110625923}
@@ -2800,6 +2817,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413981359203}
   background: {fileID: 4161922412729293040}
   construction: {fileID: 4161922412110625921}
+  prevLoad: 0
 --- !u!1 &4161922412113721344
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,10 +4744,13 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 8bfa3476d6d02f04aac71fd7a8d1da0a, type: 3}
   - {fileID: 4300000, guid: 1fa72418f34eb6d42adaa061aa64c0d9, type: 3}
-  transition:
-  - Wood 30
-  - Stone 10
-  - Wheat 10
+  preview: {fileID: 4300000, guid: c5f43a47e4b64c14da6e0081f639fdd3, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 3
+  resourcesStep1:
+  - Wood 1
+  - Wheat 1
   sprite: {fileID: 21300000, guid: dece9702ba40aa6409a4149fa5f17fe1, type: 3}
   additionalIcon: {fileID: 21300000, guid: 7de5ff998f7d7c8409caa6d4e1f42e8b, type: 3}
   progress: 0
@@ -4766,6 +4787,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412814536989}
   background: {fileID: 4161922413972181864}
   construction: {fileID: 4161922412241609739}
+  prevLoad: 0
 --- !u!1 &4161922412243271252
 GameObject:
   m_ObjectHideFlags: 0
@@ -8241,10 +8263,13 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 3fae66635eefa35409bdeb9bcad140ff, type: 3}
   - {fileID: 4300000, guid: 2969cfa0fe7f35d4c94a50c9fb1d9f8c, type: 3}
-  transition:
-  - Wood 20
-  - Stone 20
-  - Gold 3
+  preview: {fileID: 4300000, guid: a219455911288e84da9a9c5f55fd95c6, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 2
+  resourcesStep1:
+  - Wood 2
+  - Gold 1
   sprite: {fileID: 21300000, guid: ea053b2be08ae9b43b104f62bb3ff35f, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -8280,6 +8305,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412380074489}
   background: {fileID: 4161922413499536161}
   construction: {fileID: 4161922412414700477}
+  prevLoad: 0
 --- !u!1 &4161922412417151532
 GameObject:
   m_ObjectHideFlags: 0
@@ -9333,9 +9359,12 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 914c6a6c8577a644695c9d94116c598d, type: 3}
   - {fileID: 4300000, guid: ce3301c5c5de86444b56186a86dabcdc, type: 3}
-  transition:
-  - Wood 5
+  preview: {fileID: 4300004, guid: e9554c943e8d60643a12a6ee55c092e6, type: 3}
+  resourcesStep0:
+  - Stone 4
+  resourcesStep1:
   - Stone 3
+  - Iron 2
   sprite: {fileID: 21300000, guid: 8e520db966a661e4681783e693b117bf, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -9372,6 +9401,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412329564085}
   background: {fileID: 4161922413209482808}
   construction: {fileID: 4161922412477411373}
+  prevLoad: 0
 --- !u!1 &4161922412481116817
 GameObject:
   m_ObjectHideFlags: 0
@@ -11185,9 +11215,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 9018b9e829e697640b479e00dd8fdcc0, type: 3}
   - {fileID: 4300000, guid: 27fdd863cab8d1a419f247f4ed7a2b01, type: 3}
-  transition:
-  - Wood 10
-  - Stone 15
+  preview: {fileID: 4300000, guid: 7036859d28e2cb84c9948a1fcf49fe95, type: 3}
+  resourcesStep0:
+  - Stone 5
+  - Wood 1
+  resourcesStep1:
+  - Stone 3
+  - Wood 2
+  - Iron 1
   sprite: {fileID: 21300000, guid: 4524e844683017341ba6beb1f969b1f3, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -11224,6 +11259,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412466783585}
   background: {fileID: 4161922412124267218}
   construction: {fileID: 4161922412595079902}
+  prevLoad: 0
 --- !u!1 &4161922412596619755
 GameObject:
   m_ObjectHideFlags: 0
@@ -11479,11 +11515,15 @@ MonoBehaviour:
   buildingFamily: Combat
   incrementSpeed: 0.1
   steps:
-  - {fileID: 4300000, guid: 36773d88f5d34834587aff054644b010, type: 3}
-  - {fileID: 4300000, guid: ecd750c81ddec2c48abc6d35830d1422, type: 3}
-  transition:
-  - Wood 10
-  - Stone 5
+  - {fileID: 4300000, guid: c8f46a36db3ed5d4ba1ec3877467e8ca, type: 3}
+  - {fileID: 4300000, guid: cca1c5a0500e0194cbfcc9780cb0f8d5, type: 3}
+  preview: {fileID: 4300000, guid: 0c6eb60ad59a81145839dbc6dedcbc3f, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 2
+  resourcesStep1:
+  - Wood 1
+  - Iron 1
   - Wheat 2
   sprite: {fileID: 21300000, guid: ddc52cba27f6fba429820409e218fb1d, type: 3}
   additionalIcon: {fileID: 0}
@@ -11521,6 +11561,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412720998753}
   background: {fileID: 4161922413855126069}
   construction: {fileID: 4161922412620314744}
+  prevLoad: 0
 --- !u!1 &4161922412621740764
 GameObject:
   m_ObjectHideFlags: 0
@@ -11761,9 +11802,11 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 5e5b7457c68ebd447b8a03dd55c4f660, type: 3}
   - {fileID: 4300000, guid: caa0b36c4f60f7b47a461c12cd9fe8cd, type: 3}
-  transition:
-  - Wood 5
-  - Stone 3
+  preview: {fileID: 4300006, guid: 7ae56a8428b94f24b854dac395c7c925, type: 3}
+  resourcesStep0:
+  - Wood 4
+  resourcesStep1:
+  - Wood 3
   sprite: {fileID: 21300000, guid: 850c385dae9a6304c8f30db0ee383e47, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -11800,6 +11843,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412418934097}
   background: {fileID: 4161922412908713322}
   construction: {fileID: 4161922412637757795}
+  prevLoad: 0
 --- !u!1 &4161922412639101361
 GameObject:
   m_ObjectHideFlags: 0
@@ -12737,10 +12781,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 68dc2d4464799a947be0ba3c5b424331, type: 3}
   - {fileID: 4300000, guid: c650d1b47e984954fa4415d5b8fba967, type: 3}
-  transition:
-  - Wood 5
-  - Stone 5
-  - Iron 3
+  preview: {fileID: 4300002, guid: 06905b5e993435c4e9526f63c49622e3, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 2
+  resourcesStep1:
+  - Stone 1
+  - Wood 1
+  - Iron 1
   sprite: {fileID: 21300000, guid: 426fce7da7a22674e8232b26c82abc37, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -12776,6 +12824,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412505738810}
   background: {fileID: 4161922413156429114}
   construction: {fileID: 4161922412690261944}
+  prevLoad: 0
 --- !u!1 &4161922412691950639
 GameObject:
   m_ObjectHideFlags: 0
@@ -12954,10 +13003,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 9f1a76b274a57c841b1aa03e7c5e5200, type: 3}
   - {fileID: 4300000, guid: 70a74a7e3a8172e4d9fc5cd02c4800ba, type: 3}
-  transition:
-  - Wood 20
-  - Stone 30
-  - Iron 3
+  preview: {fileID: 4300004, guid: 003306f67c7bed24b8be307fb52fb0ab, type: 3}
+  resourcesStep0:
+  - Stone 5
+  - Wood 4
+  resourcesStep1:
+  - Stone 2
+  - Wood 1
+  - Gold 1
   sprite: {fileID: 21300000, guid: 6ae48989acc695c41bb6f5308e5598b2, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -12994,6 +13047,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413155161999}
   background: {fileID: 4161922412850687382}
   construction: {fileID: 4161922412693831250}
+  prevLoad: 0
 --- !u!1 &4161922412694605173
 GameObject:
   m_ObjectHideFlags: 0
@@ -13718,8 +13772,12 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: ce8b6056e281f7c40b4f6f25ef610477, type: 3}
   - {fileID: 4300000, guid: 240875b6dee8d804883a4a485f4ed145, type: 3}
-  transition:
-  - Wood 10
+  preview: {fileID: 4300004, guid: 5921e45280d702e44ad0fb582ac16d26, type: 3}
+  resourcesStep0:
+  - Wood 3
+  resourcesStep1:
+  - Wood 3
+  - Iron 1
   sprite: {fileID: 21300000, guid: 99acab94706488d4299c15196c6295f6, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -13756,6 +13814,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413906791136}
   background: {fileID: 4161922412277948956}
   construction: {fileID: 4161922412712148378}
+  prevLoad: 0
 --- !u!1 &4161922412720998759
 GameObject:
   m_ObjectHideFlags: 0
@@ -16390,10 +16449,12 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 36773d88f5d34834587aff054644b010, type: 3}
   - {fileID: 4300000, guid: ecd750c81ddec2c48abc6d35830d1422, type: 3}
-  transition:
-  - Wood 5
-  - Stone 2
-  - Gold 1
+  preview: {fileID: 4300000, guid: e80371d003bd70d439af07f3facb22ea, type: 3}
+  resourcesStep0:
+  - Stone 1
+  - Wood 4
+  resourcesStep1:
+  - Wood 2
   sprite: {fileID: 21300000, guid: 2d5f1e5d735d7234faf5137cfccae345, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -16430,6 +16491,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412772972398}
   background: {fileID: 4161922412856650959}
   construction: {fileID: 4161922412852995642}
+  prevLoad: 0
 --- !u!1 &4161922412856650958
 GameObject:
   m_ObjectHideFlags: 0
@@ -19547,15 +19609,18 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: c4bb27f050a2ef4439fb736e16b2bded, type: 3}
   - {fileID: 4300000, guid: b1ff534b3931e674e8e475faa59eb659, type: 3}
-  transition:
-  - Wood 5
-  - Stone 3
+  preview: {fileID: 4300000, guid: 05035b78d90b21f43854dfe010ccd289, type: 3}
+  resourcesStep0:
+  - Stone 2
+  - Wood 1
+  resourcesStep1:
+  - Stone 1
+  - Wood 1
   sprite: {fileID: 21300000, guid: 859e887b1ac5b8543bd80209fb2903f5, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
   meshFilter: {fileID: 4161922413350599496}
-  finished: {fileID: 7797357159900661640, guid: 9ba6e17dcf4785147a59f9ea8fcd5c58,
-    type: 3}
+  finished: {fileID: 0}
   mask1: {fileID: 4161922412215272696}
   mask2: {fileID: 4161922412911305454}
   interactor: {fileID: 4161922413059209571}
@@ -19586,6 +19651,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412842893414}
   background: {fileID: 4161922413065353354}
   construction: {fileID: 4161922413059209569}
+  prevLoad: 0
 --- !u!1 &4161922413065353353
 GameObject:
   m_ObjectHideFlags: 0
@@ -19849,7 +19915,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4161922413095133970}
-  m_Mesh: {fileID: 4300000, guid: b40bcd86f471a554696e16e6e41c7e0b, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 9bf280570cf5dce45a29b84470a52c7e, type: 3}
 --- !u!23 &4161922413095133997
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20044,11 +20110,16 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: ee920d8c79ea3684abbabe92ec16e8c4, type: 3}
   - {fileID: 4300000, guid: a65bd061cdf100b4ba4e4379a5ae6aec, type: 3}
-  transition:
-  - Wood 10
-  - Stone 50
-  - Iron 5
-  - Gold 5
+  preview: {fileID: 4300004, guid: 637b3bb1a53fd584b8b2f29eddb05290, type: 3}
+  resourcesStep0:
+  - Stone 10
+  - Wood 6
+  - Iron 1
+  resourcesStep1:
+  - Stone 10
+  - Wood 4
+  - Iron 3
+  - Gold 2
   sprite: {fileID: 21300000, guid: 609cbc901f80c0a4e839dba1d79ecf14, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -20085,6 +20156,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412814237061}
   background: {fileID: 4161922412574078171}
   construction: {fileID: 4161922413098653487}
+  prevLoad: 0
 --- !u!1 &4161922413105278570
 GameObject:
   m_ObjectHideFlags: 0
@@ -23521,10 +23593,13 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 4f825c353b2346344a464e665e8a8f59, type: 3}
   - {fileID: 4300000, guid: de6238c57a8f0ac478c92903b1b153cc, type: 3}
-  transition:
-  - Wood 5
-  - Stone 5
-  - Iron 10
+  preview: {fileID: 4300000, guid: 5573396f6b8833f4dbd78bbb53d56df5, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 2
+  resourcesStep1:
+  - Wood 1
+  - Iron 2
   sprite: {fileID: 21300000, guid: 1351cd719ff533141b05a9e36725f0c3, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -23561,6 +23636,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412197775109}
   background: {fileID: 4161922413978992735}
   construction: {fileID: 4161922413281152839}
+  prevLoad: 0
 --- !u!1 &4161922413282370260
 GameObject:
   m_ObjectHideFlags: 0
@@ -24783,10 +24859,13 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 16c16ea3927925b4a85067b12080333d, type: 3}
   - {fileID: 4300000, guid: 75cb71cd68996f147af86badbf154a13, type: 3}
-  transition:
-  - Wood 5
-  - Stone 5
-  - Iron 10
+  preview: {fileID: 4300006, guid: a43f0d6131f84de40b182eb70bb23b87, type: 3}
+  resourcesStep0:
+  - Stone 4
+  - Wood 3
+  resourcesStep1:
+  - Wood 1
+  - Iron 2
   sprite: {fileID: 21300000, guid: 62076526edda359439fdcaf8c5c5b45c, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -24822,6 +24901,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413819498053}
   background: {fileID: 4161922413384164720}
   construction: {fileID: 4161922413359168046}
+  prevLoad: 0
 --- !u!1 &4161922413359799213
 GameObject:
   m_ObjectHideFlags: 0
@@ -25247,8 +25327,11 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 993cee789332e584d88bf4e7b9a5e1a9, type: 3}
   - {fileID: 4300000, guid: 2537389e7f9749544a04f0d6a3b0b5c8, type: 3}
-  transition:
-  - Stone 5
+  preview: {fileID: 4300010, guid: 8c11ae7c589e3f34d966c6d1fd721bea, type: 3}
+  resourcesStep0:
+  - Stone 3
+  resourcesStep1:
+  - Stone 2
   sprite: {fileID: 21300000, guid: ae16c3da3368b7e4bb64b0e62e8d813c, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -25284,6 +25367,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413347253447}
   background: {fileID: 4161922412399936120}
   construction: {fileID: 4161922413384886513}
+  prevLoad: 0
 --- !u!1 &4161922413390454583
 GameObject:
   m_ObjectHideFlags: 0
@@ -26546,10 +26630,13 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 2c19f74705f3b6b44af06171a67178a1, type: 3}
   - {fileID: 4300000, guid: b40bcd86f471a554696e16e6e41c7e0b, type: 3}
-  transition:
-  - Wood 5
-  - Stone 20
-  - Gold 1
+  preview: {fileID: 4300002, guid: 9bf280570cf5dce45a29b84470a52c7e, type: 3}
+  resourcesStep0:
+  - Stone 4
+  - Wood 3
+  resourcesStep1:
+  - Wood 2
+  - Iron 1
   sprite: {fileID: 21300000, guid: d0d00f28bc077f44aa243f47009bb4d3, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -26586,6 +26673,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412206284224}
   background: {fileID: 4161922413693709487}
   construction: {fileID: 4161922413480605284}
+  prevLoad: 0
 --- !u!1 &4161922413486484033
 GameObject:
   m_ObjectHideFlags: 0
@@ -27299,9 +27387,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 89fb5f68a7a07e24aa03504d5a034e9e, type: 3}
   - {fileID: 4300000, guid: a2bc843dcc7a5be45993257d22444585, type: 3}
-  transition:
-  - Wood 10
-  - Stone 30
+  preview: {fileID: 4300004, guid: e2f28d7d7478cb64597ebb9077abfe6e, type: 3}
+  resourcesStep0:
+  - Stone 7
+  - Wood 3
+  resourcesStep1:
+  - Stone 5
+  - Wood 2
+  - Iron 2
   sprite: {fileID: 21300000, guid: efd68bb24eef4874b83d607abab981c7, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -27338,6 +27431,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412967084828}
   background: {fileID: 4161922413744394977}
   construction: {fileID: 4161922413526102254}
+  prevLoad: 0
 --- !u!1 &4161922413526682333
 GameObject:
   m_ObjectHideFlags: 0
@@ -28702,8 +28796,14 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: a6360e359f4767e41a49aec1887be29c, type: 3}
   - {fileID: 4300000, guid: 1e99ddaf9b6c01949bda36d1292dce52, type: 3}
-  transition:
-  - Stone 10
+  preview: {fileID: 4300002, guid: f38b9a56b23e4df499eaede1c2276296, type: 3}
+  resourcesStep0:
+  - Stone 3
+  - Wood 1
+  resourcesStep1:
+  - Stone 2
+  - Wood 1
+  - Iron 1
   sprite: {fileID: 21300000, guid: 22592f7b3e3273943bb88db0347e97a4, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -28740,6 +28840,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922413261419994}
   background: {fileID: 4161922412889878826}
   construction: {fileID: 4161922413608195523}
+  prevLoad: 0
 --- !u!1 &4161922413609768000
 GameObject:
   m_ObjectHideFlags: 0
@@ -33024,7 +33125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4161922413890683114
 Transform:
   m_ObjectHideFlags: 0
@@ -33377,8 +33478,11 @@ MonoBehaviour:
   steps:
   - {fileID: 4300000, guid: 84027b74851eeb942a03f4a723b1a66e, type: 3}
   - {fileID: 4300000, guid: 8410783fe3ef98c4e8b34dcdc9b92e41, type: 3}
-  transition:
-  - Wood 5
+  preview: {fileID: 4300010, guid: cba5dcbe606db5c489d9a7269c56598a, type: 3}
+  resourcesStep0:
+  - Wood 3
+  resourcesStep1:
+  - Wood 2
   sprite: {fileID: 21300000, guid: 91218d99d0f05f84186fe9e315340d0e, type: 3}
   additionalIcon: {fileID: 0}
   progress: 0
@@ -33414,6 +33518,7 @@ MonoBehaviour:
   loadSum: {fileID: 4161922412871345109}
   background: {fileID: 4161922412434849173}
   construction: {fileID: 4161922413909264529}
+  prevLoad: 0
 --- !u!1 &4161922413918161559
 GameObject:
   m_ObjectHideFlags: 0
@@ -33782,6 +33887,20 @@ MonoBehaviour:
   - {fileID: 4161922413476827187}
   - {fileID: 4161922413213989513}
   - {fileID: 4161922413556043439}
+  wallPrefabsStone:
+  - {fileID: 5654069440763290394, guid: f232b7aa6c99a3e45b0ba548d481b573, type: 3}
+  - {fileID: 1076287310498105008, guid: 9b4fe1de4ea34af448ec609811626b5a, type: 3}
+  - {fileID: 8459182403107760671, guid: 5480eafe9e44ab04f80f6d6d74828ca1, type: 3}
+  - {fileID: 9087897550838082319, guid: efd2e901827fb004c8f91c4ecdd4ec1a, type: 3}
+  - {fileID: 4607466620771048796, guid: 42468196c45750a4ba9ac40b738f2f87, type: 3}
+  - {fileID: 3992178965218561376, guid: fc3fd92b0efcc2140bf43b5708298cff, type: 3}
+  wallPrefabsWood:
+  - {fileID: 7597501989073594416, guid: eefd6e8888d09674993a6133b11d75e3, type: 3}
+  - {fileID: 7698387830201202627, guid: c0ee3461db6299f489a0839898aec099, type: 3}
+  - {fileID: 5633689594566816224, guid: a96b50105bbf01044962b3a86dbc9703, type: 3}
+  - {fileID: 2011159957123386900, guid: 185076a009351ca4c952c7519d4d04b6, type: 3}
+  - {fileID: 1887449122954419177, guid: 3247daf353a601e4f86f591e73a6c112, type: 3}
+  - {fileID: 6750469044522398828, guid: 6796bf4a09a5b384c8012fa7513db6e4, type: 3}
 --- !u!1 &4161922413968722453
 GameObject:
   m_ObjectHideFlags: 0

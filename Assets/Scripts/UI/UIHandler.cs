@@ -35,7 +35,7 @@ public class UIHandler : MonoBehaviour
         options = new Dictionary<string, Sprite>();
         foreach(Sprite s in optionList)
             options.Add(s.name, s);
-        toolName = "";
+        Reset();
     }
 
     public void Reset()
@@ -51,6 +51,7 @@ public class UIHandler : MonoBehaviour
         }
         foreach (Transform t in iconContainer)
             Destroy(t.gameObject);
+        audiosource.clip = selectedSound;
     }
     public void OnFamilyClick(BuildingFamilyTemplate click)
     {

@@ -8,7 +8,8 @@ public class ConstructionTemplate : MonoBehaviour
     public float incrementSpeed = 0.03f;
     public Mesh[] steps;
     public Mesh preview;
-    public List<string> transition;
+    public List<string> resourcesStep0;
+    public List<string> resourcesStep1;
     public Sprite sprite;
     public Sprite additionalIcon;
 
@@ -37,18 +38,10 @@ public class ConstructionTemplate : MonoBehaviour
         interactor = GetComponent<InteractionType>();
         viewer.enabled = false;
         interactor.type = InteractionType.Type.construction;
-        
-        container = GetComponent<RessourceContainer>();
-        container.capacity = 0;
-        foreach (string acc in transition)
-        {
-            if (acc.Contains(" "))
-            {
-                string[] s = acc.Split(separator);
-                container.capacity += int.Parse(s[1]);
-            }
-        }
-        container.acceptedResources = transition;
+
+        InitContainer(resourcesStep0);
+        interactor.type = InteractionType.Type.storeRessources;
+        viewer.enabled = true;
     }
 
     // Update is called once per frame
@@ -61,6 +54,8 @@ public class ConstructionTemplate : MonoBehaviour
             {
                 progress = 0.5f;
                 interactor.type = InteractionType.Type.storeRessources;
+                InitContainer(resourcesStep1);
+                viewer.prevLoad = -1;
                 viewer.enabled = true;
             }
 
@@ -97,7 +92,7 @@ public class ConstructionTemplate : MonoBehaviour
 
     public bool Increment()
     {
-        if (progress != 0.5f)
+        if (progress != 0f && progress != 0.5f)
             progress += incrementSpeed;
         else if (CompareStorage())
         {
@@ -115,17 +110,28 @@ public class ConstructionTemplate : MonoBehaviour
     }
     private bool CompareStorage()
     {
-        Dictionary<string, int> conditions = GetCondition();
-
         bool ready = true;
-        foreach(KeyValuePair<string, int> condition in conditions)
+        if (progress == 0f)
         {
-            if (!container.inventory.ContainsKey(condition.Key) || container.inventory[condition.Key] != condition.Value)
-                ready = false;
+            Dictionary<string, int> conditions = GetCondition(resourcesStep0);
+            foreach (KeyValuePair<string, int> condition in conditions)
+            {
+                if (!container.inventory.ContainsKey(condition.Key) || container.inventory[condition.Key] != condition.Value)
+                    ready = false;
+            }
+        }
+        else
+        {
+            Dictionary<string, int> conditions = GetCondition(resourcesStep1);
+            foreach(KeyValuePair<string, int> condition in conditions)
+            {
+                if (!container.inventory.ContainsKey(condition.Key) || container.inventory[condition.Key] != condition.Value)
+                    ready = false;
+            }
         }
         return ready; 
     }
-    public Dictionary<string, int> GetCondition()
+    public Dictionary<string, int> GetCondition(List<string> transition)
     {
         Dictionary<string, int> conditions = new Dictionary<string, int>();
         foreach (string acc in transition)
@@ -138,5 +144,19 @@ public class ConstructionTemplate : MonoBehaviour
             else conditions.Add(acc, -1);
         }
         return conditions;
+    }
+    private void InitContainer(List<string> transition)
+    {
+        container = GetComponent<RessourceContainer>();
+        container.capacity = 0;
+        foreach (string acc in transition)
+        {
+            if (acc.Contains(" "))
+            {
+                string[] s = acc.Split(separator);
+                container.capacity += int.Parse(s[1]);
+            }
+        }
+        container.acceptedResources = transition;
     }
 }
