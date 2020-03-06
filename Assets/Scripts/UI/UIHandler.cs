@@ -38,7 +38,20 @@ public class UIHandler : MonoBehaviour
         toolName = "";
     }
 
-
+    public void Reset()
+    {
+        toolName = "";
+        foreach (BuildingFamilyTemplate icon in familyList)
+        {
+            icon.activated = false;
+            icon.border.sprite = notSelectedBorder;
+            icon.border.transform.localScale = new Vector3(1.02f, 1.02f, 1.02f);
+            icon.OnPointerExit(null);
+            icon.border.color = notSelectedColor;
+        }
+        foreach (Transform t in iconContainer)
+            Destroy(t.gameObject);
+    }
     public void OnFamilyClick(BuildingFamilyTemplate click)
     {
         string family = "";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wheet : MonoBehaviour
+public class Wheat : MonoBehaviour
 {
     public float width = 0.05f;
     public float height = 0.7f;

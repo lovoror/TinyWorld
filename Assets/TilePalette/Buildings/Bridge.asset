@@ -37,5 +37,9 @@ MonoBehaviour:
   tilePrefab: {fileID: 3532118651190152994, guid: 0bb11a37e54741f43866f817d3d9357c,
     type: 3}
   buildingPrefab: {fileID: 0}
-  optionalMaterial: {fileID: 0}
   neighbourUpdate: 1
+  buildingUpdate: 0
+  isTerrain: 1
+  optionalMaterial: {fileID: 0}
+  optionalSprite: {fileID: 21300000, guid: 0bebaec7501c40a469786e619f96b457, type: 3}
+  helperText: Simple wood bridge

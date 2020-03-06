@@ -130,8 +130,8 @@ public class TilePrefabsContainer : MonoBehaviour
         go.transform.localPosition = Vector3.zero;
         go.transform.localScale = Vector3.one;
         go.transform.localRotation = Quaternion.identity;
-        
-        Wheet wheet = go.GetComponentInChildren<Wheet>();
+
+        Wheat wheet = go.GetComponentInChildren<Wheat>();
         wheet.Initialize();
         wheetMeshes = wheet.GetComponent<MeshFilter>().sharedMesh;
 

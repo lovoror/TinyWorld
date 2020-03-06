@@ -180,7 +180,7 @@ public class Map : MonoBehaviour
         return new Vector3Int(c.x, c.y, (int)tilemap.transform.position.z);
     }
 
-    private void TileInit(ScriptableTile tile, Vector3Int cellPosition)
+    private GameObject TileInit(ScriptableTile tile, Vector3Int cellPosition)
     {
         // tile prefab
         GameObject tilego = Instantiate(tile.tilePrefab);
@@ -212,6 +212,7 @@ public class Map : MonoBehaviour
         InitBridge(tilego.GetComponent<Bridge>(), cellPosition);
         InitStone(tilego.GetComponent<Stone>(), cellPosition);
         InitMineral(tilego.GetComponent<MineralRessource>(), cellPosition, tile.optionalMaterial);
+        return tilego;
     }
     private void TileBuildingInit(ScriptableTile tile, Vector3Int cellPosition)
     {
@@ -300,7 +301,7 @@ public class Map : MonoBehaviour
         if (bridge)
         {
             ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
-            bridge.Initialize(xm && xm.tilePrefab && xm.tilePrefab.name == "Dirt");
+            bridge.Initialize(xm && xm.tilePrefab && xm.tilePrefab.GetComponent<Dirt>());
         }
     }
     private void InitStone(Stone stone, Vector3Int cellPosition)

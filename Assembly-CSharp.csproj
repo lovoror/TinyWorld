@@ -163,7 +163,7 @@
     <Compile Include="Assets\Scripts\TileScripts\TreeComponent.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Wall.cs" />
     <Compile Include="Assets\Scripts\TileScripts\Water.cs" />
-    <Compile Include="Assets\Scripts\TileScripts\Wheet.cs" />
+    <Compile Include="Assets\Scripts\TileScripts\Wheat.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingFamilyTemplate.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingIconTemplate.cs" />
     <Compile Include="Assets\Scripts\UI\UIButton.cs" />
