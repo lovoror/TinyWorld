@@ -166,6 +166,7 @@
     <Compile Include="Assets\Scripts\TileScripts\Wheat.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingFamilyTemplate.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingIconTemplate.cs" />
+    <Compile Include="Assets\Scripts\UI\ResourceTemplate.cs" />
     <Compile Include="Assets\Scripts\UI\UIButton.cs" />
     <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />

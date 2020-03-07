@@ -11,17 +11,20 @@ public class ConstructionCamera : MonoBehaviour
     public bool activated;
     public bool quit;
     public bool mouseControl = true;
-    public KeyCode key;
+    public KeyCode keyMode;
+    public KeyCode keyLeft;
+    public KeyCode keyRight;
     public CameraController trackballController;
     public GameObject constructionUI;
-    public Map map;
+    private Map map;
     public GameObject currentObject;
     private MeshRenderer currentRenderer;
     public ConstructionTemplate currentTemplate;
     public Material buildingMaterial;
     public Material okMaterial;
     public Material nokMaterial;
-    public AudioClip placementOk;
+    public AudioClip buildingOk;
+    public AudioClip terrainOk;
 
     [Header("Control parameters")]
     public float speed = 4f;
@@ -39,14 +42,12 @@ public class ConstructionCamera : MonoBehaviour
     public Transform iconContainer;
     public BuildingIconTemplate template;
     public Text helperText;
-    //public GameObject helperPivot;
     public UIHandler uihandler;
     public ConstructionHelper helper;
 
     [Header("Debug")]
     private EventSystem eventsystem;
     private RaycastHit[] scanResults = new RaycastHit[20];
-    private bool orientation;
     private Vector3Int prevTerrainBrushTile;
     private GameObject ocludedTerrainTile;
 
@@ -57,15 +58,17 @@ public class ConstructionCamera : MonoBehaviour
         if (eventsystem == null)
             Debug.LogError("No event system in scene");
         helper.transform.parent = null;
+        map = Map.Instance;
+        helper.SetKeys(keyLeft, keyRight);
     }
 
     // Update is called once per frame
     private void Update()
     {
         // standart stuff
-        if (Input.GetKeyDown(key))
+        if (Input.GetKeyDown(keyMode))
             activated = true;
-        helper.gameObject.SetActive(orientation || uihandler.toolName == "delete");
+        helper.gameObject.SetActive(uihandler.toolName != "terrain");
         if (lastActivated != activated)
         {
             if (activated)
@@ -74,7 +77,6 @@ public class ConstructionCamera : MonoBehaviour
                 entryRotation = transform.rotation;
                 transform.position = new Vector3(trackballController.target.position.x, height, trackballController.target.position.z);
                 currentObject = null;
-                orientation = false;
             }
             trackballController.enabled = !activated;
             constructionUI.SetActive(activated);
@@ -108,7 +110,7 @@ public class ConstructionCamera : MonoBehaviour
         transform.forward = -Vector3.up;
 
         // raycast
-        if (!eventsystem.IsPointerOverGameObject())
+        if (!eventsystem.IsPointerOverGameObject() && !uihandler.helpVideo.activeSelf)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f, 1 << LayerMask.NameToLayer("Ground")))
@@ -129,36 +131,31 @@ public class ConstructionCamera : MonoBehaviour
                         }
 
                         p = new Vector3(pointing.x, 0, pointing.z);
-                        if (!orientation)
-                        {
-                            currentObject.transform.position = p;
-                            currentObject.transform.forward = Vector3.forward;
-                            helper.mode = 0;
-                        }
-                        else
-                        {
-                            pointing = (p - currentObject.transform.position).normalized;
-                            if (pointing.x > 0.7071f)
-                                pointing = Vector3.forward;
-                            else if (pointing.x < -0.7071f)
-                                pointing = Vector3.back;
-                            else if (pointing.z > 0.7071f)
-                                pointing = Vector3.left;
-                            else pointing = Vector3.right;
+                        currentObject.transform.position = p;
+                        helper.mode = currentObject.name.Contains("Wall") ? 0 : 1;
 
-                            currentObject.transform.forward = pointing;
-                            helper.mode = 1;
-                            helper.transform.position = currentObject.transform.position;
-                            helper.transform.rotation = currentObject.transform.rotation;
+                        Vector3 deltaAngle = Vector3.zero;
+                        if (Input.GetKeyDown(keyRight))
+                        {
+                            deltaAngle.y = 90;
+                            helper.orientationAtrigger();
                         }
-
+                        else if (Input.GetKeyDown(keyLeft))
+                        {
+                            deltaAngle.y = -90;
+                            helper.orientationBtrigger();
+                        }
+                        currentObject.transform.localEulerAngles += deltaAngle;
+                        helper.transform.position = currentObject.transform.position;
+                        helper.transform.rotation = currentObject.transform.rotation;
+                        
                         int scan = Physics.BoxCastNonAlloc(currentObject.transform.position + new Vector3(0, 0.49f * s.z, 0), 0.49f * new Vector3(s.x, s.z, s.y), Vector3.up,
                             scanResults, Quaternion.identity, 0.2f, 1 << LayerMask.NameToLayer("Default"));
                         currentRenderer.material = scan <= 1 ? okMaterial : nokMaterial;
-
+                        
                         if (Input.GetMouseButtonDown(0))
                         {
-                            if (orientation || (currentObject.name.Contains("Wall") && scan <= 1))
+                            if(scan <= 1)
                             {
                                 GameObject go = Instantiate(currentObject);
                                 go.name = currentObject.name;
@@ -166,20 +163,11 @@ public class ConstructionCamera : MonoBehaviour
                                 go.transform.position = currentObject.transform.position;
                                 go.transform.rotation = currentObject.transform.rotation;
                                 go.transform.Find("mesh").GetComponent<MeshRenderer>().sharedMaterial = buildingMaterial;
-                                orientation = false;
 
-                                uihandler.audiosource.clip = placementOk;
+                                uihandler.audiosource.clip = buildingOk;
                             }
                             else
-                            {
-                                if (scan <= 1)
-                                {
-                                    orientation = true;
-                                    uihandler.audiosource.clip = uihandler.selectedSound;
-                                }
-                                else
-                                    uihandler.audiosource.clip = uihandler.nokSound;
-                            }
+                                uihandler.audiosource.clip = uihandler.nokSound;
                             uihandler.audiosource.Play();
                         }
                     }
@@ -190,7 +178,7 @@ public class ConstructionCamera : MonoBehaviour
                         Destroy(currentObject);
                     helper.mode = 2;
                     helper.transform.rotation = Quaternion.identity;
-                    List<GameObject> buildings = map.SearchBuildingsGameObject(pointing, 3.3f);
+                    List<GameObject> buildings = map.SearchBuildingsGameObject(pointing, 4f);
 
                     if (buildings.Count != 0)
                     {
@@ -213,7 +201,7 @@ public class ConstructionCamera : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0) && buildings.Count != 0)
                     {
-                        uihandler.audiosource.clip = placementOk;
+                        uihandler.audiosource.clip = buildingOk;
                         uihandler.audiosource.Play();
                         
                         if(buildings[0].name.Contains("Wall"))
@@ -234,7 +222,8 @@ public class ConstructionCamera : MonoBehaviour
                 {
                     if (currentObject)
                     {
-                        currentObject.transform.position = new Vector3(pointing.x, 0, pointing.z);
+                        pointing = new Vector3(pointing.x, 0, pointing.z);
+                        currentObject.transform.position = pointing;
                         Vector3Int cell = map.GetCellFromWorld(pointing);
                         ScriptableTile tile = map.tilemap.GetTile<ScriptableTile>(cell);
                         
@@ -247,28 +236,39 @@ public class ConstructionCamera : MonoBehaviour
                             if (ocludedList.Count != 0)
                             {
                                 ocludedTerrainTile = ocludedList[0];
+                                Debug.Log(ocludedList.Count);
                                 ocludedTerrainTile.SetActive(false);
                             }
                             else ocludedTerrainTile = null;
                         }
 
-                        if (Input.GetMouseButtonDown(0) && ocludedTerrainTile)
+                        if (Input.GetMouseButtonDown(0) || ((prevTerrainBrushTile != cell) && Input.GetMouseButton(0)))
                         {
-                            List<Vector3> positions = new List<Vector3>();
-                            positions.Add(currentObject.transform.position);
-                            map.PlaceTiles(positions, map.SearchTilesGameObject(pointing, 3f), currentObject.name);
-
-                            List<GameObject> ocludedList = map.SearchTilesGameObject(pointing, 3f);
-                            if (ocludedList.Count != 0)
+                            List<GameObject> buildings = map.SearchBuildingsGameObject(pointing, 4f);
+                            if (buildings.Count == 0)
                             {
-                                foreach (GameObject go in ocludedList)
+                                List<Vector3> positions = new List<Vector3>();
+                                positions.Add(pointing);
+                                List<GameObject> originals = new List<GameObject>();
+                                originals.Add(ocludedTerrainTile);
+                                map.PlaceTiles(positions, originals, currentObject.name);
+                                uihandler.audiosource.clip = terrainOk;
+
+                                List<GameObject> ocludedList = map.SearchTilesGameObject(pointing, 3f);
+                                if (ocludedList.Count != 0)
                                 {
-                                    if (go != ocludedTerrainTile)
-                                        ocludedTerrainTile = go;
+                                    foreach (GameObject go in ocludedList)
+                                    {
+                                        if (go != ocludedTerrainTile)
+                                            ocludedTerrainTile = go;
+                                    }
+                                    ocludedTerrainTile.SetActive(false);
                                 }
-                                ocludedTerrainTile.SetActive(false);
+                                else ocludedTerrainTile = null;
                             }
-                            else ocludedTerrainTile = null;
+                            else uihandler.audiosource.clip = uihandler.nokSound;
+
+                            uihandler.audiosource.Play();
                         }
 
                         prevTerrainBrushTile = cell;
@@ -280,7 +280,7 @@ public class ConstructionCamera : MonoBehaviour
         }
 
         // check if quit mode
-        if (Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(key) && lastActivated == activated) || quit)
+        if (Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(keyMode) && lastActivated == activated) || quit)
         {
             trackballController.enabled = true;
             activated = false;
@@ -288,13 +288,13 @@ public class ConstructionCamera : MonoBehaviour
             transform.rotation = entryRotation;
             constructionUI.SetActive(false);
             quit = false;
-            orientation = false;
             if (currentObject)
                 Destroy(currentObject);
             if (ocludedTerrainTile)
                 ocludedTerrainTile.SetActive(true);
             ocludedTerrainTile = null;
             uihandler.Reset();
+            helper.mode = 0;
         }
         lastActivated = activated;
     }
@@ -307,7 +307,6 @@ public class ConstructionCamera : MonoBehaviour
             currentObject = ConstructionDictionary.Instance.Get(icon.name);
             currentTemplate = currentObject.transform.Find("interactor").GetComponent<ConstructionTemplate>();
             currentRenderer = currentObject.transform.Find("mesh").GetComponent<MeshRenderer>();
-            orientation = false;
         }
         else if(uihandler.toolName == "terrain")
         {
@@ -316,7 +315,6 @@ public class ConstructionCamera : MonoBehaviour
             if (ocludedTerrainTile)
                 ocludedTerrainTile.SetActive(true);
             ocludedTerrainTile = null;
-            orientation = false;
 
             ScriptableTile tilePrefab = null;
             foreach(ScriptableTile st in map.tileList)

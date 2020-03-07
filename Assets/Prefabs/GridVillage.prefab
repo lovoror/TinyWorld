@@ -56812,7 +56812,7 @@ PrefabInstance:
     - target: {fileID: 6625664373783676879, guid: 80b7cc6f26999a24aabf51ab64c5ec93,
         type: 3}
       propertyPath: m_Name
-      value: GateB (1)
+      value: GateB
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b7cc6f26999a24aabf51ab64c5ec93, type: 3}
@@ -56907,7 +56907,7 @@ PrefabInstance:
     - target: {fileID: 6625664373783676879, guid: 80b7cc6f26999a24aabf51ab64c5ec93,
         type: 3}
       propertyPath: m_Name
-      value: GateB (2)
+      value: GateB
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b7cc6f26999a24aabf51ab64c5ec93, type: 3}

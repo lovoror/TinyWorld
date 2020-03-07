@@ -20,10 +20,12 @@ public class BuildingIconTemplate : MonoBehaviour, IPointerClickHandler, IPointe
     public void OnPointerEnter(PointerEventData eventData)
     {
         handler.SetHelperText(helper);
+        handler.OnIconHover(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         handler.SetHelperText("");
+        handler.OnIconLeftHover();
     }
 }

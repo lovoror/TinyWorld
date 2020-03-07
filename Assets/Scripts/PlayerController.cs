@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.TransformPoint(controller.center);
         scanLength = Physics.BoxCastNonAlloc(position, size, Vector3.forward, scanResults, Quaternion.identity, 1f, 1 << LayerMask.NameToLayer("Interaction"));
 
-        if (scanLength > 0)
+        if (scanLength > 0 && !constructionCamera.activated)
             interactionJuicer.hovered = scanResults[0].collider.gameObject;
         else interactionJuicer.hovered = null;
         if (interactionJuicer.hovered != null && interactionJuicer.hovered.GetComponent<RessourceContainer>() != null)

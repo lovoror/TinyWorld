@@ -117,22 +117,25 @@ public class Map : MonoBehaviour
                     neighbourgs.Add(n4);
             }
 
-            foreach(Vector3Int cell in neighbourgs)
+            if (((ScriptableTile)tileDictionary[tileName]).neighbourUpdate)
             {
-                List<GameObject> neighbourgGo = SearchTilesGameObject(grid.GetCellCenterWorld(cell) - dy, 0.5f);
-                foreach (GameObject go in neighbourgGo)
-                    Destroy(go);
-                ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
-
-                if (tile && tile.neighbourUpdate)
+                foreach (Vector3Int cell in neighbourgs)
                 {
-                    if (tile.buildingUpdate)
+                    List<GameObject> neighbourgGo = SearchTilesGameObject(grid.GetCellCenterWorld(cell) - dy, 0.5f);
+                    foreach (GameObject go in neighbourgGo)
+                        Destroy(go);
+                    ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
+
+                    if (tile && tile.neighbourUpdate)
                     {
-                        List<GameObject> buildingGo = SearchBuildingsGameObject(grid.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0)) - dy, 0.5f);
-                        foreach (GameObject go in buildingGo)
-                            Destroy(go);
+                        if (tile.buildingUpdate)
+                        {
+                            List<GameObject> buildingGo = SearchBuildingsGameObject(grid.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0)) - dy, 0.5f);
+                            foreach (GameObject go in buildingGo)
+                                Destroy(go);
+                        }
+                        list.Add(new KeyValuePair<ScriptableTile, Vector3Int>(tile, new Vector3Int(cell.x, cell.y, 0)));
                     }
-                    list.Add(new KeyValuePair<ScriptableTile, Vector3Int>(tile, new Vector3Int(cell.x, cell.y, 0)));
                 }
             }
 
@@ -222,7 +225,6 @@ public class Map : MonoBehaviour
             buildinggo.name = tile.buildingPrefab.name;
             buildinggo.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
             buildinggo.transform.localEulerAngles = new Vector3(-90, 90-tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
-            //buildinggo.transform.localEulerAngles = new Vector3(-90, tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
             buildinggo.SetActive(true);
 
             InitWall(buildinggo.GetComponent<Wall>(), cellPosition, tile.name);
@@ -303,7 +305,10 @@ public class Map : MonoBehaviour
         if (bridge)
         {
             ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
-            bridge.Initialize(xm && xm.tilePrefab && xm.tilePrefab.GetComponent<Dirt>());
+            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 1, 0, 0));
+            bool xmIsWater = xm && xm.tilePrefab && xm.tilePrefab.GetComponent<Water>();
+            bool xpIsWater = xp && xp.tilePrefab && xp.tilePrefab.GetComponent<Water>();
+            bridge.Initialize(!xmIsWater && !xpIsWater);
         }
     }
     private void InitStone(Stone stone, Vector3Int cellPosition)
