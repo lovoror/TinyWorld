@@ -86,11 +86,21 @@ public class RessourceContainer : MonoBehaviour
             {
                 if (groupSize * i < names.Count)
                 {
-                    if(useResourceMaterial)
+                    if (useResourceMaterial)
+                    {
                         itemMeshes[i].sharedMaterial = ResourceDictionary.Instance.Get(names[groupSize * i]).material;
-                    itemMeshes[i].enabled = true;
+                        itemMeshes[i].enabled = true;
+                    }
+                    else
+                        itemMeshes[i].gameObject.SetActive(true);
                 }
-                else itemMeshes[i].enabled = false;
+                else
+                {
+                    if (useResourceMaterial)
+                        itemMeshes[i].enabled = false;
+                    else
+                        itemMeshes[i].gameObject.SetActive(false);
+                }
             }
         }
         else

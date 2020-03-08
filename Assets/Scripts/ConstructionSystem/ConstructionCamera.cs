@@ -164,8 +164,19 @@ public class ConstructionCamera : MonoBehaviour
                             {
                                 if(instantConstruct)
                                 {
-                                    GameObject go = currentTemplate.Finish();
-                                    go.name = currentObject.name;
+                                    if(currentObject.name.Contains("Wall"))
+                                    {
+                                        List<Vector3> positions = new List<Vector3>();
+                                        List<GameObject> tileList = Map.Instance.SearchTilesGameObject(currentObject.transform.position, 4f);
+                                        foreach (GameObject go2 in tileList)
+                                            positions.Add(go2.transform.position);
+                                        Map.Instance.PlaceTiles(positions, tileList, currentTemplate.tileInitializerOption);
+                                    }
+                                    else
+                                    {
+                                        GameObject go = currentTemplate.Finish();
+                                        go.name = currentObject.name;
+                                    }
                                 }
                                 else
                                 {
@@ -202,12 +213,12 @@ public class ConstructionCamera : MonoBehaviour
                         Vector3 s = mesh.GetComponent<Collider>().bounds.size;
 
                         if (s.x > 4f || s.z > 4f)
-                            helper.transform.localScale = new Vector3(8f, 3f, 8f);
-                        else helper.transform.localScale = new Vector3(4f, 3f, 4f);
+                            helper.transform.localScale = new Vector3(8f, 5f, 8f);
+                        else helper.transform.localScale = new Vector3(4f, 4f, 4f);
                     }
                     else
                     {
-                        helper.transform.position = pointing;
+                        helper.transform.position = pointing + new Vector3(0, 2f, 0);
                         helper.transform.localScale = new Vector3(4f, 3f, 4f);
                     }
 
@@ -215,15 +226,7 @@ public class ConstructionCamera : MonoBehaviour
                     {
                         uihandler.audiosource.clip = uihandler.selectedSound;
                         uihandler.audiosource.Play();
-
-                        /*if(buildings[0].name.Contains("Wall"))
-                        {
-                            List<Vector3> positions = new List<Vector3>();
-                            positions.Add(pointing);
-                            Map.Instance.PlaceTiles(positions, map.SearchTilesGameObject(pointing, 0.5f), "Grass");
-                        }*/
-                        //Destroy(buildings[0]);
-
+                        
                         Transform interactorTransform = buildings[0].transform.Find("interactor");
                         Dictionary<string, int> interactorContent = new Dictionary<string, int>();
                         if (interactorTransform)

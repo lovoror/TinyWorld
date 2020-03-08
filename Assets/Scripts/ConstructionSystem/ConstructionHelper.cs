@@ -18,8 +18,7 @@ public class ConstructionHelper : MonoBehaviour
     public float speed;
     private float t;
     private Vector3 initialArrowPos;
-
-    [Header("")]
+    
     public GameObject delete;
     private List<Vector3> initialOrientationA = new List<Vector3>();
     private List<Vector3> initialOrientationB = new List<Vector3>();

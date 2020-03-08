@@ -38,6 +38,13 @@ public class DestructionTemplate : MonoBehaviour
             foreach(KeyValuePair<string, int> entry in previousContent)
                 container.AddItem(entry.Key, entry.Value);
             container.capacity = 0;
+
+            if (transform.parent.gameObject.name.Contains("Wall"))
+            {
+                List<Vector3> positions = new List<Vector3>();
+                positions.Add(transform.parent.position);
+                Map.Instance.PlaceTiles(positions, Map.Instance.SearchTilesGameObject(transform.parent.position, 0.5f), "Grass");
+            }
         }
     }
 
