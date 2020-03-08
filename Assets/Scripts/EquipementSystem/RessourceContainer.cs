@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class RessourceContainer : MonoBehaviour
 {
+    public bool useResourceMaterial = true;
     public int capacity;
+    public int groupSize = 5;
     public MeshRenderer[] itemMeshes;
     public int load = 0;
     public List<string> acceptedResources = new List<string>();
@@ -82,9 +84,10 @@ public class RessourceContainer : MonoBehaviour
 
             for (int i = 0; i < itemMeshes.Length; i++)
             {
-                if (5 * i < names.Count)
+                if (groupSize * i < names.Count)
                 {
-                    itemMeshes[i].sharedMaterial = ResourceDictionary.Instance.Get(names[5 * i]).material;
+                    if(useResourceMaterial)
+                        itemMeshes[i].sharedMaterial = ResourceDictionary.Instance.Get(names[groupSize * i]).material;
                     itemMeshes[i].enabled = true;
                 }
                 else itemMeshes[i].enabled = false;
@@ -102,5 +105,16 @@ public class RessourceContainer : MonoBehaviour
         foreach (KeyValuePair<string, int> entry in inventory)
             load += entry.Value;
         return load;
+    }
+
+    public void CopyInventory(Dictionary<string, int> destination)
+    {
+        foreach(KeyValuePair<string, int> entry in inventory)
+        {
+            if (!destination.ContainsKey(entry.Key))
+                destination.Add(entry.Key, entry.Value);
+            else
+                destination[entry.Key] += entry.Value;
+        }
     }
 }

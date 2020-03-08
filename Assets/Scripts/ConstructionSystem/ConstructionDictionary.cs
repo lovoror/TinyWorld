@@ -11,6 +11,8 @@ public class ConstructionDictionary : MonoBehaviour
     public List<GameObject> wallPrefabsStone;
     public List<GameObject> wallPrefabsWood;
 
+    public GameObject resourcePile;
+
     // Singleton struct
     private static ConstructionDictionary _instance;
     public static ConstructionDictionary Instance { get { return _instance; } }
@@ -27,6 +29,7 @@ public class ConstructionDictionary : MonoBehaviour
         }
 
         Initialize();
+        resourcePile.SetActive(false);
     }
 
     private void Initialize()
@@ -47,11 +50,13 @@ public class ConstructionDictionary : MonoBehaviour
         if (dictionary.ContainsKey(constructionName))
         {
             go = Instantiate(dictionary[constructionName]);
+            go.name = dictionary[constructionName].name;
         }
         else
         {
             Debug.LogWarning("No construction template named " + constructionName);
             go = Instantiate(dictionary[defaultName]);
+            go.name = "Default";
         }
         return go;
     }

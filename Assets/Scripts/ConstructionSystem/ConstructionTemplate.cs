@@ -66,23 +66,14 @@ public class ConstructionTemplate : MonoBehaviour
                 meshFilter.sharedMesh = steps[1];
             else
             {
-                if (finished)
-                {
-                    GameObject go = Instantiate(finished);
-                    go.transform.parent = Map.Instance.buildingsContainer.transform;
-                    go.transform.localPosition = transform.parent.localPosition;
-                    go.transform.localEulerAngles = new Vector3(-90, transform.parent.localEulerAngles.y, 0);
-                    go.SetActive(true);
-                }
-                else Debug.Log("Nothing to instanciate at end of construction process, check template " + gameObject.name);
-
+                Finish();
                 Destroy(transform.parent.gameObject);
 
-                List<Vector3> positions = new List<Vector3>();
+                /*List<Vector3> positions = new List<Vector3>();
                 List<GameObject> tileList = Map.Instance.SearchTilesGameObject(transform.parent.transform.position, tileSearchRadius);
                 foreach (GameObject go2 in tileList)
                     positions.Add(go2.transform.position);
-                Map.Instance.PlaceTiles(positions, tileList, tileInitializerOption);
+                Map.Instance.PlaceTiles(positions, tileList, tileInitializerOption);*/
             }
         }
         mask1.alphaCutoff = 1f - Mathf.Clamp(2 * progress, 0f, 1f);
@@ -158,5 +149,26 @@ public class ConstructionTemplate : MonoBehaviour
             }
         }
         container.acceptedResources = transition;
+    }
+    public GameObject Finish()
+    {
+        if (finished)
+        {
+            GameObject go = Instantiate(finished);
+            go.transform.parent = Map.Instance.buildingsContainer.transform;
+            go.transform.localPosition = transform.parent.localPosition;
+            go.transform.localEulerAngles = new Vector3(-90, transform.parent.localEulerAngles.y, 0);
+            go.SetActive(true);
+
+            List<Vector3> positions = new List<Vector3>();
+            List<GameObject> tileList = Map.Instance.SearchTilesGameObject(transform.parent.transform.position, tileSearchRadius);
+            foreach (GameObject go2 in tileList)
+                positions.Add(go2.transform.position);
+            Map.Instance.PlaceTiles(positions, tileList, tileInitializerOption);
+
+            return go;
+        }
+        else Debug.Log("Nothing to instanciate at end of construction process, check template " + gameObject.name);
+        return null;
     }
 }

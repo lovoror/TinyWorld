@@ -16,13 +16,15 @@ public class InteractionType : MonoBehaviour
         collectIron,
         collectGold,
         collectCrystal,
-
         collectWheet,
 
         storeRessources,
         forge,
-        constructionMode,
-        construction
+
+        construction,
+        destroyBuilding,
+
+        constructionMode // launch construction mode from hammer on empty space
     };
     public Type type;
 

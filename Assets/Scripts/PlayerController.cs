@@ -276,6 +276,7 @@ public class PlayerController : MonoBehaviour
             case InteractionType.Type.collectWood:
             case InteractionType.Type.collectWheet:
             case InteractionType.Type.construction:
+            case InteractionType.Type.destroyBuilding:
                 success = InitiateInteractionTick(type, interactor);
                 break;
                 
@@ -565,6 +566,23 @@ public class PlayerController : MonoBehaviour
                 currentInteractor = null;
             }
         }
+        else if (currentInteractor && interactionType == InteractionType.Type.destroyBuilding)
+        {
+            // hammer on stone is close to pickake on stone for Iron collection
+            List<AudioClip> sounds = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(InteractionType.Type.collectIron)).collectionSound;
+            AudioClip soundFx = sounds[Random.Range(0, sounds.Count)];
+            audiosource.clip = soundFx;
+            if (soundFx)
+                audiosource.Play();
+
+            // increment progress bar
+            DestructionTemplate destruction = currentInteractor.GetComponent<DestructionTemplate>();
+            if (destruction.Increment())
+            {
+                interactionDelay = 0f;
+                currentInteractor = null;
+            }
+        }
         else
         {
             interacting = false;
@@ -616,7 +634,7 @@ public class PlayerController : MonoBehaviour
     private void ComputeInteractionConditions(InteractionType.Type type)
     {
         interactionConditionList.Clear();
-        if(type == InteractionType.Type.construction || type == InteractionType.Type.forge)
+        if(type == InteractionType.Type.construction || type == InteractionType.Type.forge || type == InteractionType.Type.destroyBuilding)
         {
             interactionConditionList.Add("Hammer", weapon.equipedItem.toolFamily == "Hammer" ? "ok" : "nok");
         }

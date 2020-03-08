@@ -315,7 +315,7 @@ public class UIHandler : MonoBehaviour
         slider.gameObject.SetActive(lineCount > 2);
         slider.value = 0f;
     }
-    private Dictionary<string, int> ComputeCost(ConstructionTemplate construction)
+    public static  Dictionary<string, int> ComputeCost(ConstructionTemplate construction)
     {
         char[] separator = { ' ' };
         Dictionary<string, int> resources = new Dictionary<string, int>();

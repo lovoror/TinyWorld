@@ -115,6 +115,8 @@
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionHelper.cs" />
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionTemplate.cs" />
     <Compile Include="Assets\Scripts\ConstructionSystem\ConstructionViewer.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\DestroyOnEmpty.cs" />
+    <Compile Include="Assets\Scripts\ConstructionSystem\DestructionTemplate.cs" />
     <Compile Include="Assets\Scripts\Cycle\Sun.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\Arsenal.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\BackpackItem.cs" />

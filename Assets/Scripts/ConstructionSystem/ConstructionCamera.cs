@@ -7,15 +7,19 @@ using UnityEngine.Tilemaps;
 
 public class ConstructionCamera : MonoBehaviour
 {
-    [Header("Linking & entry variables")]
+    [Header("Interfaces")]
     public bool activated;
     public bool quit;
     public bool mouseControl = true;
+    public bool instantConstruct = false;
+
+    [Header("Linking & entry variables")]
     public KeyCode keyMode;
     public KeyCode keyLeft;
     public KeyCode keyRight;
     public CameraController trackballController;
     public GameObject constructionUI;
+    public GameObject destroyInteractor;
     private Map map;
     public GameObject currentObject;
     private MeshRenderer currentRenderer;
@@ -25,6 +29,7 @@ public class ConstructionCamera : MonoBehaviour
     public Material nokMaterial;
     public AudioClip buildingOk;
     public AudioClip terrainOk;
+    public float scavengeRatio = 0.5f;
 
     [Header("Control parameters")]
     public float speed = 4f;
@@ -135,14 +140,14 @@ public class ConstructionCamera : MonoBehaviour
                         helper.mode = currentObject.name.Contains("Wall") ? 0 : 1;
 
                         Vector3 deltaAngle = Vector3.zero;
-                        if (Input.GetKeyDown(keyRight))
-                        {
-                            deltaAngle.y = 90;
-                            helper.orientationAtrigger();
-                        }
-                        else if (Input.GetKeyDown(keyLeft))
+                        if (Input.GetKeyDown(keyLeft))
                         {
                             deltaAngle.y = -90;
+                            helper.orientationAtrigger();
+                        }
+                        else if (Input.GetKeyDown(keyRight))
+                        {
+                            deltaAngle.y = 90;
                             helper.orientationBtrigger();
                         }
                         currentObject.transform.localEulerAngles += deltaAngle;
@@ -157,13 +162,20 @@ public class ConstructionCamera : MonoBehaviour
                         {
                             if(scan <= 1)
                             {
-                                GameObject go = Instantiate(currentObject);
-                                go.name = currentObject.name;
-                                go.transform.parent = map.buildingsContainer.transform;
-                                go.transform.position = currentObject.transform.position;
-                                go.transform.rotation = currentObject.transform.rotation;
-                                go.transform.Find("mesh").GetComponent<MeshRenderer>().sharedMaterial = buildingMaterial;
-
+                                if(instantConstruct)
+                                {
+                                    GameObject go = currentTemplate.Finish();
+                                    go.name = currentObject.name;
+                                }
+                                else
+                                {
+                                    GameObject go = Instantiate(currentObject);
+                                    go.name = currentObject.name;
+                                    go.transform.parent = map.buildingsContainer.transform;
+                                    go.transform.position = currentObject.transform.position;
+                                    go.transform.rotation = currentObject.transform.rotation;
+                                    go.transform.Find("mesh").GetComponent<MeshRenderer>().sharedMaterial = buildingMaterial;
+                                }
                                 uihandler.audiosource.clip = buildingOk;
                             }
                             else
@@ -201,16 +213,37 @@ public class ConstructionCamera : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0) && buildings.Count != 0)
                     {
-                        uihandler.audiosource.clip = buildingOk;
+                        uihandler.audiosource.clip = uihandler.selectedSound;
                         uihandler.audiosource.Play();
-                        
-                        if(buildings[0].name.Contains("Wall"))
+
+                        /*if(buildings[0].name.Contains("Wall"))
                         {
                             List<Vector3> positions = new List<Vector3>();
                             positions.Add(pointing);
                             Map.Instance.PlaceTiles(positions, map.SearchTilesGameObject(pointing, 0.5f), "Grass");
+                        }*/
+                        //Destroy(buildings[0]);
+
+                        Transform interactorTransform = buildings[0].transform.Find("interactor");
+                        Dictionary<string, int> interactorContent = new Dictionary<string, int>();
+                        if (interactorTransform)
+                        {
+                            if (interactorTransform.GetComponent<RessourceContainer>())
+                                interactorTransform.GetComponent<RessourceContainer>().CopyInventory(interactorContent);
+                            Destroy(interactorTransform.gameObject);
                         }
-                        Destroy(buildings[0]);
+
+                        GameObject newInteractor = Instantiate(destroyInteractor, buildings[0].transform);
+                        newInteractor.name = "interactor";
+                        newInteractor.transform.localPosition = Vector3.zero;
+                        newInteractor.transform.localRotation = Quaternion.identity;
+                        newInteractor.transform.localScale = Vector3.one;
+                        newInteractor.GetComponent<BoxCollider>().size = (helper.transform.localScale.x + 1f) * Vector3.one;
+                        newInteractor.SetActive(true);
+
+                        DestructionTemplate desInt = newInteractor.GetComponent<DestructionTemplate>();
+                        desInt.previousContent = interactorContent;
+                        desInt.recuperation = scavengeRatio;
                     }
                     else if (Input.GetMouseButtonDown(0))
                     {
