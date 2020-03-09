@@ -126,7 +126,7 @@ public class Map : MonoBehaviour
                         Destroy(go);
                     ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cell);
 
-                    if (tile && tile.neighbourUpdate)
+                    if (tile)
                     {
                         if (tile.buildingUpdate)
                         {
@@ -136,6 +136,7 @@ public class Map : MonoBehaviour
                         }
                         list.Add(new KeyValuePair<ScriptableTile, Vector3Int>(tile, new Vector3Int(cell.x, cell.y, 0)));
                     }
+                    
                 }
             }
 
