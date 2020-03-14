@@ -9,13 +9,17 @@ using Pathfinding.Util;
 
 public class World : MonoBehaviour
 {
+    public static World instance;
+
     [SerializeField] public Grid grid;
     [SerializeField] public Navigation navigation;
     public Bounds bounds = new Bounds(new Vector3(0,0,0), new Vector3(256,0,256));
     public QuadTree<TerrainBase> terrain;
     public QuadTree<AgentBase> agents;
 
-    public static World instance;
+    [Header("Debug")]
+    [SerializeField] bool showQuadTrees = false;
+    
     private void Awake()
     {
         instance = this;
@@ -129,12 +133,15 @@ public class World : MonoBehaviour
     #endregion
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(bounds.center, bounds.size);
-        Gizmos.color = new Color(1, 0, 0, 0.25f);
-        if (terrain != null) terrain.DrawDebug();
-        Gizmos.color = new Color(1, 1, 1, 0.25f);
-        if (agents != null) agents.DrawDebug();
+        if (showQuadTrees)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireCube(bounds.center, bounds.size);
+            Gizmos.color = new Color(1, 0, 0, 0.25f);
+            if (terrain != null) terrain.DrawDebug();
+            Gizmos.color = new Color(1, 1, 1, 0.25f);
+            if (agents != null) agents.DrawDebug();
+        }
     }
     /*[SerializeField] Tilemap tilemap_floor;
     [SerializeField] Tilemap tilemap_decoration1;
