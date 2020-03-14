@@ -99,6 +99,20 @@ public class PlayerController : MonoBehaviour
         inventoryViewer.transform.parent = null;
     }
     
+    Vector3 GetInputDirection()
+    {
+        Vector3 direction = Vector3.zero;
+        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow))
+            direction.z = 1;
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            direction.z = -1;
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            direction.x = 1;
+        else if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow))
+            direction.x = -1;
+        direction.Normalize();
+        return direction;
+    }
     void Update()
     {
         if (constructionCamera.activated)
@@ -161,15 +175,7 @@ public class PlayerController : MonoBehaviour
         if ((controller.isGrounded || grounded < 0.2f) && !attacking && !interacting)
         {
             // compute direction
-            if (Input.GetKey(KeyCode.Z))
-                direction = new Vector3(0, 0, 1);
-            else if (Input.GetKey(KeyCode.S))
-                direction = new Vector3(0, 0, -1);
-            if (Input.GetKey(KeyCode.D))
-                direction += new Vector3(1, 0, 0);
-            else if (Input.GetKey(KeyCode.Q))
-                direction += new Vector3(-1, 0, 0);
-            direction.Normalize();
+            direction = GetInputDirection();
 
             // compute animation parameters
             if (direction.x == 0f && direction.z == 0f)
