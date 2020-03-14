@@ -300,8 +300,6 @@ public class Map : MonoBehaviour
             bool zpb = (zp && zp.tilePrefab && zp.tilePrefab.name.Contains("Wall"));
 
             wall.Initialize(xpb, xmb, zmb, zpb, tileName);
-
-            navigation.GetNode(cellPosition).Walkable = false;
         }
     }
     private void InitWater(Water water, Vector3Int cellPosition)

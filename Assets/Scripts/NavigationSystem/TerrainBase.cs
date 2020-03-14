@@ -28,7 +28,7 @@ public class TerrainBase : MonoBehaviour, IQuadTreeObject
     {
         bounds = new Rect(this.transform.position.x- radius, this.transform.position.z- radius, radius * 2, radius * 2);
         Navigation.current.terrain.Insert(this);
-        var node = Navigation.current.GetNode(cell);
+        var node = Navigation.current.GetNodeFromWorld(this.transform.position);
         node.Walkable = this.walkable;
         node.Tag = (uint)terrainLayer;
     }

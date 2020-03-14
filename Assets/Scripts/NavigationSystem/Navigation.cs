@@ -42,7 +42,7 @@ public class Navigation : MonoBehaviour
             nodes[grid.WorldToCell(grid.WorldToCell((Vector3)node.position))] = node;
         });
     }
-    GraphNode GetNodeFromWorld(Vector3 position)
+    public GraphNode GetNodeFromWorld(Vector3 position)
     {
         Vector3Int cell = grid.WorldToCell(position);
         if (nodes.ContainsKey(cell))

@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 7900350191113553087}
-  navigation: {fileID: 942167225}
+  navigation: {fileID: 0}
   tilemap: {fileID: 7900350192211739417}
   tilemapRenderer: {fileID: 7900350192211739416}
   tilesContainer: {fileID: 0}
