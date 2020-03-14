@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 2753021268323192071}
   - component: {fileID: 6426036185533873306}
   - component: {fileID: 5237027749259140529}
+  - component: {fileID: 1855853032716411512}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -177,6 +178,25 @@ MonoBehaviour:
   configuration: 12
   water: {fileID: 2216111597936781669}
   waterCollider: {fileID: 3013717410723662527}
+--- !u!114 &1855853032716411512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2310153697235246174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2236ba2f2ab0fe9488c290cff439a73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2
+  cell: {x: 0, y: 0, z: 0}
+  cellPosition: {x: 0, y: 0, z: 0}
+  isStatic: 0
+  team: 0
+  walkable: 0
+  terrainLayer: 2
 --- !u!1 &2376705689268018431
 GameObject:
   m_ObjectHideFlags: 0

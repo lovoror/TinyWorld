@@ -24,7 +24,7 @@ THE SOFTWARE.
 //Any object that you insert into the tree must implement this interface
 public interface IQuadTreeObject
 {
-    Vector2 Position { get; }
+    Rect bounds { get; }
     int Layer { get; }
     int SpatialGroup { get; set; }
 }
@@ -36,15 +36,17 @@ public class QuadTree<T>
     private List<T> m_storedObjects;
     private Rect m_bounds;
     private QuadTree<T>[] cells;
-    private int maxDepth = 10;
+    private int m_divisions = 2;
+    private int maxDepth = 3;
     private int m_depth;
 
-    public QuadTree(int maxSize, Rect bounds, int depth = 0)
+    public QuadTree(int maxSize, Rect bounds, int divisions = 4, int depth = 0)
     {
         m_bounds = bounds;
         m_maxObjectCount = maxSize;
-        cells = new QuadTree<T>[4];
+        cells = new QuadTree<T>[divisions*divisions];
         m_storedObjects = new List<T>(maxSize);
+        m_divisions = divisions;
         m_depth = depth;
     }
 
@@ -53,7 +55,7 @@ public class QuadTree<T>
 
         if (cells[0] != null)
         {
-            int iCell = GetCellToInsertObject(objectToInsert.Position);
+            int iCell = GetCellToInsertObject(objectToInsert.bounds.center);
             if (iCell > -1)
             {
                 cells[iCell].Insert(objectToInsert);
@@ -74,7 +76,7 @@ public class QuadTree<T>
             m_storedObjects.Remove(objectToRemove);
             if (cells[0] != null)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < cells.Length; i++)
                 {
                     //if (cells[i].ContainsLocation(position))
                     // {
@@ -91,24 +93,29 @@ public class QuadTree<T>
 
     void Expand()
     {
-        //Split the quad into 4 sections
+        //Split the quad into (divisions*divisions) sections
         if (cells[0] == null)
         {
-            float subWidth = (m_bounds.width / 2f);
-            float subHeight = (m_bounds.height / 2f);
+            float subWidth = (m_bounds.width / (float)m_divisions);
+            float subHeight = (m_bounds.height / (float)m_divisions);
             float x = m_bounds.x;
             float y = m_bounds.y;
-            cells[0] = new QuadTree<T>(m_maxObjectCount, new Rect(x + subWidth, y, subWidth, subHeight), m_depth + 1);
-            cells[1] = new QuadTree<T>(m_maxObjectCount, new Rect(x, y, subWidth, subHeight), m_depth + 1);
-            cells[2] = new QuadTree<T>(m_maxObjectCount, new Rect(x, y + subHeight, subWidth, subHeight), m_depth + 1);
-            cells[3] = new QuadTree<T>(m_maxObjectCount, new Rect(x + subWidth, y + subHeight, subWidth, subHeight), m_depth + 1);
+            int idx = 0;
+            for(int ix = 0; ix < m_divisions;++ix)
+            {
+                for (int iy = 0; iy < m_divisions;++iy)
+                {
+                    cells[idx] = new QuadTree<T>(m_maxObjectCount, new Rect(x + subWidth*ix, y + subHeight*iy, subWidth, subHeight), m_divisions, m_depth + 1);
+                    ++idx;
+                }
+            }
         }
         //Reallocate this quads objects into its children
         int i = m_storedObjects.Count - 1;
         while (i >= 0)
         {
             T storedObj = m_storedObjects[i];
-            int iCell = GetCellToInsertObject(storedObj.Position);
+            int iCell = GetCellToInsertObject(storedObj.bounds.position);
             if (iCell > -1)
             {
                 cells[iCell].Insert(storedObj);
@@ -122,7 +129,7 @@ public class QuadTree<T>
         if (cells[0] != null)
         {
             RetrieveAllChild(ref m_storedObjects);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < cells.Length; i++)
             {
                 cells[i] = null;
             }
@@ -143,7 +150,7 @@ public class QuadTree<T>
             int size = 0;
             if (cells[0] != null)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < cells.Length; i++)
                 {
                     size += cells[i].Count;
                 }
@@ -161,7 +168,7 @@ public class QuadTree<T>
     {
         if (cells[0] != null)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < cells.Length; i++)
             {
                 cells[i].RetrieveAll(ref container);
             }
@@ -174,14 +181,14 @@ public class QuadTree<T>
             List<T> returnedObjects = new List<T>();
             for (int i = 0; i < m_storedObjects.Count; i++)
             {
-                if (ContainsLocation(m_storedObjects[i].Position))
+                if (ContainsRect(m_storedObjects[i].bounds))
                 {
                     returnedObjects.Add(m_storedObjects[i]);
                 }
             }
             if (cells[0] != null)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < cells.Length; i++)
                 {
                     List<T> cellObjects = cells[i].RetrieveObjectsInArea(area);
                     if (cellObjects != null)
@@ -196,18 +203,22 @@ public class QuadTree<T>
     }
     public void RetrieveObjectsInAreaNonAloc(Rect area, LayerMask mask, ref T[] returnedObjects, ref int count)
     {
+        if(m_depth == 0)
+        {
+            count = 0;
+        }
         if (rectOverlap(m_bounds, area))
         {
             for (int i = 0; i < m_storedObjects.Count && returnedObjects.Length > count; i++)
             {
-                if (ContainsLocation(m_storedObjects[i].Position) && LayerMaskExtensions.Contains(mask, m_storedObjects[i].Layer))
+                if (ContainsRect(m_storedObjects[i].bounds) && LayerMaskExtensions.Contains(mask, m_storedObjects[i].Layer))
                 {
                     returnedObjects[count++] = m_storedObjects[i];
                 }
             }
             if (cells[0] != null)
             {
-                for (int i = 0; i < 4 && returnedObjects.Length > count; i++)
+                for (int i = 0; i < cells.Length && returnedObjects.Length > count; i++)
                 {
                     cells[i].RetrieveObjectsInAreaNonAloc(area, mask, ref returnedObjects, ref count);
                 }
@@ -224,7 +235,7 @@ public class QuadTree<T>
                 {
                     try
                     {
-                        if (ContainsLocation(m_storedObjects[i].Position))
+                        if (ContainsRect(m_storedObjects[i].bounds))
                         {
                             returnedObjects[count++] = m_storedObjects[i];
                         }
@@ -241,7 +252,7 @@ public class QuadTree<T>
             }
             if (cells[0] != null)
             {
-                for (int i = 0; i < 4 && returnedObjects.Length > count; i++)
+                for (int i = 0; i < cells.Length && returnedObjects.Length > count; i++)
                 {
                     cells[i].RetrieveObjectsInAreaNonAloc(area, ref returnedObjects, ref count);
                 }
@@ -267,9 +278,13 @@ public class QuadTree<T>
     {
         return m_bounds.Contains(location);
     }
+    public bool ContainsRect(Rect rect)
+    {
+        return rectOverlap(m_bounds,rect);
+    }
     private int GetCellToInsertObject(Vector2 location)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < cells.Length; i++)
         {
             if (cells[i].ContainsLocation(location))
             {
@@ -284,11 +299,11 @@ public class QuadTree<T>
         {
             if (cells[0] != null)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < cells.Length; i++)
                 {
                     if (cells[i].ContainsLocation(location))
                     {
-                        return cells[i].GetCell(location, current * 4 + i);
+                        return cells[i].GetCell(location, current * cells.Length + i);
                     }
                 }
             }
@@ -312,13 +327,18 @@ public class QuadTree<T>
 
         return xOverlap && yOverlap;
     }
+
+    void DrawRect(Rect rect)
+    {
+        Gizmos.DrawLine(new Vector3(rect.x, 0, rect.y), new Vector3(rect.x, 0, rect.y + rect.height));
+        Gizmos.DrawLine(new Vector3(rect.x, 0, rect.y), new Vector3(rect.x + rect.width, 0, rect.y));
+        Gizmos.DrawLine(new Vector3(rect.x + rect.width, 0, rect.y), new Vector3(rect.x + rect.width, 0, rect.y + rect.height));
+        Gizmos.DrawLine(new Vector3(rect.x, 0, rect.y + rect.height), new Vector3(rect.x + rect.width, 0, rect.y + rect.height));
+    }
     public void DrawDebug()
     {
         UnityEditor.Handles.Label(new Vector3(m_bounds.center.x, 0, m_bounds.center.y), Count.ToString());
-        Gizmos.DrawLine(new Vector3(m_bounds.x, 0, m_bounds.y), new Vector3(m_bounds.x, 0, m_bounds.y + m_bounds.height));
-        Gizmos.DrawLine(new Vector3(m_bounds.x, 0, m_bounds.y), new Vector3(m_bounds.x + m_bounds.width, 0, m_bounds.y));
-        Gizmos.DrawLine(new Vector3(m_bounds.x + m_bounds.width, 0, m_bounds.y), new Vector3(m_bounds.x + m_bounds.width, 0, m_bounds.y + m_bounds.height));
-        Gizmos.DrawLine(new Vector3(m_bounds.x, 0, m_bounds.y + m_bounds.height), new Vector3(m_bounds.x + m_bounds.width, 0, m_bounds.y + m_bounds.height));
+       
         if (cells[0] != null)
         {
             for (int i = 0; i < cells.Length; i++)
@@ -329,5 +349,13 @@ public class QuadTree<T>
                 }
             }
         }
+        else
+        {
+            foreach (var node in m_storedObjects)
+            {
+                Gizmos.DrawLine(new Vector3(m_bounds.center.x, 0, m_bounds.center.y), new Vector3(node.bounds.center.x, 0, node.bounds.center.y));
+            }
+        }
+        DrawRect(m_bounds);
     }
 }

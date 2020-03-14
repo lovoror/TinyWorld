@@ -153,8 +153,11 @@
     <Compile Include="Assets\Scripts\InteractionSystem\ToolType.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Meteo.cs" />
+    <Compile Include="Assets\Scripts\NavigationSystem\AgentBase.cs" />
     <Compile Include="Assets\Scripts\NavigationSystem\Navigation.cs" />
+    <Compile Include="Assets\Scripts\NavigationSystem\TerrainBase.cs" />
     <Compile Include="Assets\Scripts\NavigationSystem\Utils\QuadTree.cs" />
+    <Compile Include="Assets\Scripts\NavigationSystem\Utils\QuadTreeQuery.cs" />
     <Compile Include="Assets\Scripts\NavigationSystem\Utils\QuadTreeTest.cs" />
     <Compile Include="Assets\Scripts\OreComponent.cs" />
     <Compile Include="Assets\Scripts\PeasantController.cs" />
@@ -436,6 +439,9 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>C:/Users/solro/Documents/Github/TinyWorld/Assets/Packages/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/Users/solro/Documents/Github/TinyWorld/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -444,9 +450,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>C:/Users/solro/Documents/Github/TinyWorld/Library/PackageCache/com.unity.analytics@3.3.5/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-      <HintPath>C:/Users/solro/Documents/Github/TinyWorld/Assets/Packages/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

@@ -5,15 +5,15 @@ public class QuadTreeTest : MonoBehaviour
 {
 	public class TestObject : IQuadTreeObject
 	{
-		private Vector3 m_vPosition;
+		private Rect m_bounds;
 		public TestObject(Vector3 position)
 		{
-			m_vPosition = position;
+			m_bounds = new Rect(position.x,position.z,1,1);
 		}
 
-		public Vector2 Position { 
-			get => m_vPosition; 
-			set{ m_vPosition = value; } }
+		public Rect bounds { 
+			get => m_bounds; 
+			set{ m_bounds = value; } }
 
 		public int Layer => 0;
 

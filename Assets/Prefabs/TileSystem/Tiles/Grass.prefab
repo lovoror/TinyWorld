@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1140177784818928523}
   - component: {fileID: 8450342560983140579}
   - component: {fileID: 606987389240872128}
+  - component: {fileID: -5165866912932715141}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -148,6 +149,25 @@ LODGroup:
     - renderer: {fileID: 5290515212998317378}
     - renderer: {fileID: 9130981307838140859}
   m_Enabled: 0
+--- !u!114 &-5165866912932715141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129560255247852762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2236ba2f2ab0fe9488c290cff439a73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2
+  cell: {x: 0, y: 0, z: 0}
+  cellPosition: {x: 0, y: 0, z: 0}
+  isStatic: 0
+  team: 0
+  walkable: 1
+  terrainLayer: 1
 --- !u!1 &4798090448010392765
 GameObject:
   m_ObjectHideFlags: 0

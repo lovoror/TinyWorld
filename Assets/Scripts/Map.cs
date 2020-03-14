@@ -189,12 +189,29 @@ public class Map : MonoBehaviour
     {
         // tile prefab
         GameObject tilego = Instantiate(tile.tilePrefab);
+
+        
+
         tilego.name = tile.name;
         tilego.transform.parent = tilesContainer.transform;
         tilego.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;
         tilego.transform.localEulerAngles = new Vector3(0, -tilemap.GetTransformMatrix(cellPosition).rotation.eulerAngles.z, 0);
         tilego.SetActive(true);
 
+        var agent = tilego.GetComponent<AgentBase>();
+        if (agent)
+        {
+            agent.cell = cellPosition;
+            agent.radius = 2;
+            agent.Subscribe();
+        }
+        var terrain = tilego.GetComponent<TerrainBase>();
+        if (terrain)
+        {
+            terrain.cell = cellPosition;
+            terrain.radius = 2;
+            terrain.Subscribe();
+        }
         // building prefab
         TileBuildingInit(tile, cellPosition);
 
