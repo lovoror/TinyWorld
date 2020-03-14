@@ -32,6 +32,11 @@ public interface IQuadTreeObject
 public class QuadTree<T>
     where T : IQuadTreeObject
 {
+    public interface Query
+    {
+        // TODO implement to select specific filters
+    }
+
     private int m_maxObjectCount;
     private List<T> m_storedObjects;
     private Rect m_bounds;

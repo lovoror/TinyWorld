@@ -20,7 +20,7 @@ public class QuadTreeQuery : MonoBehaviour
     {
         bounds.center = new Vector2(this.transform.position.x, this.transform.position.z);
         count = 0;
-        Navigation.current.agents.RetrieveObjectsInAreaNonAloc(bounds, ref result, ref count);
+        World.instance.agents.RetrieveObjectsInAreaNonAloc(bounds, ref result, ref count);
     }
 
     private void OnDrawGizmos()

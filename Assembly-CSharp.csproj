@@ -108,6 +108,15 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\Scripts\AISystem\BuildingBase.cs" />
+    <Compile Include="Assets\Scripts\AISystem\CharacterAnimationController.cs" />
+    <Compile Include="Assets\Scripts\AISystem\EquipData.cs" />
+    <Compile Include="Assets\Scripts\AISystem\Government.cs" />
+    <Compile Include="Assets\Scripts\AISystem\Projectile.cs" />
+    <Compile Include="Assets\Scripts\AISystem\ResourceSource.cs" />
+    <Compile Include="Assets\Scripts\AISystem\Unit.cs" />
+    <Compile Include="Assets\Scripts\AISystem\UnitAI.cs" />
+    <Compile Include="Assets\Scripts\AISystem\WeaponData.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ChickController.cs" />
     <Compile Include="Assets\Scripts\ChikenController.cs" />
@@ -180,6 +189,7 @@
     <Compile Include="Assets\Scripts\UI\UIHandler.cs" />
     <Compile Include="Assets\Scripts\Utils\LayerMaskExtensions.cs" />
     <Compile Include="Assets\Scripts\Utils\ScriptableObjectUtility.cs" />
+    <Compile Include="Assets\Scripts\World.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\GrainGen.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />

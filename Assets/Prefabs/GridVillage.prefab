@@ -291,6 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7900350191113553080}
+  - component: {fileID: 8425229356771254052}
   - component: {fileID: 7900350191113553087}
   - component: {fileID: 7900350191113553086}
   - component: {fileID: 942167225}
@@ -320,6 +321,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8425229356771254052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900350191113553085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198961279efd57646b6b0291602919cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  navigation: {fileID: 0}
+  bounds:
+    m_Center: {x: -80, y: 0, z: 0}
+    m_Extent: {x: 256, y: 0, z: 256}
 --- !u!156049354 &7900350191113553087
 Grid:
   m_ObjectHideFlags: 0
@@ -379,9 +397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e208925175de94c8aad56bedc5bbea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds:
-    m_Center: {x: -80, y: 0, z: -80}
-    m_Extent: {x: 256, y: 0, z: 256}
   astar: {fileID: 0}
   grid: {fileID: 7900350191113553087}
 --- !u!1 &7900350192211739422

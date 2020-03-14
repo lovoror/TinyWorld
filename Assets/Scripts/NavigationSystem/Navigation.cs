@@ -7,9 +7,6 @@ using Pathfinding.Util;
 
 public class Navigation : MonoBehaviour
 {
-    public Bounds bounds;
-    public QuadTree<TerrainBase> terrain;
-    public QuadTree<AgentBase> agents;
     [SerializeField] AstarPath astar;
     [SerializeField] Grid grid;
     Dictionary<Vector3Int, GraphNode> nodes = new Dictionary<Vector3Int, GraphNode>();
@@ -20,8 +17,6 @@ public class Navigation : MonoBehaviour
     {
         astar = AstarPath.active;
         current = this;
-        terrain = new QuadTree<TerrainBase>(16, new Rect(bounds.center.x - bounds.extents.x, bounds.center.z - bounds.extents.z, bounds.size.x, bounds.size.z));
-        agents = new QuadTree<AgentBase>(16, new Rect(bounds.center.x-bounds.extents.x, bounds.center.z - bounds.extents.z, bounds.size.x, bounds.size.z));
     }
     public bool IsEmpty(Vector3Int cell)
     {
@@ -86,13 +81,4 @@ public class Navigation : MonoBehaviour
         astar.FlushGraphUpdates();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(bounds.center, bounds.size);
-        Gizmos.color = new Color(1,0,0,0.25f);
-        if (terrain != null) terrain.DrawDebug();
-        Gizmos.color = new Color(1, 1, 1, 0.25f);
-        if (agents != null)agents.DrawDebug();
-    }
 }

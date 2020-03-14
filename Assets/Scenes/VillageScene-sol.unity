@@ -2139,6 +2139,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 630150148, guid: b7b88e225fd5b704dba6c629cc2426cd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630150149, guid: b7b88e225fd5b704dba6c629cc2426cd, type: 3}
+      propertyPath: data.dataString
+      value: UEsDBBQAAAgIAAAIIezVOPPnVQIAAP4EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtVE1z2jAQ/SsenRvGdj5IemsNSXpIyIR2uPgi5DXWIEsefYSPDP+9K9nGLikXxHtvd9/uSnwSLk0DzCr9pHnxogog3yPiz+RbNJDPsKcbJZf8CL1mxQtbeRENmndquUI88WFG1WA1Zz/kRnhxjKCTvFS6nhcbyJSxBuGSCgNIaWV9tEToMyL7LuDQfR/9d3TCEwNpQQ+qm0mMn+Q2vfuv3EkmaN1A4W2PouI+O56CUGJLnebGl1FCcNP5IfbQhH4z2hiH3aCg4BT7C07SyRSBCvimsv7nOHxRlgZsZ0vTw4xrHFSbl/xU7fRqarattw8qHJzNtylfvrBX00CXWtXPfdUkvpskt4jairPtOz0wauxovmN4NnhPwox2VGzpWsCqAvmqnrRyskDSaudDnYF0Nkp1bi6rgG0HXWu3B3u1a76uNBl2dAr97zPB67VHJtctsBQqzDzxswWN2/mFjsMVMV0mRL2LPwZ+0834LnXEI9fGItUVlN7eWjntpeQRD372zNlMaQkB7RppQFJhD2+YxV7u8IIbVb1gHql/NF3tjuvfwkVIgAd9HF9Qb2p3Xpap1O4FTLVwVnAJg2lPvOKYMiVle8XGI+nDlk6XlI3CNo4X/94uQtOHNGXl/XR9e8/K9O6qTNbXkLIHmCb+GJNw/bjEPql4a41248GlySG5xHvmMz6DECpaKS2KKAqvR9PdEz/WajR1Lku1ZBpALtokZ++gsQ6+zWJecJzREqzlMmycfOZEKLaFIj8nykOz873VNB+y5KThH8p6JCdZ+BPJyYmc/gJQSwMEFAAACAgAAAgh7IAN+fJqAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTUUVBKL0osyCgGioA5pZkpIHa0UqKRpZFRcpqFeZKpRXKakZlummGScapRsmWquSGIaaAUC1RfUlmQ6peYmwrRE5BYkpGWmZeSmZeu516UmeIOMlopthYAUEsBAi0AFAAACAgAAAgh7NU48+dVAgAA/gQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7IAN+fJqAAAAeAAAAAkAJAAAAAAAAAAAAAAAogIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
+      objectReference: {fileID: 0}
     - target: {fileID: 7900350191113553080, guid: b7b88e225fd5b704dba6c629cc2426cd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2199,16 +2207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridVillage
       objectReference: {fileID: 0}
-    - target: {fileID: 7900350191113553086, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: navigation
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7900350191113553086, guid: b7b88e225fd5b704dba6c629cc2426cd,
-        type: 3}
-      propertyPath: grid
-      value: 
-      objectReference: {fileID: 942167223}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b88e225fd5b704dba6c629cc2426cd, type: 3}
 --- !u!1 &705507993
@@ -2999,12 +2997,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4429102427960218, guid: ca9fda2f4d77c4d4f88d4ed8b939f69b,
     type: 3}
   m_PrefabInstance: {fileID: 264180011}
-  m_PrefabAsset: {fileID: 0}
---- !u!156049354 &942167223 stripped
-Grid:
-  m_CorrespondingSourceObject: {fileID: 7900350191113553087, guid: b7b88e225fd5b704dba6c629cc2426cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 629199111}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &951036978
 GameObject:
@@ -5751,7 +5743,7 @@ MonoBehaviour:
   repathRate: 0.1
   canSearch: 1
   canMove: 1
-  maxSpeed: 24
+  maxSpeed: 7
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -5762,9 +5754,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 450
-  slowdownDistance: 7
-  pickNextWaypointDist: 10
-  endReachedDistance: 2
+  slowdownDistance: 2
+  pickNextWaypointDist: 0.5
+  endReachedDistance: 0.5
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -5793,7 +5785,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 4294967295
     useGraphRaycasting: 0
-  traversableTags: -3
+  traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1

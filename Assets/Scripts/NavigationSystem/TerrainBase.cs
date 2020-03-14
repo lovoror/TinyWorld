@@ -27,7 +27,7 @@ public class TerrainBase : MonoBehaviour, IQuadTreeObject
     public void Subscribe()
     {
         bounds = new Rect(this.transform.position.x- radius, this.transform.position.z- radius, radius * 2, radius * 2);
-        Navigation.current.terrain.Insert(this);
+        World.instance.terrain.Insert(this);
         var node = Navigation.current.GetNodeFromWorld(this.transform.position);
         node.Walkable = this.walkable;
         node.Tag = (uint)terrainLayer;
@@ -36,7 +36,7 @@ public class TerrainBase : MonoBehaviour, IQuadTreeObject
     {
         if (Navigation.current)
         {
-            Navigation.current.terrain.Remove(this, bounds.position);
+            World.instance.terrain.Remove(this, bounds.position);
         }
     }
     void OnDrawGizmos()

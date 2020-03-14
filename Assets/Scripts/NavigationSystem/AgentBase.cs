@@ -14,6 +14,8 @@ public class AgentBase : MonoBehaviour, IQuadTreeObject
     //[SerializeField] public WorldTile.TileShape shape;
     [SerializeField] public bool isStatic = false;
     public int SpatialGroup { set; get; }
+
+    public Vector2 position2D;
     public Rect bounds { get; set; }
     public int team = 0;
     public int Layer => team;
@@ -21,15 +23,36 @@ public class AgentBase : MonoBehaviour, IQuadTreeObject
 
     public void Subscribe()
     {
+        position2D.x = this.transform.position.x;
+        position2D.y = this.transform.position.z;
         bounds = new Rect(this.transform.position.x-radius,this.transform.position.z-radius,radius*2,radius*2);
-        Navigation.current.agents.Insert(this);
+        World.instance.agents.Insert(this);
     }
     void OnDisable()
     {
         if (Navigation.current)
         {
-            Navigation.current.agents.Remove(this, bounds.position);
+            World.instance.agents.Remove(this, bounds.position);
         }
+    }
+
+    public void OnPostMove()
+    {
+        Vector3Int newCell = World.instance.WorldToCell(this.transform.position);
+        if (newCell != cell)
+        {
+            cell = newCell;
+            cellPosition = World.instance.CellToWorld(cell);
+            //neighborhood = World.instance.GetNeighborhood(this);
+            var previousPosition2D = position2D;
+            position2D = new Vector2(cellPosition.x, cellPosition.z);
+            World.instance.UpdateElement(this, previousPosition2D, position2D);
+        }
+    }
+    public void Destroy()
+    {
+        World.instance.RemoveElement(this);
+        GameObject.Destroy(this.gameObject);
     }
     void OnDrawGizmos()
     {
@@ -109,11 +132,7 @@ public class AgentBase : MonoBehaviour, IQuadTreeObject
         }
     }
 
-    public void Destroy()
-    {
-        World.instance.RemoveElement(this);
-        GameObject.Destroy(this.gameObject);
-    }
+   
 
     protected void OnDrawGizmos()
     {
