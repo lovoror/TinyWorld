@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public InteractionJuicer interactionJuicer;
     public RessourceContainer ressourceContainer;
     public InventoryViewer inventoryViewer;
+    public EquipementViewer equipementViewer;
     public InteractionHelper interactionHelper;
     public ConstructionCamera constructionCamera;
 
@@ -97,6 +98,7 @@ public class PlayerController : MonoBehaviour
         if (inventoryViewer.visible)
             inventoryViewer.UpdateContent(ressourceContainer.inventory);
         inventoryViewer.transform.parent = null;
+        equipementViewer.transform.parent = null;
     }
     
     Vector3 GetInputDirection()
@@ -413,6 +415,7 @@ public class PlayerController : MonoBehaviour
             if (item && backpack.Equip(item.type))
                 success = true;
             needEquipementAnimaionUpdate = true;
+            ressourceContainer.Clear();
 
             if (ToolDictionary.Instance.toolTypes.ContainsKey(backpack.equipedItem.toolFamily))
             {
@@ -472,6 +475,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(success)
+            equipementViewer.UpdateContent();
+
         return success;
     }
     private bool storeAllInteraction(InteractionType.Type type, GameObject interactor)
@@ -503,7 +509,9 @@ public class PlayerController : MonoBehaviour
                     ressourceContainer.RemoveItem(entry.Key, entry.Value, false);
                 ressourceContainer.UpdateContent();
                 if (inventoryViewer.visible)
+                {
                     inventoryViewer.UpdateContent(inventoryViewer.GetFusionInventory());
+                }
                 RecomputeLoadFactor();
                 audiosource.clip = backpackClear;
                 audiosource.Play();
@@ -604,18 +612,20 @@ public class PlayerController : MonoBehaviour
         List<AudioClip> sounds = ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(interactionType)).collectionSound;
         AudioClip soundFx = sounds[Random.Range(0, sounds.Count)];
         audiosource.clip = soundFx;
-        if(soundFx)
+        if (soundFx)
             audiosource.Play();
         int gain = Random.Range(1, 4);
         interactionJuicer.treeInteractor = currentInteractor;
         interactionJuicer.LaunchGainAnim("+" + gain.ToString(), interactionType);
-        
+
         // update inventory and compute load
         ressourceContainer.AddItem(ResourceDictionary.Instance.Get(ResourceDictionary.Instance.GetNameFromType(interactionType)).name, gain);
         RecomputeLoadFactor();
         if (inventoryViewer.visible)
+        { 
             inventoryViewer.UpdateContent(ressourceContainer.inventory);
-        
+        }
+
         // decrement interactor ressource count
         CollectData data = currentInteractor.GetComponent<CollectData>();
         data.ressourceCount--;
@@ -669,10 +679,12 @@ public class PlayerController : MonoBehaviour
     // helper
     public void RecomputeLoadFactor()
     {
-        backpack.equipedItem.load = 0.3f + 0.3f * ressourceContainer.RecomputeLoad();
+        if(backpack.equipedItem.type == BackpackItem.Type.RessourceContainer)
+            backpack.equipedItem.load = 1f + 0.3f * ressourceContainer.RecomputeLoad();
         float f = body.equipedItem.load + weapon.equipedItem.load + secondHand.equipedItem.load + shield.equipedItem.load + head.equipedItem.load + backpack.equipedItem.load;
-        loadFactor = loadCurve.Evaluate(0.1f * f);
+        loadFactor = loadCurve.Evaluate(0.07f * f);
         animator.SetFloat("loadFactor", loadFactor);
+        equipementViewer.UpdateContent();
     }
 }
 

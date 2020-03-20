@@ -97,7 +97,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &1224211638853955777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,6 +1147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 62
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 61
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,6 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 60
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 41
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,7 +1527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 66
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,7 +1622,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 65
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 64
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,6 +1813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 63
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1924,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,7 +2020,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 69
-  load: 0
+  load: 5
+  armor: 6
 --- !u!1 &7388010046170874132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,7 +2116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 68
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 67
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,7 +2324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 8
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,7 +2420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 32
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,7 +2516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 31
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,7 +2612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 30
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874182
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,7 +2708,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 29
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +2804,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 44
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,7 +2900,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 43
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2976,7 +2996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 42
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874190
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,7 +3092,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 33
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874192
 GameObject:
   m_ObjectHideFlags: 0
@@ -3166,7 +3188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 46
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,7 +3284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 45
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874196
 GameObject:
   m_ObjectHideFlags: 0
@@ -3357,6 +3381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 35
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874198
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,6 +3477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 34
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,7 +3572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 51
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874202
 GameObject:
   m_ObjectHideFlags: 0
@@ -3641,7 +3668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 36
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874204
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,7 +3764,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 50
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874206
 GameObject:
   m_ObjectHideFlags: 0
@@ -3831,7 +3860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 47
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874208
 GameObject:
   m_ObjectHideFlags: 0
@@ -3926,7 +3956,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 37
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874210
 GameObject:
   m_ObjectHideFlags: 0
@@ -4021,7 +4052,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 54
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874212
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,7 +4148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 53
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4211,7 +4244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 52
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874216
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,7 +4340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 48
-  load: 0
+  load: 4
+  armor: 4
 --- !u!1 &7388010046170874218
 GameObject:
   m_ObjectHideFlags: 0
@@ -4401,7 +4436,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 38
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874220
 GameObject:
   m_ObjectHideFlags: 0
@@ -4496,7 +4532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 56
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874222
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,7 +4628,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 55
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874224
 GameObject:
   m_ObjectHideFlags: 0
@@ -4687,6 +4725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 57
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874226
 GameObject:
   m_ObjectHideFlags: 0
@@ -4781,7 +4820,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 71
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874228
 GameObject:
   m_ObjectHideFlags: 0
@@ -4876,7 +4916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 70
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874230
 GameObject:
   m_ObjectHideFlags: 0
@@ -4971,7 +5012,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 49
-  load: 0
+  load: 4
+  armor: 4
 --- !u!1 &7388010046170874232
 GameObject:
   m_ObjectHideFlags: 0
@@ -5066,7 +5108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 40
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874234
 GameObject:
   m_ObjectHideFlags: 0
@@ -5161,7 +5204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 59
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874236
 GameObject:
   m_ObjectHideFlags: 0
@@ -5256,7 +5300,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 58
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874238
 GameObject:
   m_ObjectHideFlags: 0
@@ -5351,7 +5396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 39
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874240
 GameObject:
   m_ObjectHideFlags: 0
@@ -5447,7 +5493,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   toolFamily: None
-  load: 0.1
+  load: 1
 --- !u!1 &7388010046170874242
 GameObject:
   m_ObjectHideFlags: 0
@@ -5543,7 +5589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   toolFamily: None
-  load: 0.1
+  load: 1
 --- !u!1 &7388010046170874244
 GameObject:
   m_ObjectHideFlags: 0
@@ -5641,7 +5687,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874246
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,7 +5787,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874248
 GameObject:
   m_ObjectHideFlags: 0
@@ -5835,6 +5883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874250
 GameObject:
   m_ObjectHideFlags: 0
@@ -5929,6 +5978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874252
 GameObject:
   m_ObjectHideFlags: 0
@@ -6023,6 +6073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874254
 GameObject:
   m_ObjectHideFlags: 0
@@ -6117,6 +6168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874256
 GameObject:
   m_ObjectHideFlags: 0
@@ -6211,6 +6263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 8
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874258
 GameObject:
   m_ObjectHideFlags: 0
@@ -6305,6 +6358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 7
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874260
 GameObject:
   m_ObjectHideFlags: 0
@@ -6399,6 +6453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874262
 GameObject:
   m_ObjectHideFlags: 0
@@ -6493,6 +6548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874264
 GameObject:
   m_ObjectHideFlags: 0
@@ -6587,6 +6643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 12
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6681,6 +6738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 11
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874268
 GameObject:
   m_ObjectHideFlags: 0
@@ -6775,6 +6833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 10
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874270
 GameObject:
   m_ObjectHideFlags: 0
@@ -6869,6 +6928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 9
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874272
 GameObject:
   m_ObjectHideFlags: 0
@@ -6963,6 +7023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 16
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874274
 GameObject:
   m_ObjectHideFlags: 0
@@ -7057,6 +7118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 15
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874276
 GameObject:
   m_ObjectHideFlags: 0
@@ -7151,6 +7213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 14
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874278
 GameObject:
   m_ObjectHideFlags: 0
@@ -7245,6 +7308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 13
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874280
 GameObject:
   m_ObjectHideFlags: 0
@@ -7338,7 +7402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 20
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874282
 GameObject:
   m_ObjectHideFlags: 0
@@ -7432,7 +7497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 19
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874284
 GameObject:
   m_ObjectHideFlags: 0
@@ -7526,7 +7592,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 18
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874286
 GameObject:
   m_ObjectHideFlags: 0
@@ -7620,7 +7687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 17
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874288
 GameObject:
   m_ObjectHideFlags: 0
@@ -7715,7 +7783,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 24
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874290
 GameObject:
   m_ObjectHideFlags: 0
@@ -7810,7 +7879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 23
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874292
 GameObject:
   m_ObjectHideFlags: 0
@@ -7904,7 +7974,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 22
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874294
 GameObject:
   m_ObjectHideFlags: 0
@@ -7998,7 +8069,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 21
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8093,7 +8165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 28
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874298
 GameObject:
   m_ObjectHideFlags: 0
@@ -8188,7 +8261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 27
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8283,7 +8357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 26
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874302
 GameObject:
   m_ObjectHideFlags: 0
@@ -8378,7 +8453,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 25
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874304
 GameObject:
   m_ObjectHideFlags: 0
@@ -8489,7 +8565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 41
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874306
 GameObject:
   m_ObjectHideFlags: 0
@@ -8600,7 +8677,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 40
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874308
 GameObject:
   m_ObjectHideFlags: 0
@@ -8711,7 +8789,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 39
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874310
 GameObject:
   m_ObjectHideFlags: 0
@@ -8822,7 +8901,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 38
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874312
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,7 +9013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874316
 GameObject:
   m_ObjectHideFlags: 0
@@ -9044,7 +9125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874318
 GameObject:
   m_ObjectHideFlags: 0
@@ -9155,7 +9237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 42
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874320
 GameObject:
   m_ObjectHideFlags: 0
@@ -9267,6 +9350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874322
 GameObject:
   m_ObjectHideFlags: 0
@@ -9378,6 +9462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874324
 GameObject:
   m_ObjectHideFlags: 0
@@ -9488,7 +9573,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874328
 GameObject:
   m_ObjectHideFlags: 0
@@ -9583,7 +9669,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 8
-  load: 0
+  load: 3
+  armor: 6
 --- !u!1 &7388010046170874330
 GameObject:
   m_ObjectHideFlags: 0
@@ -9678,7 +9765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874332
 GameObject:
   m_ObjectHideFlags: 0
@@ -9773,7 +9861,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874334
 GameObject:
   m_ObjectHideFlags: 0
@@ -9885,6 +9974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874336
 GameObject:
   m_ObjectHideFlags: 0
@@ -9979,7 +10069,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 22
-  load: 0
+  load: 3
+  armor: 6
 --- !u!1 &7388010046170874338
 GameObject:
   m_ObjectHideFlags: 0
@@ -10074,7 +10165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 21
-  load: 0
+  load: 3
+  armor: 6
 --- !u!1 &7388010046170874340
 GameObject:
   m_ObjectHideFlags: 0
@@ -10169,7 +10261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 9
-  load: 0
+  load: 3
+  armor: 6
 --- !u!1 &7388010046170874342
 GameObject:
   m_ObjectHideFlags: 0
@@ -10264,7 +10357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 20
-  load: 0
+  load: 3
+  armor: 6
 --- !u!1 &7388010046170874344
 GameObject:
   m_ObjectHideFlags: 0
@@ -10363,7 +10457,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170874346
 GameObject:
   m_ObjectHideFlags: 0
@@ -10461,7 +10556,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 5
+  load: 3
+  dammage: 5
 --- !u!1 &7388010046170874348
 GameObject:
   m_ObjectHideFlags: 0
@@ -10556,7 +10652,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 12
-  load: 0
+  load: 4
+  armor: 8
 --- !u!1 &7388010046170874350
 GameObject:
   m_ObjectHideFlags: 0
@@ -10651,7 +10748,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 23
-  load: 0
+  load: 3
+  armor: 6
 --- !u!1 &7388010046170874352
 GameObject:
   m_ObjectHideFlags: 0
@@ -10749,7 +10847,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874354
 GameObject:
   m_ObjectHideFlags: 0
@@ -10847,7 +10946,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874356
 GameObject:
   m_ObjectHideFlags: 0
@@ -10946,7 +11046,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170874358
 GameObject:
   m_ObjectHideFlags: 0
@@ -11045,7 +11146,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 3
-  load: 0
+  load: 3
+  dammage: 5
 --- !u!1 &7388010046170874360
 GameObject:
   m_ObjectHideFlags: 0
@@ -11143,7 +11245,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874362
 GameObject:
   m_ObjectHideFlags: 0
@@ -11242,7 +11345,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 3
+  dammage: 6
 --- !u!1 &7388010046170874364
 GameObject:
   m_ObjectHideFlags: 0
@@ -11340,7 +11444,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 6
-  load: 0
+  load: 2
+  dammage: 3
 --- !u!1 &7388010046170874366
 GameObject:
   m_ObjectHideFlags: 0
@@ -11439,7 +11544,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 3
+  dammage: 5
 --- !u!1 &7388010046170874376
 GameObject:
   m_ObjectHideFlags: 0
@@ -11551,6 +11657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 43
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874384
 GameObject:
   m_ObjectHideFlags: 0
@@ -11661,7 +11768,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 18
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874386
 GameObject:
   m_ObjectHideFlags: 0
@@ -11772,7 +11880,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 17
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874388
 GameObject:
   m_ObjectHideFlags: 0
@@ -11883,7 +11992,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 16
-  load: 0
+  load: 1
+  armor: 1
 --- !u!1 &7388010046170874390
 GameObject:
   m_ObjectHideFlags: 0
@@ -11995,6 +12105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 44
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874392
 GameObject:
   m_ObjectHideFlags: 0
@@ -12105,7 +12216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 22
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874394
 GameObject:
   m_ObjectHideFlags: 0
@@ -12216,7 +12328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 21
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874396
 GameObject:
   m_ObjectHideFlags: 0
@@ -12327,7 +12440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 20
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874398
 GameObject:
   m_ObjectHideFlags: 0
@@ -12438,7 +12552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 19
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874400
 GameObject:
   m_ObjectHideFlags: 0
@@ -12549,7 +12664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 26
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874402
 GameObject:
   m_ObjectHideFlags: 0
@@ -12660,7 +12776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 25
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874404
 GameObject:
   m_ObjectHideFlags: 0
@@ -12771,7 +12888,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 24
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874406
 GameObject:
   m_ObjectHideFlags: 0
@@ -12882,7 +13000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 23
-  load: 0
+  load: 2
+  armor: 2
 --- !u!1 &7388010046170874408
 GameObject:
   m_ObjectHideFlags: 0
@@ -12993,7 +13112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 45
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874410
 GameObject:
   m_ObjectHideFlags: 0
@@ -13104,7 +13224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 29
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874412
 GameObject:
   m_ObjectHideFlags: 0
@@ -13215,7 +13336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 28
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874414
 GameObject:
   m_ObjectHideFlags: 0
@@ -13326,7 +13448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 27
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874416
 GameObject:
   m_ObjectHideFlags: 0
@@ -13437,7 +13560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 33
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874418
 GameObject:
   m_ObjectHideFlags: 0
@@ -13548,7 +13672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 32
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874420
 GameObject:
   m_ObjectHideFlags: 0
@@ -13659,7 +13784,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 31
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874422
 GameObject:
   m_ObjectHideFlags: 0
@@ -13770,7 +13896,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 30
-  load: 0
+  load: 3
+  armor: 3
 --- !u!1 &7388010046170874424
 GameObject:
   m_ObjectHideFlags: 0
@@ -13881,7 +14008,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 37
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874426
 GameObject:
   m_ObjectHideFlags: 0
@@ -13992,7 +14120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 36
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874428
 GameObject:
   m_ObjectHideFlags: 0
@@ -14103,7 +14232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 35
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874430
 GameObject:
   m_ObjectHideFlags: 0
@@ -14214,7 +14344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 34
-  load: 0
+  load: 5
+  armor: 5
 --- !u!1 &7388010046170874472
 GameObject:
   m_ObjectHideFlags: 0
@@ -14326,6 +14457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 12
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874474
 GameObject:
   m_ObjectHideFlags: 0
@@ -14437,6 +14569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 11
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874476
 GameObject:
   m_ObjectHideFlags: 0
@@ -14548,6 +14681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 10
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874478
 GameObject:
   m_ObjectHideFlags: 0
@@ -14659,6 +14793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 9
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874482
 GameObject:
   m_ObjectHideFlags: 0
@@ -14770,6 +14905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 15
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874484
 GameObject:
   m_ObjectHideFlags: 0
@@ -14881,6 +15017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 14
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874486
 GameObject:
   m_ObjectHideFlags: 0
@@ -14992,6 +15129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 13
   load: 0
+  armor: 0
 --- !u!1 &7388010046170874496
 GameObject:
   m_ObjectHideFlags: 0
@@ -15090,7 +15228,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 3
+  dammage: 6
 --- !u!1 &7388010046170874498
 GameObject:
   m_ObjectHideFlags: 0
@@ -15188,7 +15327,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 6
-  load: 0
+  load: 2
+  dammage: 3
 --- !u!1 &7388010046170874500
 GameObject:
   m_ObjectHideFlags: 0
@@ -15286,7 +15426,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 6
-  load: 0
+  load: 2
+  dammage: 2
 --- !u!1 &7388010046170874502
 GameObject:
   m_ObjectHideFlags: 0
@@ -15384,7 +15525,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 6
-  load: 0
+  load: 1
+  dammage: 1
 --- !u!1 &7388010046170874504
 GameObject:
   m_ObjectHideFlags: 0
@@ -15483,7 +15625,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 4
+  dammage: 7
 --- !u!1 &7388010046170874506
 GameObject:
   m_ObjectHideFlags: 0
@@ -15582,7 +15725,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874508
 GameObject:
   m_ObjectHideFlags: 0
@@ -15681,7 +15825,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874510
 GameObject:
   m_ObjectHideFlags: 0
@@ -15780,7 +15925,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874512
 GameObject:
   m_ObjectHideFlags: 0
@@ -15878,7 +16024,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 3
+  dammage: 6
 --- !u!1 &7388010046170874514
 GameObject:
   m_ObjectHideFlags: 0
@@ -15976,7 +16123,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874516
 GameObject:
   m_ObjectHideFlags: 0
@@ -16075,7 +16223,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874518
 GameObject:
   m_ObjectHideFlags: 0
@@ -16173,7 +16322,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 4
-  load: 0
+  load: 5
+  dammage: 10
 --- !u!1 &7388010046170874560
 GameObject:
   m_ObjectHideFlags: 0
@@ -16268,7 +16418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 17
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874562
 GameObject:
   m_ObjectHideFlags: 0
@@ -16363,7 +16514,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 16
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874564
 GameObject:
   m_ObjectHideFlags: 0
@@ -16458,7 +16610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 15
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874566
 GameObject:
   m_ObjectHideFlags: 0
@@ -16553,7 +16706,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 14
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874568
 GameObject:
   m_ObjectHideFlags: 0
@@ -16648,7 +16802,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 18
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874570
 GameObject:
   m_ObjectHideFlags: 0
@@ -16743,7 +16898,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 10
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874572
 GameObject:
   m_ObjectHideFlags: 0
@@ -16838,7 +16994,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874574
 GameObject:
   m_ObjectHideFlags: 0
@@ -16933,7 +17090,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874576
 GameObject:
   m_ObjectHideFlags: 0
@@ -17031,7 +17189,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170874578
 GameObject:
   m_ObjectHideFlags: 0
@@ -17126,7 +17285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 11
-  load: 0
+  load: 4
+  armor: 6
 --- !u!1 &7388010046170874580
 GameObject:
   m_ObjectHideFlags: 0
@@ -17221,7 +17381,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 19
-  load: 0
+  load: 4
+  armor: 6
 --- !u!1 &7388010046170874582
 GameObject:
   m_ObjectHideFlags: 0
@@ -17316,7 +17477,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
-  load: 0
+  load: 3
+  armor: 5
 --- !u!1 &7388010046170874584
 GameObject:
   m_ObjectHideFlags: 0
@@ -17414,7 +17576,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 1
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874586
 GameObject:
   m_ObjectHideFlags: 0
@@ -17513,6 +17676,7 @@ MonoBehaviour:
   forbidShield: 0
   animationCode: 1
   load: 3
+  dammage: 5
 --- !u!1 &7388010046170874588
 GameObject:
   m_ObjectHideFlags: 0
@@ -17611,6 +17775,7 @@ MonoBehaviour:
   forbidShield: 0
   animationCode: 1
   load: 2
+  dammage: 3
 --- !u!1 &7388010046170874590
 GameObject:
   m_ObjectHideFlags: 0
@@ -17708,7 +17873,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 1
+  load: 2
+  dammage: 3
 --- !u!1 &7388010046170874592
 GameObject:
   m_ObjectHideFlags: 0
@@ -17807,7 +17973,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170874594
 GameObject:
   m_ObjectHideFlags: 0
@@ -17906,7 +18073,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170874596
 GameObject:
   m_ObjectHideFlags: 0
@@ -18005,7 +18173,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 1
   animationCode: 3
-  load: 0
+  load: 3
+  dammage: 5
 --- !u!1 &7388010046170874598
 GameObject:
   m_ObjectHideFlags: 0
@@ -18104,7 +18273,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170874602
 GameObject:
   m_ObjectHideFlags: 0
@@ -18202,7 +18372,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 2
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874604
 GameObject:
   m_ObjectHideFlags: 0
@@ -18300,7 +18471,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 0
   animationCode: 7
-  load: 0
+  load: 2
+  dammage: 6
 --- !u!1 &7388010046170874606
 GameObject:
   m_ObjectHideFlags: 0
@@ -18398,7 +18570,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 0
   animationCode: 7
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874608
 GameObject:
   m_ObjectHideFlags: 0
@@ -18496,7 +18669,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 2
-  load: 0
+  load: 1
+  dammage: 4
 --- !u!1 &7388010046170874610
 GameObject:
   m_ObjectHideFlags: 0
@@ -18594,7 +18768,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 0
   animationCode: 5
-  load: 0
+  load: 3
+  dammage: 7
 --- !u!1 &7388010046170874612
 GameObject:
   m_ObjectHideFlags: 0
@@ -18692,7 +18867,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874614
 GameObject:
   m_ObjectHideFlags: 0
@@ -18790,7 +18966,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874616
 GameObject:
   m_ObjectHideFlags: 0
@@ -18889,7 +19066,8 @@ MonoBehaviour:
   forbidSecond: 1
   forbidShield: 0
   animationCode: 5
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170874618
 GameObject:
   m_ObjectHideFlags: 0
@@ -18988,7 +19166,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 3
+  dammage: 5
 --- !u!1 &7388010046170874620
 GameObject:
   m_ObjectHideFlags: 0
@@ -19086,7 +19265,8 @@ MonoBehaviour:
   forbidWeapon: 1
   forbidShield: 1
   animationCode: 2
-  load: 0
+  load: 1
+  dammage: 3
 --- !u!1 &7388010046170874622
 GameObject:
   m_ObjectHideFlags: 0
@@ -19184,7 +19364,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 3
+  dammage: 5
 --- !u!1 &7388010046170874680
 GameObject:
   m_ObjectHideFlags: 0
@@ -19279,7 +19460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 13
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874682
 GameObject:
   m_ObjectHideFlags: 0
@@ -19374,7 +19556,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  load: 0
+  load: 2
+  armor: 3
 --- !u!1 &7388010046170874684
 GameObject:
   m_ObjectHideFlags: 0
@@ -19469,7 +19652,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  load: 0
+  load: 1
+  armor: 2
 --- !u!1 &7388010046170874774
 GameObject:
   m_ObjectHideFlags: 0
@@ -19709,7 +19893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8319fcdafe23eaf408b4d14c59f7e58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopOnStart: 0
+  shopOnStart: 1
   pickablePrefab: {fileID: 9082372438455274285}
   backpackObjectList:
   - {fileID: 7388010046170874243}
@@ -20256,7 +20440,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 3
 --- !u!1 &7388010046170877080
 GameObject:
   m_ObjectHideFlags: 0
@@ -20354,7 +20539,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170877096
 GameObject:
   m_ObjectHideFlags: 0
@@ -20452,7 +20638,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 2
+  dammage: 5
 --- !u!1 &7388010046170877110
 GameObject:
   m_ObjectHideFlags: 0
@@ -20550,7 +20737,8 @@ MonoBehaviour:
   forbidSecond: 0
   forbidShield: 0
   animationCode: 1
-  load: 0
+  load: 1
+  dammage: 2
 --- !u!1 &7388010046170877184
 GameObject:
   m_ObjectHideFlags: 0
@@ -21339,7 +21527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   toolFamily: Container
-  load: 0.3
+  load: 1
 --- !u!1 &9082372437866918891
 GameObject:
   m_ObjectHideFlags: 0
