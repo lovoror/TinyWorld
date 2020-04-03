@@ -14,9 +14,14 @@ public class Map : MonoBehaviour
     public GameObject tilesContainer;
     public GameObject buildingsContainer;
     public List<ScriptableTile> tileList;
+    public Transform player;
+    public int streamingRadius = 10;
+    public Vector2 streamingThresholds;
+    
     private Dictionary<string, Tile> tileDictionary;
-
     private Vector3 dy;
+    private Vector3 lastStreamingUpdate;
+    private Dictionary<Vector3Int, GameObject> streamingArea = new Dictionary<Vector3Int, GameObject>();
 
     // Singleton struct
     private static Map _instance;
@@ -61,25 +66,54 @@ public class Map : MonoBehaviour
         tilesContainer.transform.localScale = Vector3.one;
         tilesContainer.transform.localRotation = Quaternion.identity;
         tilesContainer.transform.parent = this.transform;
-        int initializedTileCount = 0;
 
-        for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax; x++)
-            for (int z = tilemap.cellBounds.yMin; z < tilemap.cellBounds.yMax; z++)
+        lastStreamingUpdate = player.position + 3 * new Vector3(streamingThresholds.x, 0, streamingThresholds.y);
+    }
+
+
+    private void Update()
+    {
+        Vector3Int p = GetCellFromWorld(player.position);
+        Vector3 d = player.position - lastStreamingUpdate;
+
+        if(Mathf.Abs(d.x) > streamingThresholds.x || Mathf.Abs(d.z) > streamingThresholds.y)
+        {
+            // delete far tiles
+            List<Vector3Int> removed = new List<Vector3Int>();
+            foreach(KeyValuePair<Vector3Int, GameObject> cp in streamingArea)
             {
-                Vector3Int cellPosition = new Vector3Int(x, z, (int)tilemap.transform.position.y);
-                if (tilemap.HasTile(cellPosition))
+                if(Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
                 {
-                    // standard
-                    ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
-                    if(tile.tilePrefab)
-                    {
-                        TileInit(tile, cellPosition);
-                        initializedTileCount++;
-                    }
+                    if(cp.Value)
+                        Destroy(cp.Value);
+                    removed.Add(cp.Key);
                 }
             }
-        Debug.Log("TileCount : " + initializedTileCount.ToString());
+            foreach (Vector3Int rcp in removed)
+                streamingArea.Remove(rcp);
+
+            // create new tiles
+            for (int x = p.x - streamingRadius; x < p.x + streamingRadius; x++)
+                for (int z = p.y - streamingRadius; z < p.y + streamingRadius; z++)
+                {
+                    Vector3Int cellPosition = new Vector3Int(x, z, (int)tilemap.transform.position.y);
+                    if (tilemap.HasTile(cellPosition))
+                    {
+                        // standard
+                        ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
+                        if (tile.tilePrefab && !streamingArea.ContainsKey(cellPosition))
+                        {
+                            streamingArea.Add(cellPosition, TileInit(tile, cellPosition));
+                        }
+                        
+                    }
+                }
+
+            // end
+            lastStreamingUpdate = grid.GetCellCenterWorld(grid.WorldToCell(player.position));
+        }
     }
+
     public void PlaceTiles(List<Vector3> positions, List<GameObject> originals, string tileName)
     {
         foreach (GameObject original in originals)
@@ -189,9 +223,7 @@ public class Map : MonoBehaviour
     {
         // tile prefab
         GameObject tilego = Instantiate(tile.tilePrefab);
-
         
-
         tilego.name = tile.name;
         tilego.transform.parent = tilesContainer.transform;
         tilego.transform.localPosition = grid.GetCellCenterWorld(cellPosition) - dy;

@@ -6,7 +6,8 @@ public class ScriptableTile : Tile
 {
     public GameObject tilePrefab;
     public GameObject buildingPrefab;
-    
+    [HideInInspector] public GameObject runtimeObject = null;
+
     public bool neighbourUpdate = false;
     public bool buildingUpdate = false;
 
