@@ -3199,6 +3199,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridVillage
       objectReference: {fileID: 0}
+    - target: {fileID: 7900350191113553086, guid: b7b88e225fd5b704dba6c629cc2426cd,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 274576173976662415}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b88e225fd5b704dba6c629cc2426cd, type: 3}
 --- !u!1 &645347370
