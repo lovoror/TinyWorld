@@ -136,6 +136,8 @@
     <Compile Include="Assets\Scripts\EquipementSystem\EquipementViewer.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\HeadItem.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\HeadSlot.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\HorseItem.cs" />
+    <Compile Include="Assets\Scripts\EquipementSystem\HorseSlot.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\InventoryLineTemplate.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\InventoryViewer.cs" />
     <Compile Include="Assets\Scripts\EquipementSystem\RessourceContainer.cs" />

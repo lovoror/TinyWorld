@@ -24,7 +24,8 @@ public class InteractionType : MonoBehaviour
         construction,
         destroyBuilding,
 
-        constructionMode // launch construction mode from hammer on empty space
+        constructionMode, // launch construction mode from hammer on empty space
+        pickableHorse
     };
     public Type type;
 

@@ -25,7 +25,10 @@ public class WeaponItem : MonoBehaviour
         Claymore,
         Spear,
 
-        Sickle
+        Sickle,
+
+        CavalryLanceA, CavalryLanceB, CavalryLanceC,
+        CavalrySpear
     };
     public Type type = Type.None;
     public string toolFamily = "None";

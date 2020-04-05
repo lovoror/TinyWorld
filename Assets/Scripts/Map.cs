@@ -73,6 +73,7 @@ public class Map : MonoBehaviour
         tilesContainer.transform.localRotation = Quaternion.identity;
         tilesContainer.transform.parent = this.transform;
 
+        player = PlayerController.MainInstance.transform;
         lastStreamingUpdate = player.position + 3 * new Vector3(streamingThresholds.x, 0, streamingThresholds.y);
 
         foreach(Transform child in buildingsContainer.transform)

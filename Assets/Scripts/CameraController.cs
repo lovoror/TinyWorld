@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public bool targetMainPlayer;
     public Transform target;
     public float rotationSpeed = 1f;
     public float zoomSpeed = 1f;
@@ -14,6 +15,9 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (targetMainPlayer)
+            target = PlayerController.MainInstance.transform;
+
         if (target)
         { 
             direction = (transform.position - target.position).normalized;

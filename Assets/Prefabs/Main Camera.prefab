@@ -6254,6 +6254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0586e5629d07484ba7323cab04e6da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetMainPlayer: 1
   target: {fileID: 0}
   rotationSpeed: 0.5
   zoomSpeed: 2
@@ -6381,11 +6382,13 @@ MonoBehaviour:
   activated: 0
   quit: 0
   mouseControl: 0
+  instantConstruct: 0
   keyMode: 98
   keyLeft: 97
   keyRight: 101
   trackballController: {fileID: 8730490982015208159}
   constructionUI: {fileID: 2060099660}
+  destroyInteractor: {fileID: 0}
   currentObject: {fileID: 0}
   currentTemplate: {fileID: 0}
   buildingMaterial: {fileID: 2100000, guid: ee90f878377271b4fbbf915249f24476, type: 2}
@@ -6393,6 +6396,7 @@ MonoBehaviour:
   nokMaterial: {fileID: 2100000, guid: 33f9da6ecf6aee84b8d74b330946d177, type: 2}
   buildingOk: {fileID: 8300000, guid: 4fd252929c829c24da26e50d5d7ff512, type: 3}
   terrainOk: {fileID: 8300000, guid: 3659cbb1f9876ad4fab837622777072b, type: 3}
+  scavengeRatio: 0.5
   speed: 1
   scrollSpeed: 2
   borderThickness: 20

@@ -39,6 +39,7 @@ public class CharacterAnimationController : MonoBehaviour
     public AnimationCurve loadCurve;
 
     [Header("Equipement slots")]
+    public HorseSlot horse;
     public WeaponSlot weapon;
     public SecondSlot secondHand;
     public ShieldSlot shield;
@@ -390,8 +391,9 @@ public class CharacterAnimationController : MonoBehaviour
         }
         else if (type == InteractionType.Type.pickableBody)
         {
+            bool mounted = horse ? horse.equipedItem.type != HorseItem.Type.None : false;
             BodyItem item = interactor.GetComponent<BodyItem>();
-            if (item && body.Equip(item.type))
+            if (item && body.Equip(item.type, mounted))
                 success = true;
         }
         else
