@@ -17,11 +17,17 @@ public class Map : MonoBehaviour
     public Transform player;
     public int streamingRadius = 10;
     public Vector2 streamingThresholds;
+    public int streamingUpdateCount;
     
     private Dictionary<string, Tile> tileDictionary;
     private Vector3 dy;
     private Vector3 lastStreamingUpdate;
-    private Dictionary<Vector3Int, GameObject> streamingArea = new Dictionary<Vector3Int, GameObject>();
+    private Dictionary<Vector3Int, GameObject> streamingAreaTerrain = new Dictionary<Vector3Int, GameObject>();
+    private Dictionary<Vector3Int, GameObject> streamingAreaBuilding = new Dictionary<Vector3Int, GameObject>();
+    private List<MeshRenderer> uniqueBuildings = new List<MeshRenderer>();
+    private List<GameObject> uniqueBuildings2 = new List<GameObject>();
+    private IEnumerator updateCoroutine;
+
 
     // Singleton struct
     private static Map _instance;
@@ -68,6 +74,15 @@ public class Map : MonoBehaviour
         tilesContainer.transform.parent = this.transform;
 
         lastStreamingUpdate = player.position + 3 * new Vector3(streamingThresholds.x, 0, streamingThresholds.y);
+
+        foreach(Transform child in buildingsContainer.transform)
+        {
+            MeshRenderer mr = child.gameObject.GetComponent<MeshRenderer>();
+            if(mr)
+                uniqueBuildings.Add(mr);
+            else
+                uniqueBuildings2.Add(child.gameObject);
+        }
     }
 
 
@@ -78,9 +93,13 @@ public class Map : MonoBehaviour
 
         if(Mathf.Abs(d.x) > streamingThresholds.x || Mathf.Abs(d.z) > streamingThresholds.y)
         {
-            // delete far tiles
+            updateCoroutine = StreamingUpdateCoroutine(p, d);
+            StartCoroutine(updateCoroutine);
+            lastStreamingUpdate = grid.GetCellCenterWorld(grid.WorldToCell(player.position));
+
+            /*// delete far tiles
             List<Vector3Int> removed = new List<Vector3Int>();
-            foreach(KeyValuePair<Vector3Int, GameObject> cp in streamingArea)
+            foreach(KeyValuePair<Vector3Int, GameObject> cp in streamingAreaTerrain)
             {
                 if(Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
                 {
@@ -90,7 +109,22 @@ public class Map : MonoBehaviour
                 }
             }
             foreach (Vector3Int rcp in removed)
-                streamingArea.Remove(rcp);
+                streamingAreaTerrain.Remove(rcp);
+            removed.Clear();
+
+            // remove far buildings
+            foreach(KeyValuePair<Vector3Int, GameObject> cp in streamingAreaBuilding)
+            {
+                if (Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
+                {
+                    if (cp.Value)
+                        Destroy(cp.Value);
+                    removed.Add(cp.Key);
+                }
+            }
+            foreach (Vector3Int rcp in removed)
+                streamingAreaBuilding.Remove(rcp);
+            removed.Clear();
 
             // create new tiles
             for (int x = p.x - streamingRadius; x < p.x + streamingRadius; x++)
@@ -101,16 +135,31 @@ public class Map : MonoBehaviour
                     {
                         // standard
                         ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
-                        if (tile.tilePrefab && !streamingArea.ContainsKey(cellPosition))
+                        if (tile.tilePrefab && !streamingAreaTerrain.ContainsKey(cellPosition))
                         {
-                            streamingArea.Add(cellPosition, TileInit(tile, cellPosition));
+                            KeyValuePair<GameObject, GameObject> pair = TileInit(tile, cellPosition);
+                            streamingAreaTerrain.Add(cellPosition, pair.Key);
+
+                            if (pair.Value)
+                                streamingAreaBuilding.Add(cellPosition, pair.Value);
                         }
-                        
                     }
                 }
 
+            // update buildings visibility
+            foreach(MeshRenderer building in uniqueBuildings)
+            {
+                Vector3 v = building.transform.position - player.position;
+                building.enabled = Mathf.Abs(v.x) < 4*(streamingRadius + 1) && Mathf.Abs(v.z) < 4*(streamingRadius + 1);
+            }
+            foreach (GameObject building in uniqueBuildings2)
+            {
+                Vector3 v = building.transform.position - player.position;
+                building.SetActive(Mathf.Abs(v.x) < 4*(streamingRadius + 1) && Mathf.Abs(v.z) < 4*(streamingRadius + 1));
+            }
+
             // end
-            lastStreamingUpdate = grid.GetCellCenterWorld(grid.WorldToCell(player.position));
+            lastStreamingUpdate = grid.GetCellCenterWorld(grid.WorldToCell(player.position));*/
         }
     }
 
@@ -219,7 +268,7 @@ public class Map : MonoBehaviour
         return new Vector3Int(c.x, c.y, (int)tilemap.transform.position.z);
     }
 
-    private GameObject TileInit(ScriptableTile tile, Vector3Int cellPosition)
+    private KeyValuePair<GameObject, GameObject> TileInit(ScriptableTile tile, Vector3Int cellPosition)
     {
         // tile prefab
         GameObject tilego = Instantiate(tile.tilePrefab);
@@ -245,7 +294,7 @@ public class Map : MonoBehaviour
             terrain.Subscribe();
         }
         // building prefab
-        TileBuildingInit(tile, cellPosition);
+        GameObject building = TileBuildingInit(tile, cellPosition);
 
         // add variability and suscribe to meteo
         Transform pivot = tilego.transform.Find("Pivot");
@@ -266,9 +315,9 @@ public class Map : MonoBehaviour
         InitBridge(tilego.GetComponent<Bridge>(), cellPosition);
         InitStone(tilego.GetComponent<Stone>(), cellPosition);
         InitMineral(tilego.GetComponent<MineralRessource>(), cellPosition, tile.optionalMaterial);
-        return tilego;
+        return new KeyValuePair<GameObject, GameObject>(tilego, building);
     }
-    private void TileBuildingInit(ScriptableTile tile, Vector3Int cellPosition)
+    private GameObject TileBuildingInit(ScriptableTile tile, Vector3Int cellPosition)
     {
         if(tile.buildingPrefab)
         {
@@ -279,7 +328,10 @@ public class Map : MonoBehaviour
             buildinggo.SetActive(true);
 
             InitWall(buildinggo.GetComponent<Wall>(), cellPosition, tile.name);
+
+            return buildinggo;
         }
+        return null;
     }
     private void InitDirt(Dirt dirt, Vector3Int cellPosition)
     {
@@ -357,8 +409,8 @@ public class Map : MonoBehaviour
         {
             ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
             ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int( 1, 0, 0));
-            bool xmIsWater = xm && xm.tilePrefab && xm.tilePrefab.GetComponent<Water>();
-            bool xpIsWater = xp && xp.tilePrefab && xp.tilePrefab.GetComponent<Water>();
+            bool xmIsWater = xm && xm.tilePrefab && xm.tilePrefab.GetComponent<Water>() && !xm.tilePrefab.GetComponent<Bridge>();
+            bool xpIsWater = xp && xp.tilePrefab && xp.tilePrefab.GetComponent<Water>() && !xp.tilePrefab.GetComponent<Bridge>();
             bridge.Initialize(!xmIsWater && !xpIsWater);
         }
     }
@@ -395,5 +447,78 @@ public class Map : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    private IEnumerator StreamingUpdateCoroutine(Vector3Int p, Vector3 d)
+    {
+        int updates = 0;
+        List<Vector3Int> removed = new List<Vector3Int>();
+        foreach (KeyValuePair<Vector3Int, GameObject> cp in streamingAreaTerrain)
+        {
+            if (Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
+            {
+                if (cp.Value)
+                    Destroy(cp.Value);
+                removed.Add(cp.Key);
+            }
+        }
+        foreach (Vector3Int rcp in removed)
+            streamingAreaTerrain.Remove(rcp);
+        removed.Clear();
+
+        // remove far buildings
+        foreach (KeyValuePair<Vector3Int, GameObject> cp in streamingAreaBuilding)
+        {
+            if (Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
+            {
+                if (cp.Value)
+                    Destroy(cp.Value);
+                removed.Add(cp.Key);
+            }
+        }
+        foreach (Vector3Int rcp in removed)
+            streamingAreaBuilding.Remove(rcp);
+        removed.Clear();
+
+        // create new tiles
+        yield return null;
+        for (int x = p.x - streamingRadius; x < p.x + streamingRadius; x++)
+            for (int z = p.y - streamingRadius; z < p.y + streamingRadius; z++)
+            {
+                Vector3Int cellPosition = new Vector3Int(x, z, (int)tilemap.transform.position.y);
+                if (tilemap.HasTile(cellPosition))
+                {
+                    // standard
+                    ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
+                    if (tile.tilePrefab && !streamingAreaTerrain.ContainsKey(cellPosition))
+                    {
+                        KeyValuePair<GameObject, GameObject> pair = TileInit(tile, cellPosition);
+                        streamingAreaTerrain.Add(cellPosition, pair.Key);
+
+                        if (pair.Value)
+                            streamingAreaBuilding.Add(cellPosition, pair.Value);
+                        updates++;
+                    }
+                }
+                
+                if (updates > streamingUpdateCount)
+                {
+                    updates = 0;
+                    yield return null;
+                }
+            }
+
+        // update buildings visibility
+        yield return null;
+        foreach (MeshRenderer building in uniqueBuildings)
+        {
+            Vector3 v = building.transform.position - player.position;
+            building.enabled = Mathf.Abs(v.x) < 4 * (streamingRadius + 1) && Mathf.Abs(v.z) < 4 * (streamingRadius + 1);
+        }
+        foreach (GameObject building in uniqueBuildings2)
+        {
+            Vector3 v = building.transform.position - player.position;
+            building.SetActive(Mathf.Abs(v.x) < 4 * (streamingRadius + 1) && Mathf.Abs(v.z) < 4 * (streamingRadius + 1));
+        }
     }
 }

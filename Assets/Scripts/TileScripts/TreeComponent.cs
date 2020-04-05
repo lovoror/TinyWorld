@@ -6,6 +6,7 @@ public class TreeComponent : MonoBehaviour
 {
     public SkinnedMeshRenderer snow;
     public SkinnedMeshRenderer[] leaves;
+    public MeshRenderer[] fruits;
     public BillboardRenderer billboardRenderer;
 
     public BillboardAsset snowBillboard;
@@ -18,6 +19,8 @@ public class TreeComponent : MonoBehaviour
             snow.enabled = hasSnow;
         foreach (SkinnedMeshRenderer leave in leaves)
             leave.enabled = hasLeaves;
+        foreach (MeshRenderer fruit in fruits)
+            fruit.enabled = hasLeaves;
 
         if(hasSnow)
         {

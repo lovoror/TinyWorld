@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
         else grounded += Time.deltaTime;
 
         // move 
-        direction.y = -gravity * Time.deltaTime;
+        direction.y = -gravity;
         controller.Move(direction * Time.deltaTime);
 
         // aiming
