@@ -266,6 +266,7 @@ public class Map : MonoBehaviour
             buildinggo.SetActive(true);
 
             InitWall(buildinggo.GetComponent<Wall>(), cellPosition, tile.name);
+            InitFences(buildinggo.GetComponent<Fences>(), cellPosition);
 
             return buildinggo;
         }
@@ -375,6 +376,25 @@ public class Map : MonoBehaviour
     {
         if (mineral)
             mineral.Initialize(material);
+    }
+    private void InitFences(Fences fence, Vector3Int cellPosition)
+    {
+        if (fence)
+        {
+            ScriptableTile xm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(-1, 0, 0));
+            ScriptableTile xp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(1, 0, 0));
+            ScriptableTile zm = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, -1, 0));
+            ScriptableTile zp = tilemap.GetTile<ScriptableTile>(cellPosition + new Vector3Int(0, 1, 0));
+
+            bool xmb = (xm && xm.buildingPrefab && xm.buildingPrefab.name.Contains("Fence"));
+            bool xpb = (xp && xp.buildingPrefab && xp.buildingPrefab.name.Contains("Fence"));
+            bool zmb = (zm && zm.buildingPrefab && zm.buildingPrefab.name.Contains("Fence"));
+            bool zpb = (zp && zp.buildingPrefab && zp.buildingPrefab.name.Contains("Fence"));
+
+            if (!xmb || !xpb || !zmb || !zpb)
+                fence.Initialize(xpb, xmb, zmb, zpb);
+            else Destroy(fence.gameObject);
+        }
     }
 
     private bool InList(Vector3Int search, ref List<KeyValuePair<ScriptableTile, Vector3Int>> list)

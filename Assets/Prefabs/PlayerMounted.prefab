@@ -10315,7 +10315,6 @@ GameObject:
   - component: {fileID: 3553807094508805088}
   - component: {fileID: 3553807094508805089}
   - component: {fileID: 3553807094508805118}
-  - component: {fileID: 3553807094508805119}
   m_Layer: 9
   m_Name: PlayerMounted
   m_TagString: Untagged
@@ -10392,8 +10391,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.4
-  m_Radius: 0.78
+  m_Height: 2.27
+  m_Radius: 0.69
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -15314,17 +15313,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!136 &3553807094508805119
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3553807094508805116}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.69
-  m_Height: 2.85
-  m_Direction: 2
-  m_Center: {x: 0, y: 1.29, z: 0.21}
