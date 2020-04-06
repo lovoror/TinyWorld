@@ -265,7 +265,7 @@ public class UnitAI : MonoBehaviour
     /// 
     [Header("Thinking properties")]
     [SerializeField] LayerMask neighborMask;
-    [SerializeField] float runRange = 0;
+    //[SerializeField] float runRange = 0;
     [SerializeField] float actionMinRange = 0.1f;
     [SerializeField] float actionMaxRange = 1;
     [SerializeField] float seeRange = 30;
@@ -519,11 +519,11 @@ public class UnitAI : MonoBehaviour
     }
 
 
-    void OnDrawGizmos()
+    void OnDrawGizmos2()
     {
         DrawGizmos(false);
     }
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected2()
     {
         DrawGizmos(true);
     }

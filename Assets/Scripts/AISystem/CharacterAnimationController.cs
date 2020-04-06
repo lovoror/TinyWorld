@@ -57,8 +57,8 @@ public class CharacterAnimationController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] protected AnimatorOverrideController animatorOverrideController;
     [SerializeField] protected AnimationClipOverrides clipOverrides;
-    [SerializeField] private ParticleSystem runParticles;
-    [SerializeField] private ParticleSystem bloodParticles;
+    [SerializeField] private ParticleSystem runParticles = null;
+    [SerializeField] private ParticleSystem bloodParticles = null;
     [SerializeField] private ParticleSystem.EmitParams emitParams;
 
     [SerializeField] bool equipOnStart = true;
@@ -206,7 +206,7 @@ public class CharacterAnimationController : MonoBehaviour
         this.toAttack = attack;
     }
 
-    [SerializeField] Transform projectileEmitter;
+    [SerializeField] Transform projectileEmitter = null;
 
     public void Tick()
     {

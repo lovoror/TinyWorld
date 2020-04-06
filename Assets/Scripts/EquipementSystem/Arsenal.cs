@@ -9,8 +9,8 @@ public class Arsenal : MonoBehaviour
     public SpecialPickableShopArsenal pickablePrefab;
 
     [Header("Player templates")]
-    public GameObject playerTemplate;
-    public GameObject mountedPlayerTemplate;
+    public PlayerController playerTemplate;
+    public PlayerController mountedPlayerTemplate;
 
     [Header("Backpack items")]
     public List<BackpackItem> backpackObjectList;
@@ -268,6 +268,22 @@ public class Arsenal : MonoBehaviour
 
         // backpack
         Vector3 position = Vector3.zero;
+        {
+            GameObject go = Instantiate(pickablePrefab.gameObject);
+            go.name = BackpackItem.Type.None.ToString();
+            go.transform.parent = shopContainer.transform;
+            go.transform.localRotation = Quaternion.identity;
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = new Vector3(-2*gap, position.y, position.z);
+            go.AddComponent<InteractionType>().type = InteractionType.Type.pickableBackpack;
+            go.AddComponent<BackpackItem>();
+            go.SetActive(true);
+            SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
+            pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
+            pickable.body.gameObject.SetActive(false);
+        }
         foreach (KeyValuePair<BackpackItem.Type, BackpackItem> item in backpackDictionary)
         {
             GameObject go = Instantiate(pickablePrefab.gameObject);
@@ -294,6 +310,22 @@ public class Arsenal : MonoBehaviour
 
         // shields
         position.x = 0; position.z -= gap;
+        {
+            GameObject go = Instantiate(pickablePrefab.gameObject);
+            go.name = ShieldItem.Type.None.ToString();
+            go.transform.parent = shopContainer.transform;
+            go.transform.localRotation = Quaternion.identity;
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = new Vector3(-2 * gap, position.y, position.z);
+            go.AddComponent<InteractionType>().type = InteractionType.Type.pickableShield;
+            go.AddComponent<ShieldItem>();
+            go.SetActive(true);
+            SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
+            pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
+            pickable.body.gameObject.SetActive(false);
+        }
         foreach (KeyValuePair<ShieldItem.Type, ShieldItem> item in shieldDictionary)
         {
             GameObject go = Instantiate(pickablePrefab.gameObject);
@@ -320,6 +352,22 @@ public class Arsenal : MonoBehaviour
 
         // second hand
         position.x = 0; position.z -= gap;
+        {
+            GameObject go = Instantiate(pickablePrefab.gameObject);
+            go.name = SecondItem.Type.None.ToString();
+            go.transform.parent = shopContainer.transform;
+            go.transform.localRotation = Quaternion.identity;
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = new Vector3(-2 * gap, position.y, position.z);
+            go.AddComponent<InteractionType>().type = InteractionType.Type.pickableSecond;
+            go.AddComponent<SecondItem>();
+            go.SetActive(true);
+            SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
+            pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
+            pickable.body.gameObject.SetActive(false);
+        }
         foreach (KeyValuePair<SecondItem.Type, SecondItem> item in secondDictionary)
         {
             GameObject go = Instantiate(pickablePrefab.gameObject);
@@ -346,6 +394,22 @@ public class Arsenal : MonoBehaviour
 
         // weapons
         position.x = 0; position.z -= gap;
+        {
+            GameObject go = Instantiate(pickablePrefab.gameObject);
+            go.name = WeaponItem.Type.None.ToString();
+            go.transform.parent = shopContainer.transform;
+            go.transform.localRotation = Quaternion.identity;
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = new Vector3(-2 * gap, position.y, position.z);
+            go.AddComponent<InteractionType>().type = InteractionType.Type.pickableWeapon;
+            go.AddComponent<WeaponItem>();
+            go.SetActive(true);
+            SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
+            pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
+            pickable.body.gameObject.SetActive(false);
+        }
         foreach (KeyValuePair<WeaponItem.Type, WeaponItem> item in weaponDictionary)
         {
             GameObject go = Instantiate(pickablePrefab.gameObject);
@@ -425,6 +489,22 @@ public class Arsenal : MonoBehaviour
 
         // horses
         position.x = 0; position.z -= 2 * gap;
+        {
+            GameObject go = Instantiate(pickablePrefab.gameObject);
+            go.name = HorseItem.Type.None.ToString();
+            go.transform.parent = shopContainer.transform;
+            go.transform.localRotation = Quaternion.identity;
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = new Vector3(-2 * gap, position.y, position.z);
+            go.AddComponent<InteractionType>().type = InteractionType.Type.pickableHorse;
+            go.AddComponent<HorseItem>();
+            go.SetActive(true);
+            SpecialPickableShopArsenal pickable = go.GetComponent<SpecialPickableShopArsenal>();
+            pickable.textmesh.text = go.name;
+            if (go.name.Length >= 8)
+                pickable.textmesh.characterSize *= 0.5f;
+            pickable.body.gameObject.SetActive(false);
+        }
         foreach (KeyValuePair<HorseItem.Type, HorseItem> item in horseDictionary)
         {
             GameObject go = Instantiate(pickablePrefab.gameObject);

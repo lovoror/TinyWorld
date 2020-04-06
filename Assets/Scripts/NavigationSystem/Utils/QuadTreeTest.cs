@@ -30,7 +30,7 @@ public class QuadTreeTest : MonoBehaviour
 			quadTree.Insert(newObject);
 		}
 	}
-	void OnDrawGizmos()
+	void OnDrawGizmos2()
 	{
 		if (quadTree != null)
 		{

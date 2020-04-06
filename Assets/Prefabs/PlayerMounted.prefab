@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890175008262}
   - component: {fileID: 1062737890175008265}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 1062737890225796146}
   - component: {fileID: 1062737890225796148}
   - component: {fileID: 1062737890225796149}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 1062737890250141665}
   - component: {fileID: 1062737890250141667}
   - component: {fileID: 1062737890250141664}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1049,7 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890404575506}
   - component: {fileID: 1062737890404575509}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 1062737890425888197}
   - component: {fileID: 1062737890425888199}
   - component: {fileID: 1062737890425888196}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1369,7 +1369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890436695239}
   - component: {fileID: 1062737890436695238}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1451,7 +1451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890470082108}
   - component: {fileID: 1062737890470082111}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1532,7 +1532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890505567027}
   - component: {fileID: 1062737890505567026}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,7 +1615,7 @@ GameObject:
   - component: {fileID: 1062737890572261038}
   - component: {fileID: 1062737890572261008}
   - component: {fileID: 1062737890572261009}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1790,7 +1790,7 @@ GameObject:
   - component: {fileID: 1062737890593190054}
   - component: {fileID: 1062737890593190056}
   - component: {fileID: 1062737890593190057}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +1963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890601266327}
   - component: {fileID: 1062737890601266326}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Total
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2046,7 +2046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890670314443}
   - component: {fileID: 1062737890670314442}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2127,7 +2127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890677885933}
   - component: {fileID: 1062737890677885932}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: SecondWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2287,7 +2287,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062737890718968251}
-  m_Mesh: {fileID: 4300062, guid: 7d2ee18e23ef99c4dbe6c40764865159, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!23 &1062737890718968252
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2352,7 +2352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890754832402}
   - component: {fileID: 1062737890754832405}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2435,7 +2435,7 @@ GameObject:
   - component: {fileID: 1062737890760618791}
   - component: {fileID: 1062737890760618793}
   - component: {fileID: 1062737890760618790}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2622,7 +2622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890830464759}
   - component: {fileID: 1062737890830464758}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2703,7 +2703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890865541211}
   - component: {fileID: 1062737890865541210}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2784,7 +2784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890879963124}
   - component: {fileID: 1062737890879963127}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 1062737890881585338}
   - component: {fileID: 1062737890881585340}
   - component: {fileID: 1062737890881585341}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3040,7 +3040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890902316838}
   - component: {fileID: 1062737890902316841}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Backpack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3091,7 +3091,7 @@ GameObject:
   - component: {fileID: 1062737890915944639}
   - component: {fileID: 1062737890915944609}
   - component: {fileID: 1062737890915944638}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3185,7 +3185,7 @@ GameObject:
   - component: {fileID: 1062737890930779379}
   - component: {fileID: 1062737890930779376}
   - component: {fileID: 1062737890930779377}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: EquipementViewer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd92f7af23d76e4192b93ab52565b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1062737890300763970}
 --- !u!114 &1062737890930779376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3246,7 +3246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visible: 0
   pivot: {fileID: 1062737890979119617}
-  player: {fileID: 0}
+  player: {fileID: 3553807094508805091}
   weapon: {fileID: 1062737890175008265}
   secondaryWeapon: {fileID: 1062737890677885932}
   body: {fileID: 1062737891876191454}
@@ -3265,7 +3265,7 @@ GameObject:
   - component: {fileID: 1062737890945187316}
   - component: {fileID: 1062737890945187318}
   - component: {fileID: 1062737890945187319}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3357,7 +3357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890945582453}
   - component: {fileID: 1062737890945582452}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3438,7 +3438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737890949594989}
   - component: {fileID: 1062737890949594988}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3520,7 +3520,7 @@ GameObject:
   - component: {fileID: 1062737890970093931}
   - component: {fileID: 1062737890970093933}
   - component: {fileID: 1062737890970093930}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3611,7 +3611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062737890979119616}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3682,7 +3682,7 @@ GameObject:
   - component: {fileID: 1062737890995796395}
   - component: {fileID: 1062737890995796397}
   - component: {fileID: 1062737890995796394}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3775,7 +3775,7 @@ GameObject:
   - component: {fileID: 1062737891008493102}
   - component: {fileID: 1062737891008493072}
   - component: {fileID: 1062737891008493073}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3952,7 +3952,7 @@ GameObject:
   - component: {fileID: 1062737891018666308}
   - component: {fileID: 1062737891018666310}
   - component: {fileID: 1062737891018666311}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4044,7 +4044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891021283766}
   - component: {fileID: 1062737891021283769}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4176,7 +4176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891092630507}
   - component: {fileID: 1062737891092630506}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4337,7 +4337,7 @@ GameObject:
   - component: {fileID: 1062737891129399630}
   - component: {fileID: 1062737891129399728}
   - component: {fileID: 1062737891129399729}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4429,7 +4429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891137691522}
   - component: {fileID: 1062737891137691525}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4551,13 +4551,13 @@ MonoBehaviour:
   visible: 0
   storage: {fileID: 0}
   spacing: 0.32
-  player: {fileID: 0}
+  player: {fileID: 3553807094508805091}
   backgroundWidth: {x: 2.4, y: 1.5}
-  backpackSlot: {fileID: 0}
+  backpackSlot: {fileID: 3553807094508804713}
   template: {fileID: 1062737890386064180}
   pivot: {fileID: 1062737891614136274}
   container: {fileID: 1062737891670291087}
-  backpack: {fileID: 0}
+  backpack: {fileID: 3553807094508804711}
   loadSum: {fileID: 1062737890316989195}
   background: {fileID: 1062737891739505004}
   onsound: {fileID: 8300000, guid: 4b19d60811b11b447bf2f097d49e70b9, type: 3}
@@ -4576,7 +4576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd92f7af23d76e4192b93ab52565b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1062737890300763970}
 --- !u!114 &1062737891226406312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4696,7 +4696,7 @@ GameObject:
   - component: {fileID: 1062737891259193293}
   - component: {fileID: 1062737891259193295}
   - component: {fileID: 1062737891259193292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4818,7 +4818,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062737891271864565}
-  m_Mesh: {fileID: 4300164, guid: 7d2ee18e23ef99c4dbe6c40764865159, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!23 &1062737891271864566
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4870,7 +4870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfc9c88ca93fb247a789b76aaf23b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 44
+  type: 0
   toolFamily: None
   forbidSecond: 0
   forbidShield: 0
@@ -4969,7 +4969,7 @@ GameObject:
   - component: {fileID: 1062737891282203162}
   - component: {fileID: 1062737891282203164}
   - component: {fileID: 1062737891282203165}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,7 +5061,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891331990194}
   - component: {fileID: 1062737891331990197}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5316,7 +5316,7 @@ GameObject:
   - component: {fileID: 1062737891495970712}
   - component: {fileID: 1062737891495970714}
   - component: {fileID: 1062737891495970715}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5408,7 +5408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891514625292}
   - component: {fileID: 1062737891514625295}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5651,7 +5651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891587023049}
   - component: {fileID: 1062737891587023048}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5847,7 +5847,7 @@ GameObject:
   - component: {fileID: 1062737891646946407}
   - component: {fileID: 1062737891646946409}
   - component: {fileID: 1062737891646946406}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5939,7 +5939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891657678430}
   - component: {fileID: 1062737891657678401}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6101,7 +6101,7 @@ GameObject:
   - component: {fileID: 1062737891699140061}
   - component: {fileID: 1062737891699140063}
   - component: {fileID: 1062737891699140060}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dammage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6193,7 +6193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891717091981}
   - component: {fileID: 1062737891717091980}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6274,7 +6274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891725516146}
   - component: {fileID: 1062737891725516149}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6356,7 +6356,7 @@ GameObject:
   - component: {fileID: 1062737891735021605}
   - component: {fileID: 1062737891735021607}
   - component: {fileID: 1062737891735021604}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6605,7 +6605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062737891819663288}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: other
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6640,7 +6640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891876191455}
   - component: {fileID: 1062737891876191454}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6736,7 +6736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737891946704951}
   - component: {fileID: 1062737891946704950}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6944,7 +6944,7 @@ GameObject:
   - component: {fileID: 1062737892051341530}
   - component: {fileID: 1062737892051341532}
   - component: {fileID: 1062737892051341533}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7312,7 +7312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737892147079670}
   - component: {fileID: 1062737892147079673}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7570,7 +7570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062737892249896195}
   - component: {fileID: 1062737892249896194}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7652,7 +7652,7 @@ GameObject:
   - component: {fileID: 1062737892259446881}
   - component: {fileID: 1062737892259446883}
   - component: {fileID: 1062737892259446880}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7930,7 +7930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f023f9bb730946946ad8e8271292384e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 8
+  type: 1
   load: 0
   armor: 0
 --- !u!1 &3553807094508803302
@@ -7974,7 +7974,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3553807094508803302}
-  m_Mesh: {fileID: 4300304, guid: 7d2ee18e23ef99c4dbe6c40764865159, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!23 &3553807094506800578
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8026,7 +8026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8845f78c74a18734e9fa6e78005128ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   toolFamily: None
   load: 0
 --- !u!1 &3553807094508804608
@@ -9669,7 +9669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57ee26feb9b8934398ba63058093cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 42
+  type: 10
   load: 0
   armor: 0
 --- !u!1 &3553807094508805056
@@ -10316,7 +10316,7 @@ GameObject:
   - component: {fileID: 3553807094508805089}
   - component: {fileID: 3553807094508805118}
   - component: {fileID: 3553807094508805119}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerMounted
   m_TagString: Untagged
   m_Icon: {fileID: 0}

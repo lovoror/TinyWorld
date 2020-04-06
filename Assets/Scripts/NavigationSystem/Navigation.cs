@@ -8,7 +8,7 @@ using Pathfinding.Util;
 public class Navigation : MonoBehaviour
 {
     [SerializeField] AstarPath astar;
-    [SerializeField] Grid grid;
+    [SerializeField] Grid grid = null;
     Dictionary<Vector3Int, GraphNode> nodes = new Dictionary<Vector3Int, GraphNode>();
 
     public static Navigation current;

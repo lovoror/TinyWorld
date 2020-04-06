@@ -11,7 +11,7 @@ public class Government : MonoBehaviour
 
     [Header("Population")]
     [SerializeField] BuildingBase main;
-    [SerializeField] UnitAI peasantTemplate;
+    [SerializeField] UnitAI peasantTemplate = null;
     [SerializeField] public int initialPopulation;
     public int MAX_POSSIBLE_POPULATION = 512;
 
@@ -23,8 +23,8 @@ public class Government : MonoBehaviour
     [SerializeField] public float food;
 
     [Header("Visual")]
-    [SerializeField] Material buildingMaterial;
-    [SerializeField] Material unitMaterial;
+    [SerializeField] Material buildingMaterial = null;
+    [SerializeField] Material unitMaterial = null;
 
 
     [Header("AI")]

@@ -89,6 +89,7 @@ public class Map : MonoBehaviour
 
     private void Update()
     {
+        player = PlayerController.MainInstance.transform;
         Vector3Int p = GetCellFromWorld(player.position);
         Vector3 d = player.position - lastStreamingUpdate;
 
@@ -97,70 +98,6 @@ public class Map : MonoBehaviour
             updateCoroutine = StreamingUpdateCoroutine(p, d);
             StartCoroutine(updateCoroutine);
             lastStreamingUpdate = grid.GetCellCenterWorld(grid.WorldToCell(player.position));
-
-            /*// delete far tiles
-            List<Vector3Int> removed = new List<Vector3Int>();
-            foreach(KeyValuePair<Vector3Int, GameObject> cp in streamingAreaTerrain)
-            {
-                if(Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
-                {
-                    if(cp.Value)
-                        Destroy(cp.Value);
-                    removed.Add(cp.Key);
-                }
-            }
-            foreach (Vector3Int rcp in removed)
-                streamingAreaTerrain.Remove(rcp);
-            removed.Clear();
-
-            // remove far buildings
-            foreach(KeyValuePair<Vector3Int, GameObject> cp in streamingAreaBuilding)
-            {
-                if (Mathf.Abs(p.x - cp.Key.x) > streamingRadius || Mathf.Abs(p.y - cp.Key.y) > streamingRadius)
-                {
-                    if (cp.Value)
-                        Destroy(cp.Value);
-                    removed.Add(cp.Key);
-                }
-            }
-            foreach (Vector3Int rcp in removed)
-                streamingAreaBuilding.Remove(rcp);
-            removed.Clear();
-
-            // create new tiles
-            for (int x = p.x - streamingRadius; x < p.x + streamingRadius; x++)
-                for (int z = p.y - streamingRadius; z < p.y + streamingRadius; z++)
-                {
-                    Vector3Int cellPosition = new Vector3Int(x, z, (int)tilemap.transform.position.y);
-                    if (tilemap.HasTile(cellPosition))
-                    {
-                        // standard
-                        ScriptableTile tile = tilemap.GetTile<ScriptableTile>(cellPosition);
-                        if (tile.tilePrefab && !streamingAreaTerrain.ContainsKey(cellPosition))
-                        {
-                            KeyValuePair<GameObject, GameObject> pair = TileInit(tile, cellPosition);
-                            streamingAreaTerrain.Add(cellPosition, pair.Key);
-
-                            if (pair.Value)
-                                streamingAreaBuilding.Add(cellPosition, pair.Value);
-                        }
-                    }
-                }
-
-            // update buildings visibility
-            foreach(MeshRenderer building in uniqueBuildings)
-            {
-                Vector3 v = building.transform.position - player.position;
-                building.enabled = Mathf.Abs(v.x) < 4*(streamingRadius + 1) && Mathf.Abs(v.z) < 4*(streamingRadius + 1);
-            }
-            foreach (GameObject building in uniqueBuildings2)
-            {
-                Vector3 v = building.transform.position - player.position;
-                building.SetActive(Mathf.Abs(v.x) < 4*(streamingRadius + 1) && Mathf.Abs(v.z) < 4*(streamingRadius + 1));
-            }
-
-            // end
-            lastStreamingUpdate = grid.GetCellCenterWorld(grid.WorldToCell(player.position));*/
         }
     }
 

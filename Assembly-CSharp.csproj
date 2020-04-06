@@ -116,6 +116,9 @@
     <Compile Include="Assets\Scripts\AISystem\Unit.cs" />
     <Compile Include="Assets\Scripts\AISystem\UnitAI.cs" />
     <Compile Include="Assets\Scripts\AISystem\WeaponData.cs" />
+    <Compile Include="Assets\Scripts\Animation\AnimationRotation.cs" />
+    <Compile Include="Assets\Scripts\Animation\AnimationStoneGate.cs" />
+    <Compile Include="Assets\Scripts\Animation\AnimationWoodGate.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ChickController.cs" />
     <Compile Include="Assets\Scripts\ChikenController.cs" />

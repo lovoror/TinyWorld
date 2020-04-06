@@ -127,4 +127,17 @@ public class RessourceContainer : MonoBehaviour
                 destination[entry.Key] += entry.Value;
         }
     }
+
+    public static void Copy(RessourceContainer source, RessourceContainer destination)
+    {
+        destination.useResourceMaterial = source.useResourceMaterial;
+        destination.capacity = source.capacity;
+        destination.groupSize = source.groupSize;
+
+        foreach(string s in source.acceptedResources)
+            destination.acceptedResources.Add(s);
+        foreach (KeyValuePair<string, int> entry in source.inventory)
+            destination.inventory.Add(entry.Key, entry.Value);
+        destination.UpdateContent();
+    }
 }

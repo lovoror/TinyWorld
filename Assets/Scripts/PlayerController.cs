@@ -84,7 +84,6 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        //animatorOverrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = animatorOverrideController;
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
@@ -153,7 +152,8 @@ public class PlayerController : MonoBehaviour
         else if (allowOffensivePosture)
             offensiveSpearWeight = Mathf.Clamp(offensiveSpearWeight - 3 * Time.deltaTime, 0f, 1f);
         else offensiveSpearWeight = 0f;
-        animator.SetLayerWeight(animator.GetLayerIndex("OffensivePosture"), offensiveSpearWeight);
+        if(animator.GetLayerIndex("OffensivePosture") >= 0)
+            animator.SetLayerWeight(animator.GetLayerIndex("OffensivePosture"), offensiveSpearWeight);
         
         // action or attack
         if (attack && attackDelay <= 0)
@@ -515,16 +515,35 @@ public class PlayerController : MonoBehaviour
         else if (type == InteractionType.Type.pickableHorse)
         {
             HorseItem item = interactor.GetComponent<HorseItem>();
-            if (item && horse.Equip(item.type))
+            if((horse && item.type == HorseItem.Type.None) ||(!horse && item.type != HorseItem.Type.None))
             {
-                success = true;
-                needEquipementAnimationUpdate = true;
-                /*int index = Mathf.Clamp((int)BodyItem.getCategory(body.equipedItem.type), 0, wearBody.Count - 1);
-                audiosource.clip = wearBody[index];
-                audiosource.Play();*/
+                // change player template
+                PlayerController destination;
+                if (item.type == HorseItem.Type.None)
+                    destination = Instantiate(Arsenal.Instance.playerTemplate.gameObject).GetComponent<PlayerController>();
+                else destination = Instantiate(Arsenal.Instance.mountedPlayerTemplate.gameObject).GetComponent<PlayerController>();
+                PlayerController.Copy(this, destination);
+                PlayerController.MainInstance = destination;
+                Destroy(gameObject);
+                Destroy(inventoryViewer.gameObject);
+                Destroy(equipementViewer.gameObject);
 
-                bool mounted = horse ? horse.equipedItem.type != HorseItem.Type.None : false;
-                body.Equip(body.equipedItem.type, mounted, true);
+                destination.pickableInteraction(type, interactor);
+                constructionCamera.gameObject.GetComponent<CameraController>().target = destination.transform.Find("CameraTarget");
+            }
+            else
+            {
+                if (horse && item && horse.Equip(item.type))
+                {
+                    success = true;
+                    needEquipementAnimationUpdate = true;
+                    /*int index = Mathf.Clamp((int)BodyItem.getCategory(body.equipedItem.type), 0, wearBody.Count - 1);
+                    audiosource.clip = wearBody[index];
+                    audiosource.Play();*/
+
+                    bool mounted = horse ? horse.equipedItem.type != HorseItem.Type.None : false;
+                    body.Equip(body.equipedItem.type, mounted, true);
+                }
             }
         }
 
@@ -740,6 +759,26 @@ public class PlayerController : MonoBehaviour
         loadFactor = loadCurve.Evaluate(0.07f * horseFactor * f);
         animator.SetFloat("loadFactor", loadFactor);
         equipementViewer.UpdateContent();
+    }
+    public static void Copy(PlayerController source, PlayerController destination)
+    {
+        // Equipement
+        if(source.horse && destination.horse)
+            destination.horse.Equip(source.horse.equipedItem.type, true);
+        destination.weapon.Equip(source.weapon.equipedItem.type, true);
+        destination.secondHand.Equip(source.secondHand.equipedItem.type, true);
+        destination.shield.Equip(source.shield.equipedItem.type, true);
+        destination.head.Equip(source.head.equipedItem.type, true);
+        destination.body.Equip(source.body.equipedItem.type, true);
+        destination.backpack.Equip(source.backpack.equipedItem.type, true);
+        RessourceContainer.Copy(source.ressourceContainer, destination.ressourceContainer);
+
+        // other
+        destination.constructionCamera = source.constructionCamera;
+        destination.transform.parent = source.transform.parent;
+        destination.transform.position = source.transform.position;
+        destination.transform.localScale = source.transform.localScale;
+        destination.transform.rotation = source.transform.rotation;
     }
 }
 

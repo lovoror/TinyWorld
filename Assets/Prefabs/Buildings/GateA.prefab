@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6867048810804990418}
-  - component: {fileID: 6867048810814258738}
+  - component: {fileID: 8742762429802616170}
   - component: {fileID: 66387616166657852}
   - component: {fileID: 72646132194849255}
   m_Layer: 0
@@ -69,25 +69,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!95 &6867048810814258738
-Animator:
-  serializedVersion: 3
+--- !u!114 &8742762429802616170
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6867048810804891122}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7ae56a8428b94f24b854dac395c7c925, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df7c821e26467140a1bbd423f5f0968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions: {x: 0, y: 90}
+  open: 1
+  speed: 30
+  mask:
+    serializedVersion: 2
+    m_Bits: 512
+  boxCenter: {x: 0, y: 0, z: 2}
+  boxExtend: {x: 4, y: 2, z: 1.5}
+  door1: {fileID: 6867048810804990422}
+  door2: {fileID: 6867048810804990420}
 --- !u!65 &66387616166657852
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,6 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6867048810804990420}
+  - component: {fileID: 1586583905}
   m_Layer: 0
   m_Name: Bone_door_B
   m_TagString: Untagged
@@ -138,12 +142,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6867048810804891124}
   m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: -0.00000022909289, y: -1.9217705, z: 2.017106}
+  m_LocalPosition: {x: 0, y: -1.9217705, z: 2.017106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6867048810804990416}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: -90.00001, z: -90.00001}
+--- !u!65 &1586583905
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867048810804891124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3.97, z: 0.67}
+  m_Center: {x: -1, y: -0.1, z: 0.06}
 --- !u!1 &6867048810804891126
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6867048810804990422}
+  - component: {fileID: 1735384989}
   m_Layer: 0
   m_Name: Bone_door_A
   m_TagString: Untagged
@@ -167,13 +185,26 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6867048810804891126}
-  m_LocalRotation: {x: -0.70710677, y: 0.000000029802326, z: 0.000000029802326, w: 0.70710677}
-  m_LocalPosition: {x: 0.00000023581676, y: 1.9781743, z: 2.017106}
+  m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+  m_LocalPosition: {x: 0, y: 1.9781743, z: 2.017106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6867048810804990416}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90.00001}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
+--- !u!65 &1735384989
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867048810804891126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 3.97, z: 0.67}
+  m_Center: {x: -1, y: -0.1, z: 0.06}
 --- !u!1 &6867048810804891128
 GameObject:
   m_ObjectHideFlags: 0

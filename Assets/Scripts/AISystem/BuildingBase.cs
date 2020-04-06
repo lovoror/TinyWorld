@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BuildingBase : AgentBase, IDamageable
 {
-    [SerializeField] int maxHealth;
+    [SerializeField] int maxHealth = 1;
     [SerializeField] float health = 1;
-    [SerializeField] int team = 0;
+    //[SerializeField] int team = 0;
     
     public enum BuildingStatus
     {
@@ -105,7 +105,8 @@ public class BuildingBase : AgentBase, IDamageable
     {
         //workerWork += Time.deltaTime;
         //working = true;
-    }/*
+    }
+    /*
     public void SetWaypoint(Vector3 position)
     {
         waypoint.position = position;

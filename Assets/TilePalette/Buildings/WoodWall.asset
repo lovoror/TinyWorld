@@ -39,6 +39,9 @@ MonoBehaviour:
     type: 3}
   buildingPrefab: {fileID: 7132917672616384463, guid: 80aa71f34f21466408ff6413f025a915,
     type: 3}
-  optionalMaterial: {fileID: 0}
   neighbourUpdate: 1
   buildingUpdate: 1
+  isTerrain: 0
+  optionalMaterial: {fileID: 0}
+  optionalSprite: {fileID: 0}
+  helperText: Wood wall

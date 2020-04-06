@@ -54,7 +54,7 @@ public class AgentBase : MonoBehaviour, IQuadTreeObject
         World.instance.RemoveElement(this);
         GameObject.Destroy(this.gameObject);
     }
-    void OnDrawGizmos()
+    void OnDrawGizmos2()
     {
        /* if (shape == WorldTile.TileShape.Circular)
         {

@@ -751,7 +751,7 @@ public class AstarPath : VersionedMonoBehaviour {
 	Pathfinding.Util.RetainedGizmos gizmos = new Pathfinding.Util.RetainedGizmos();
 
 	/// <summary>Calls OnDrawGizmos on graph generators</summary>
-	private void OnDrawGizmos () {
+	private void OnDrawGizmos2 () {
 		// Make sure the singleton pattern holds
 		// Might not hold if the Awake method
 		// has not been called yet

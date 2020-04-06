@@ -39,7 +39,7 @@ public class TerrainBase : MonoBehaviour, IQuadTreeObject
             World.instance.terrain.Remove(this, bounds.position);
         }
     }
-    void OnDrawGizmos()
+    void OnDrawGizmos2()
     {
         /* if (shape == WorldTile.TileShape.Circular)
          {

@@ -247,7 +247,7 @@ public class QuadTree<T>
                     }
                     catch (System.Exception e)
                     {
-                        Debug.LogWarning("Bad actor indexing, at index " + i);
+                        Debug.LogWarning("Bad actor indexing, at index " + i + " : " + e);
                     }
                 }
                 else

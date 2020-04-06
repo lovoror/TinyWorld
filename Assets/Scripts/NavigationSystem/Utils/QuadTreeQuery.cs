@@ -23,7 +23,7 @@ public class QuadTreeQuery : MonoBehaviour
         World.instance.agents.RetrieveObjectsInAreaNonAloc(bounds, ref result, ref count);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos2()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(this.transform.position, new Vector3(bounds.size.x, 0, bounds.size.y));

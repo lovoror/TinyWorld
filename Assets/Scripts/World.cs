@@ -131,7 +131,7 @@ public class World : MonoBehaviour
         return success;*/
     }
     #endregion
-    private void OnDrawGizmos()
+    private void OnDrawGizmos2()
     {
         if (showQuadTrees)
         {

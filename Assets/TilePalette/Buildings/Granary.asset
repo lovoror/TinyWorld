@@ -39,5 +39,9 @@ MonoBehaviour:
     type: 3}
   buildingPrefab: {fileID: 7096075181365906075, guid: 3d7740a79a4780148a7f263ad07405a6,
     type: 3}
-  optionalMaterial: {fileID: 0}
   neighbourUpdate: 1
+  buildingUpdate: 0
+  isTerrain: 0
+  optionalMaterial: {fileID: 0}
+  optionalSprite: {fileID: 0}
+  helperText: Granary
